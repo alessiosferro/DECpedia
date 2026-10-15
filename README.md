@@ -1,96 +1,96 @@
 # DECpedia 1.2
 
-Enciclopedia personale nativa per Mac, interamente offline, con interfaccia, spiegazioni, esempi e dimostrazioni in italiano e inglese. Il selettore **IT / EN** mantiene aperta la stessa voce e salva la lingua scelta.
+A personal, fully offline encyclopedia for Mac, with an interface, explanations, examples, and proofs in Italian and English. The **IT / EN** selector keeps the current entry open and remembers your language choice.
 
-Il catalogo comprende **121 voci: 94 argomenti e 27 esercizi**. La biblioteca registra quattro allegati originali, quattro documenti di studio generati dalle lezioni e due riferimenti matematici aggiunti: **10 fonti, 339 pagine indicate**. Le spiegazioni sono sviluppate nell’app; il catalogo conserva i riferimenti bibliografici e le pagine.
+The catalog contains **121 entries: 94 topics and 27 exercises**. The library records four original attachments, four study documents generated from lectures, and two supplementary mathematical references: **10 sources, with 339 cited pages**. Explanations are developed in the app; the catalog retains bibliographic references and page numbers.
 
-La repository pubblica e l’app distribuita **non contengono i PDF**: i diritti restano ai rispettivi autori e il progetto non concede licenze di ridistribuzione. Per leggere una fonte, apri la relativa scheda e scegli dal Mac una copia che sei autorizzato a consultare. La ricerca, le voci, gli esempi e le dimostrazioni funzionano anche senza quei file.
+The public repository and distributed app **do not include the PDFs**: copyright remains with their respective authors, and this project grants no redistribution license. To read a source, open its entry in the library and select a local copy you are authorized to consult. Search, entries, examples, and proofs also work without those files.
 
-## Aprire e modificare l’app
+## Open and edit the app
 
-L’app compilata, fornita separatamente in `DECpedia-Mac.zip`, funziona su **macOS 13 o successivo**, con **Apple Silicon o Intel**. Estrai l’archivio e apri `DECpedia.app`; puoi spostarla in Applicazioni. La firma è locale, senza notarizzazione per la distribuzione pubblica.
+The compiled app, distributed separately as `DECpedia-Mac.zip`, runs on **macOS 13 or later**, on **Apple Silicon or Intel**. Extract the archive and open `DECpedia.app`; you can move it to Applications. The app is locally signed and is not notarized for public distribution.
 
-Per il progetto editabile serve **Xcode 15 o successivo**, installato e aperto almeno una volta:
+To edit the project, you need **Xcode 15 or later**, installed and opened at least once:
 
-1. Apri `DECpedia.xcodeproj`.
-2. Scegli lo schema **DECpedia** e la destinazione **My Mac**.
-3. Premi **⌘R**. Non è necessario un team Apple Developer.
+1. Open `DECpedia.xcodeproj`.
+2. Choose the **DECpedia** scheme and the **My Mac** destination.
+3. Press **⌘R**. An Apple Developer team is not required.
 
-In alternativa, apri `Avvia DECpedia.command`, oppure esegui dalla cartella del progetto:
+Alternatively, open `Avvia DECpedia.command`, or run this from the project folder:
 
 ```bash
 ./Scripts/build-app.sh --launch
 ```
 
-Lo script compila e apre `Build/DECpedia.app`. Se macOS blocca lo script scaricato, usa il progetto Xcode. `Package.swift` permette anche `swift run`; il progetto Xcode genera il bundle con icona e metadati. Non servono account, server, chiavi API o pacchetti da scaricare.
+The script builds and opens `Build/DECpedia.app`. If macOS blocks the downloaded script, use the Xcode project. `Package.swift` also supports `swift run`; the Xcode project creates the app bundle with its icon and metadata. No accounts, servers, API keys, or package downloads are required.
 
-[Guida inglese integrale](Docs/RUNNING-EN.md).
+[Full English guide](Docs/RUNNING-EN.md).
 
-## Leggere e studiare
+## Read and study
 
-La barra laterale organizza gli argomenti; la ricerca consulta entrambe le lingue. Ogni voce collega prerequisiti, argomenti successivi e rimandi inversi. L’**indice della voce** porta direttamente alle singole sezioni. Il lettore usa un carattere da libro, paragrafi distanziati e formule LaTeX disposte al centro, in uno spazio ampio. Solo le relazioni fondamentali hanno un riquadro leggero; le altre restano visibili senza attirare più attenzione del necessario. Le formule molto larghe scorrono orizzontalmente. Ogni blocco formula include un pulsante per copiare il codice LaTeX.
+The sidebar organizes topics, and search covers both languages. Each entry links to prerequisites, follow-up topics, and backlinks. The **table of contents** takes you directly to individual sections. The reader uses a book-style typeface, generous paragraph spacing, and centered LaTeX formulas with room to breathe. Only the most important relationships have a subtle highlight; the others remain easy to find without drawing more attention than they need. Very wide formulas scroll horizontally. Each formula block has a button to copy its LaTeX source.
 
-Le spiegazioni partono dall’intuizione, definiscono simboli e ipotesi e sviluppano i passaggi con esempi. Italiano e inglese conservano gli stessi contenuti matematici. Sono presenti anche un diagramma delle carte e un grafico calcolato del conteggio dei primi. Le note personali rimangono nella lingua in cui le scrivi.
+Explanations begin with the intuition, define symbols and assumptions, and work through the steps with examples. The Italian and English versions cover the same mathematical content. The app also includes a diagram of the charts and a graph computed from prime-counting data. Personal notes stay in the language in which you write them.
 
-Il percorso **Dimostrazioni · curve** costruisce ideali, localizzazione, variabili separanti, normalizzazione finita, anelli di valutazione, norme, differenziali, dualità locale della traccia e incollamento su due carte. Da questi strumenti ricava Riemann–Roch, grado canonico, dimensioni dei codici da valutazioni, genere iperellittico, corrispondenza ellittica con le classi e unicità della forma ridotta di Mumford.
+The **Proofs · curves** path builds up ideals, localization, separating variables, finite normalization, valuation rings, norms, differentials, local trace duality, and gluing across two charts. It uses these tools to derive Riemann–Roch, the canonical degree, dimensions of evaluation codes, the hyperelliptic genus, the elliptic correspondence with divisor classes, and uniqueness of the reduced Mumford form.
 
-Il percorso **Dimostrazioni · numeri primi** sviluppa le stime di Chebyshev, gli strumenti complessi di Cauchy, il prodotto di Eulero, il prolungamento della zeta, l’assenza di zeri sul bordo e la prova del lemma tauberiano di Newman, poi conclude il teorema dei numeri primi.
+The **Proofs · prime numbers** path develops Chebyshev estimates, Cauchy's complex-analysis tools, Euler's product, the continuation of the zeta function, the absence of zeros on the boundary, and a proof of Newman's Tauberian lemma, before concluding with the prime number theorem.
 
-Le prove dichiarano le ipotesi: curve lisce, proiettive e geometricamente integre su campi perfetti; per il modello iperellittico, caratteristica dispari e polinomio senza radici multiple di grado dispari. La base di partenza comprende campi, polinomi, algebra lineare e fondamenti reali. La congettura di Artin conserva il proprio stato di congettura.
+The proofs state their assumptions: curves are smooth, projective, and geometrically integral over perfect fields; the hyperelliptic model has odd characteristic and a square-free polynomial of odd degree. The starting point covers fields, polynomials, linear algebra, and real-analysis fundamentals. Artin's conjecture is still presented as a conjecture.
 
-Scorciatoie: **⌘F** ricerca, **⌘D** preferito, **⌘1** tutte le voci, **⌘2** preferiti, **⌘3** fonti, **⌘[ / ⌘]** cronologia.
+Shortcuts: **⌘F** search, **⌘D** favorite, **⌘1** all entries, **⌘2** favorites, **⌘3** sources, **⌘[ / ⌘]** history.
 
-## Fonti e provenienza
+## Sources and provenance
 
-**Fonte / Source** identifica contenuti collegati alle pagine effettive dei documenti. **Integrazione didattica / Teaching addition** identifica le spiegazioni, le dimostrazioni e gli esempi sviluppati per l’app. Le prove aggiunte non sono attribuite ai PDF del corso. I due riferimenti supplementari sono identificati come tali nella biblioteca.
+**Source** identifies content tied to the documents' actual pages. **Teaching addition** identifies explanations, proofs, and examples developed for the app. Added proofs are not attributed to the course PDFs. The two supplementary references are identified as such in the library.
 
-Le lezioni provengono da `~/Desktop/Università/UNIPA/DEC/Generated Slides/`: sono appunti generati da registrazioni e materiali di studio, distinti dalle diapositive originali del docente. Hash SHA-256, pagine, etichette e riscontri sono stati verificati sulle copie locali usate per la preparazione; i file PDF non sono pubblicati in questa repository. Il lettore distingue la posizione fisica del foglio dall’etichetta della pagina.
+The lecture materials come from `~/Desktop/Università/UNIPA/DEC/Generated Slides/`. They are notes generated from recordings and study materials, distinct from the instructor's original slides. SHA-256 hashes, pages, labels, and supporting evidence were checked against the local copies used in preparing the app; the PDF files are not published in this repository. The reader distinguishes a sheet's physical position from its printed page label.
 
-Il documento Exercises contiene consegne, non soluzioni. Gli svolgimenti aggiunti sono editoriali. L’incongruenza Reed–Solomon nella pagina fisica 31 degli Appunti è segnalata, con un esempio ricalcolato e verificato separatamente.
+The Exercises document contains problem statements, not solutions. Solutions added to the app are editorial additions. The Reed–Solomon inconsistency on physical page 31 of the lecture notes is flagged, with an example recalculated and independently checked.
 
-Vedi [fonti e metodo](Docs/FONTI-E-METODO.md), [tassonomia bilingue](Docs/TASSONOMIA.md), [percorsi delle prove](Docs/PERCORSI-PROVE.md) e [verifiche](Docs/VERIFICA.md).
+See [sources and methodology](Docs/FONTI-E-METODO.md), [bilingual taxonomy](Docs/TASSONOMIA.md), [proof paths](Docs/PERCORSI-PROVE.md), and [verification](Docs/VERIFICA.md). These documents are currently available in Italian.
 
-## Note e preferiti
+## Notes and favorites
 
-Note, preferiti, ultima voce e lingua sono salvati automaticamente in:
+Notes, favorites, the last-opened entry, and language are saved automatically to:
 
 ```text
 ~/Library/Application Support/DECpedia/state.json
 ```
 
-Il menu File esporta una copia JSON. Per ripristinarla, sostituisci il file con l’app chiusa; non c’è ancora un comando d’importazione. Uno stato illeggibile o di versione sconosciuta viene conservato, sospendendo le sovrascritture e mostrando l’errore.
+The File menu exports a JSON copy. To restore it, replace the file while the app is closed; there is no import command yet. If the saved state is unreadable or has an unknown version, the app preserves it, suspends further overwrites, and displays an error.
 
-## Modificare il catalogo
+## Edit the catalog
 
-Il file editabile è `Sources/DECpedia/Resources/catalog.json`. Ogni voce ha ID stabile, titoli e sintesi IT/EN, categoria, sinonimi, prerequisiti, relazioni, blocchi e citazioni. Ogni modifica a `title` o `text` va riportata integralmente in `titleEN` o `textEN`, con gli stessi esempi e passaggi.
+The editable file is `Sources/DECpedia/Resources/catalog.json`. Each entry has a stable ID, Italian and English titles and summaries, a category, synonyms, prerequisites, relationships, content blocks, and citations. Every change to `title` or `text` must be translated in full into `titleEN` or `textEN`, preserving the same examples and steps.
 
-Nel testo usa `\(...\)` per la matematica in linea e `\[...\]` per le equazioni separate. Nel JSON le barre inverse devono essere raddoppiate. Scrivi anche i numeri del testo didattico dentro delimitatori LaTeX. I metadati di navigazione, le pagine e i PDF originali mantengono il proprio formato.
+Use `\(...\)` for inline mathematics and `\[...\]` for display equations. In JSON, backslashes must be doubled. Put numbers in the instructional prose inside LaTeX delimiters as well. Navigation metadata, page numbers, and original PDFs keep their own formats.
 
-I blocchi formula conservano `latex` e `mathML`; lo schermo usa ora il LaTeX. Un blocco `source` deve indicare `citationIDs`; un blocco `editorial` lascia i riferimenti bibliografici nella scheda della voce, per evitare attribuzioni improprie. `page` ed `endPage` sono posizioni fisiche inclusive, da uno; `evidence` conserva il riscontro nel documento. Il catalogo valida rimandi, pagine, provenienza e assenza di cicli nei prerequisiti.
+Formula blocks retain both `latex` and `mathML`; the display currently uses LaTeX. A `source` block must specify `citationIDs`; an `editorial` block keeps bibliographic references in the entry to avoid misattribution. `page` and `endPage` are inclusive physical page positions, counted from one; `evidence` records the supporting passage in the document. The catalog validator checks links, pages, provenance, and that the prerequisite graph has no cycles.
 
-Ricompila dopo le modifiche. La ricerca riguarda le voci, non l’intero testo dei PDF. Modifica dei contenuti dentro l’app, sincronizzazione, OCR, servizi AI e simulatori crittografici non sono implementati.
+Rebuild after making changes. Search covers entries, not the full text of the PDFs. In-app content editing, synchronization, OCR, AI services, and cryptographic simulators are not implemented.
 
-## Verifiche e tecnologie
+## Checks and technology
 
 ```bash
 ./Scripts/test.sh
 ```
 
-I **16 test** verificano catalogo, copertura bilingue, prerequisiti delle prove, ricerca, salvataggio, delimitatori LaTeX, numeri nel testo didattico, citazioni e calcoli indipendenti degli esercizi. Se aggiungi copie locali dei PDF, i test controllano anche hash, pagine ed evidenze delle citazioni. Lo script accetta `--disable-sandbox` negli ambienti che impediscono il sottoprocesso sandbox di SwiftPM; sul normale Mac non serve.
+The **16 tests** check the catalog, bilingual coverage, proof prerequisites, search, saving, LaTeX delimiters, numbers in instructional prose, citations, and independently calculated exercise results. If you add local copies of the PDFs, the tests also check citation hashes, pages, and evidence. The script accepts `--disable-sandbox` in environments that block SwiftPM's sandboxed subprocess; this is not needed on a standard Mac.
 
-Se hai Node installato, puoi verificare anche tutte le espressioni con lo stesso KaTeX incluso nell’app, senza installare pacchetti:
+If Node is installed, you can also validate every expression with the same KaTeX version bundled in the app, without installing packages:
 
 ```bash
 node Scripts/validate-latex.js
 ```
 
-Per la compilazione universal:
+To build a universal binary:
 
 ```bash
 xcodebuild -project DECpedia.xcodeproj -scheme DECpedia -configuration Release \
   -derivedDataPath Build/Universal ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO build
 ```
 
-L’app usa SwiftUI, Foundation, AppKit, PDFKit e WebKit. KaTeX e i font sono inclusi localmente, con licenza MIT in `Resources/MathAssets/LICENSE`. JavaScript è limitato al lettore locale; i documenti ricevono solo contenuti testuali escapati, KaTeX non accetta contenuti fidati, le risorse sono ammesse da un gestore locale e connessioni esterne sono bloccate. Non sono implementate telemetria o richieste di rete.
+The app uses SwiftUI, Foundation, AppKit, PDFKit, and WebKit. KaTeX and its fonts are bundled locally; the MIT license is in `Resources/MathAssets/LICENSE`. JavaScript is restricted to the local reader. Documents receive only escaped text, KaTeX does not accept trusted content, resources are served by a local handler, and external connections are blocked. Telemetry and network requests are not implemented.
 
-I diritti dei PDF restano ai rispettivi autori; il progetto personale non assegna loro una licenza di ridistribuzione pubblica.
+Copyright in the PDFs remains with their respective authors; this personal project does not grant a public redistribution license for them.
