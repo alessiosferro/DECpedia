@@ -1,4 +1,4 @@
-# DECpedia 1.2
+# DECpedia 1.3
 
 A personal, fully offline encyclopedia for Mac, with an interface, explanations, examples, and proofs in Italian and English. The **IT / EN** selector keeps the current entry open and remembers your language choice.
 
@@ -26,15 +26,21 @@ The script builds and opens `Build/DECpedia.app`. If macOS blocks the downloaded
 
 [Full English guide](Docs/RUNNING-EN.md).
 
+## Appearance and reading
+
+Choose **Automatic**, **Light**, or **Dark** from the appearance button in the toolbar or the **Appearance** menu. Automatic follows the macOS appearance, including system changes while the app is open. Your selection is saved with your notes and bookmarks; existing saved data remains compatible.
+
 ## Read and study
 
-The sidebar organizes topics, and search covers both languages. Each entry links to prerequisites, follow-up topics, and backlinks. The **table of contents** takes you directly to individual sections. The reader uses a book-style typeface, generous paragraph spacing, and centered LaTeX formulas with room to breathe. Only the most important relationships have a subtle highlight; the others remain easy to find without drawing more attention than they need. Very wide formulas scroll horizontally. Each formula block has a button to copy its LaTeX source.
+The sidebar organizes topics, and search covers both languages. Each entry links to prerequisites, follow-up topics, and backlinks. The **table of contents** takes you directly to individual sections. The reader uses a book-style typeface, generous paragraph spacing, and centered LaTeX formulas with room to breathe. Display equations sit in neutral, centered frames without an extra colored highlight. Inline mathematics and numbers stay unhighlighted; only explicitly selected key concepts or formulas receive emphasis. Very wide formulas scroll horizontally. Each formula block has a button to copy its LaTeX source.
 
-Explanations begin with the intuition, define symbols and assumptions, and work through the steps with examples. The Italian and English versions cover the same mathematical content. The app also includes a diagram of the charts and a graph computed from prime-counting data. Personal notes stay in the language in which you write them.
+Explanations begin with the intuition, define symbols and assumptions, and work through the steps with examples. The Italian and English versions cover the same mathematical content. The app also includes a diagram of the charts and a graph computed from prime-counting data. Long calculations use aligned steps and compact tables, with prose explaining the transitions. Every topic and exercise has been revised in both languages. Personal notes stay in the language in which you write them.
 
 The **Proofs · curves** path builds up ideals, localization, separating variables, finite normalization, valuation rings, norms, differentials, local trace duality, and gluing across two charts. It uses these tools to derive Riemann–Roch, the canonical degree, dimensions of evaluation codes, the hyperelliptic genus, the elliptic correspondence with divisor classes, and uniqueness of the reduced Mumford form.
 
 The **Proofs · prime numbers** path develops Chebyshev estimates, Cauchy's complex-analysis tools, Euler's product, the continuation of the zeta function, the absence of zeros on the boundary, and a proof of Newman's Tauberian lemma, before concluding with the prime number theorem.
+
+The Riemann–Roch entry includes twenty prerequisite chapters, and the prime number theorem entry includes eight. Their definitions, examples, and lemma proofs are included in the entry itself for continuous offline reading, alongside the links to their standalone pages.
 
 The proofs state their assumptions: curves are smooth, projective, and geometrically integral over perfect fields; the hyperelliptic model has odd characteristic and a square-free polynomial of odd degree. The starting point covers fields, polynomials, linear algebra, and real-analysis fundamentals. Artin's conjecture is still presented as a conjecture.
 
@@ -52,7 +58,7 @@ See [sources and methodology](Docs/FONTI-E-METODO.md), [bilingual taxonomy](Docs
 
 ## Notes and favorites
 
-Notes, favorites, the last-opened entry, and language are saved automatically to:
+Notes, favorites, the last-opened entry, language, and appearance are saved automatically to:
 
 ```text
 ~/Library/Application Support/DECpedia/state.json
@@ -62,7 +68,9 @@ The File menu exports a JSON copy. To restore it, replace the file while the app
 
 ## Edit the catalog
 
-The editable file is `Sources/DECpedia/Resources/catalog.json`. Each entry has a stable ID, Italian and English titles and summaries, a category, synonyms, prerequisites, relationships, content blocks, and citations. Every change to `title` or `text` must be translated in full into `titleEN` or `textEN`, preserving the same examples and steps.
+The editable file is `Sources/DECpedia/Resources/catalog.json`. Each entry has a stable ID, Italian and English titles and summaries, a category, synonyms, prerequisites, relationships, content blocks, and citations. Paired `**markers**` in prose explicitly mark a key concept; arbitrary HTML is always escaped. Use `\begin{aligned} ... \\ ... \end{aligned}` inside display delimiters for multi-step calculations. Display equations and standalone formula blocks already have a neutral frame; do not add `\boxed` merely for emphasis.
+
+Every change to `title` or `text` must be translated in full into `titleEN` or `textEN`, preserving the same examples and steps.
 
 Use `\(...\)` for inline mathematics and `\[...\]` for display equations. In JSON, backslashes must be doubled. Put numbers in the instructional prose inside LaTeX delimiters as well. Navigation metadata, page numbers, and original PDFs keep their own formats.
 
@@ -76,7 +84,7 @@ Rebuild after making changes. Search covers entries, not the full text of the PD
 ./Scripts/test.sh
 ```
 
-The **16 tests** check the catalog, bilingual coverage, proof prerequisites, search, saving, LaTeX delimiters, numbers in instructional prose, citations, and independently calculated exercise results. If you add local copies of the PDFs, the tests also check citation hashes, pages, and evidence. The script accepts `--disable-sandbox` in environments that block SwiftPM's sandboxed subprocess; this is not needed on a standard Mac.
+The **19 tests** check the catalog, bilingual coverage, proof prerequisites, search, saving, LaTeX delimiters, numbers in instructional prose, citations, and independently calculated exercise results. If you add local copies of the PDFs, the tests also check citation hashes, pages, and evidence. The script accepts `--disable-sandbox` in environments that block SwiftPM's sandboxed subprocess; this is not needed on a standard Mac.
 
 If Node is installed, you can also validate every expression with the same KaTeX version bundled in the app, without installing packages:
 

@@ -4,6 +4,10 @@ Le spiegazioni e le prove qui elencate sono nel catalogo dell’app, integralmen
 
 The explanations and proofs below are in the app catalog in both Italian and English. Each chapter develops its tools and links to the corresponding internal entries. Bibliographic citations support comparison with the documents without attributing the editorial exposition to them.
 
+La voce Riemann–Roch incorpora venti capitoli di prerequisiti e la voce sul teorema dei numeri primi ne incorpora otto. I testi dei lemmi e delle loro prove sono inclusi nelle rispettive voci, oltre a essere disponibili come pagine autonome.
+
+The Riemann–Roch entry embeds twenty prerequisite chapters, and the prime number theorem entry embeds eight. Lemmas and their proofs are included within the main entries as well as being available as standalone pages.
+
 ## Dimostrazioni · curve / Proofs · curves
 
 - **Come leggere una dimostrazione lunga / Reading a long proof** (`proof-guide`): Un percorso che rende espliciti ipotesi, strumenti e conclusioni. / A route that makes hypotheses, tools and conclusions explicit.

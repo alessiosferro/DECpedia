@@ -148,15 +148,32 @@ final class LibraryTests: XCTestCase {
         personal.notes["rsa"] = "Rivedere la dimostrazione, con p ∣ m.\nSeconda riga."
         personal.lastConceptID = "rsa"
         personal.language = "en"
+        personal.theme = AppTheme.light.rawValue
         try personal.write(to: url)
         let loaded = try PersonalState.read(from: url)
         XCTAssertEqual(loaded.bookmarks, personal.bookmarks)
         XCTAssertEqual(loaded.notes, personal.notes)
         XCTAssertEqual(loaded.lastConceptID, "rsa")
         XCTAssertEqual(loaded.language, "en")
+        XCTAssertEqual(loaded.theme, "light")
         personal.schemaVersion = 99
         try personal.write(to: url)
         XCTAssertThrowsError(try PersonalState.read(from: url))
+    }
+
+    func testAppearanceIsBackwardCompatibleWithExistingNotes() throws {
+        let oldState = #"{"schemaVersion":1,"bookmarks":["rsa"],"notes":{"rsa":"Keep this note"},"language":"en"}"#
+        let state = try JSONDecoder().decode(PersonalState.self, from: Data(oldState.utf8))
+        XCTAssertNil(state.theme)
+        XCTAssertEqual(AppTheme(rawValue: state.theme ?? "automatic"), .automatic)
+        XCTAssertEqual(state.notes["rsa"], "Keep this note")
+        for theme in AppTheme.allCases {
+            var changed = state
+            changed.theme = theme.rawValue
+            let restored = try JSONDecoder().decode(PersonalState.self, from: JSONEncoder().encode(changed))
+            XCTAssertEqual(restored.theme, theme.rawValue)
+            XCTAssertEqual(restored.bookmarks, ["rsa"])
+        }
     }
 
     func testRenderedAndPrintedPageNumbersAreDistinct() throws {

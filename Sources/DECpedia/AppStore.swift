@@ -16,6 +16,9 @@ final class AppStore: ObservableObject {
     @Published var language: AppLanguage = .it {
         didSet { personal.language = language.rawValue; save() }
     }
+    @Published var theme: AppTheme = .automatic {
+        didSet { personal.theme = theme.rawValue; save() }
+    }
     @Published var selectedID: String? = nil
     @Published var selectedSourceID: String? = "C"
     @Published var personal = PersonalState()
@@ -42,6 +45,7 @@ final class AppStore: ObservableObject {
             }
             let initial = personal.lastConceptID.flatMap { library?.concept($0)?.id } ?? "rsa"
             language = AppLanguage(rawValue: personal.language ?? "it") ?? .it
+            theme = AppTheme(rawValue: personal.theme ?? "automatic") ?? .automatic
             selectedID = initial
             history = [initial]
             historyIndex = 0

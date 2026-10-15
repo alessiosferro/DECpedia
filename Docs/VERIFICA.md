@@ -1,4 +1,4 @@
-# Verifica / Verification — DECpedia 1.2
+# Verifica / Verification — DECpedia 1.3
 
 Verificata su macOS con Apple Silicon e Xcode. / Verified on macOS with Apple Silicon and Xcode.
 
@@ -12,11 +12,15 @@ Verificata su macOS con Apple Silicon e Xcode. / Verified on macOS with Apple Si
 
 ## Controlli automatici / Automated checks
 
-Sedici test superati: catalogo, ricerca bilingue, filtri, persistenza delle note, provenienza, citazioni, rappresentazioni matematiche e catene dei prerequisiti. Quando sono presenti copie locali, il test verifica anche PDF, hash, pagine e riscontri. I controlli dei calcoli includono firme RSA ed ElGamal, decifrature ellittiche, enumerazione dei pesi Golay e aritmetica Reed–Solomon sul campo esteso. Lo script LaTeX aggiuntivo verifica tutte le espressioni senza scaricare dipendenze.
+Diciannove test superati: catalogo, ricerca bilingue, filtri, persistenza delle note, provenienza, citazioni, rappresentazioni matematiche e catene dei prerequisiti. Quando sono presenti copie locali, il test verifica anche PDF, hash, pagine e riscontri. I controlli dei calcoli includono firme RSA ed ElGamal, decifrature ellittiche, enumerazione dei pesi Golay e aritmetica Reed–Solomon sul campo esteso. Lo script LaTeX aggiuntivo verifica tutte le espressioni senza scaricare dipendenze.
 
-Sixteen tests passed: catalog, bilingual search, filters, note persistence, provenance, citations, mathematical markup and prerequisite chains. When local copies are present, the PDF test also checks hashes, pages and citation evidence. Independent calculation checks cover RSA and ElGamal signatures, elliptic decryption, Golay weight enumeration and Reed–Solomon extension-field arithmetic. The additional LaTeX script validates every expression without downloading dependencies.
+Nineteen tests passed: catalog, bilingual search, filters, note persistence, provenance, citations, mathematical markup and prerequisite chains. When local copies are present, the PDF test also checks hashes, pages and citation evidence. Independent calculation checks cover RSA and ElGamal signatures, elliptic decryption, Golay weight enumeration and Reed–Solomon extension-field arithmetic. The additional LaTeX script validates every expression without downloading dependencies.
 
 Questi controlli non sono una certificazione formale delle dimostrazioni matematiche o della traduzione di ogni frase. / These checks do not constitute formal certification of mathematical proofs or every translated sentence.
+
+Il controllo KaTeX ha verificato 12.579 espressioni senza errori di sintassi, incluse formule in linea, formule centrate e sviluppi su più righe. I nuovi test verificano anche il ripristino dei temi, la compatibilità delle note precedenti, l’enfasi esplicita con testo HTML escapato e la presenza integrale dei lemmi nelle voci principali.
+
+The KaTeX check validated 12,579 expressions without syntax errors, including inline math, centered equations and multi-line derivations. New tests also cover theme persistence, compatibility with older notes, explicit emphasis with escaped HTML, and the inclusion of lemma proofs in the main entries.
 
 ## Verifica dell’app / App verification
 
@@ -24,9 +28,9 @@ Compilazione Release per Apple Silicon e Intel riuscita; firma locale verificata
 
 Release builds for Apple Silicon and Intel succeeded; the local signature was verified. Intel was compiled but not run on physical Intel hardware. The declared minimum is macOS thirteen; interaction was checked on the available Mac.
 
-Verificati nella finestra nativa: ricerca, cambio IT/EN, formule LaTeX evidenziate, indice interno con salto agli esempi, rimandi fra voci e apertura del riferimento Riemann–Roch alla pagina citata. I controlli precedenti hanno coperto anche preferiti, taccuino ed apertura delle lezioni generate. Nell’app distribuita, il lettore chiede di scegliere una copia locale dei PDF. Le immagini di anteprima sono catture dell’app.
+Verificati nella finestra nativa i temi chiaro, scuro e automatico, il mantenimento della voce al cambio di lingua e i calcoli centrati su più righe. Controllati inoltre: ricerca, cambio IT/EN, formule LaTeX senza doppie evidenziazioni, indice interno con salto agli esempi, rimandi fra voci e apertura del riferimento Riemann–Roch alla pagina citata. I controlli precedenti hanno coperto anche preferiti, taccuino ed apertura delle lezioni generate. Nell’app distribuita, il lettore chiede di scegliere una copia locale dei PDF. Le immagini di anteprima sono catture dell’app.
 
-Checked in the native window: search, IT/EN switching, highlighted LaTeX, the internal contents menu jumping to examples, concept links and opening the Riemann–Roch reference at its cited page. Earlier checks also covered bookmarks, the notebook and generated lecture PDFs. Preview images are app screenshots.
+Checked in the native window: light, dark and automatic themes, preserving the entry across language changes, and centered multi-line calculations. Also checked: search, IT/EN switching, LaTeX without duplicate highlighting, the internal contents menu jumping to examples, concept links and opening the Riemann–Roch reference at its cited page. Earlier checks also covered bookmarks, the notebook and generated lecture PDFs. Preview images are app screenshots.
 
 ## Riprodurre / Reproduce
 

@@ -1,4 +1,4 @@
-# DECpedia 1.2
+# DECpedia 1.3
 
 A native personal Mac encyclopedia, entirely offline, with its interface, explanations, examples and proofs in Italian and English. The **IT / EN** selector preserves the open entry and saves your language choice.
 
@@ -24,13 +24,17 @@ Alternatively, open `Avvia DECpedia.command`, or run from the project directory:
 
 The script builds and opens `Build/DECpedia.app`. If macOS blocks the downloaded script, use Xcode. `Package.swift` also supports `swift run`; the Xcode project produces the bundle with its icon and metadata. No account, server, API key or package download is required.
 
-[Full Italian guide](../README.md).
+[Project README](../README.md).
+
+## Appearance
+
+Use the toolbar’s appearance button or the **Appearance** menu to choose **Automatic**, **Light**, or **Dark**. Automatic follows macOS. The choice is saved and existing notes and bookmarks remain compatible.
 
 ## Read and study
 
-The sidebar organizes topics; search covers both languages. Each entry links prerequisites, subsequent topics and backlinks. **Entry contents** jumps directly to individual sections. The reader uses a book typeface, spaced paragraphs and centered LaTeX formulas set in a generous area. Only the most important relations receive a subtle frame; other equations remain clear without competing for attention. Very wide equations scroll horizontally. Each formula block has a button to copy its LaTeX source.
+The sidebar organizes topics; search covers both languages. Each entry links prerequisites, subsequent topics and backlinks. **Entry contents** jumps directly to individual sections. The reader uses a book typeface, spaced paragraphs and centered LaTeX formulas set in a generous area. Display equations use a single neutral frame. Inline numbers and formulas have no automatic highlight; emphasis is reserved for explicitly selected key concepts or formulas. Long derivations use aligned steps and compact tables. Very wide equations scroll horizontally. Each formula block has a button to copy its LaTeX source.
 
-Explanations begin with intuition, define symbols and hypotheses, and develop reasoning through examples. Italian and English preserve the same mathematical content. A chart-gluing diagram and a computed prime-count graph are also included. Personal notes stay in the language in which you write them.
+Explanations begin with intuition, define symbols and hypotheses, and develop reasoning through examples. Italian and English preserve the same mathematical content. A chart-gluing diagram and a computed prime-count graph are also included. All topics and exercises have revised Italian and English explanations. Riemann–Roch includes twenty prerequisite chapters within its entry, and the prime number theorem includes eight, so their lemma proofs can be read continuously offline. Personal notes stay in the language in which you write them.
 
 The **Proofs · curves** route develops ideals, localization, separating variables, finite normalization, valuation rings, norms, differentials, local trace duality and two-chart gluing. These establish Riemann–Roch, canonical degree, evaluation-code dimensions, hyperelliptic genus, the elliptic correspondence with divisor classes, and uniqueness of reduced Mumford form.
 
@@ -48,11 +52,11 @@ Lecture files come from `~/Desktop/Università/UNIPA/DEC/Generated Slides/`: the
 
 Exercises contains questions, not solutions. Added solutions are editorial. The Reed–Solomon inconsistency on physical page 31 of Appunti is flagged and accompanied by a separately recalculated and checked example.
 
-See [sources and method](FONTI-E-METODO.md), [bilingual taxonomy](TASSONOMIA.md), [proof routes](PERCORSI-PROVE.md) and [verification](VERIFICA.md).
+See [sources and method](FONTI-E-METODO.md), [bilingual taxonomy](TASSONOMIA.md), [proof routes](PERCORSI-PROVE.md) and [verification](VERIFICA.md). Some of these supporting documents are in Italian.
 
 ## Notes and bookmarks
 
-Notes, bookmarks, last entry and language are saved automatically in:
+Notes, bookmarks, last entry, language and appearance are saved automatically in:
 
 ```text
 ~/Library/Application Support/DECpedia/state.json
@@ -76,7 +80,7 @@ Rebuild after editing. Search covers entries, not full PDF text. In-app content 
 ./Scripts/test.sh
 ```
 
-The **16 tests** cover catalog integrity, bilingual coverage, proof dependencies, search, persistence, LaTeX delimiters, study-text numerals, citations and independent exercise calculations. If you add local PDF copies, tests also check their hashes, pages and citation evidence. The script accepts `--disable-sandbox` where the SwiftPM sandbox subprocess is restricted; it is unnecessary on a normal Mac.
+The **19 tests** cover catalog integrity, bilingual coverage, proof dependencies, search, persistence, LaTeX delimiters, study-text numerals, citations and independent exercise calculations. If you add local PDF copies, tests also check their hashes, pages and citation evidence. The script accepts `--disable-sandbox` where the SwiftPM sandbox subprocess is restricted; it is unnecessary on a normal Mac.
 
 If Node is installed, validate every expression with the app’s bundled KaTeX, without installing packages:
 

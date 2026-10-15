@@ -14,6 +14,16 @@ enum Palette {
     static let editorial = Color.orange
 }
 
+extension AppTheme {
+    var colorScheme: ColorScheme? {
+        switch self {
+        case .automatic: return nil
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
+}
+
 struct RootView: View {
     @EnvironmentObject private var store: AppStore
     @State private var visibility: NavigationSplitViewVisibility = .all
@@ -44,6 +54,19 @@ struct RootView: View {
                     }
                 }
                 .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        Menu {
+                            Picker(store.t("Aspetto", "Appearance"), selection: $store.theme) {
+                                ForEach(AppTheme.allCases) { theme in
+                                    Text(theme.title(store.language)).tag(theme)
+                                }
+                            }
+                        } label: {
+                            Label(store.t("Aspetto", "Appearance"), systemImage: "circle.lefthalf.filled")
+                        }
+                        .help(store.t("Tema: ", "Theme: ") + store.theme.title(store.language))
+                        .accessibilityLabel(store.t("Scegli il tema", "Choose a theme"))
+                    }
                     ToolbarItem(placement: .primaryAction) {
                         Picker(store.t("Lingua", "Language"), selection: $store.language) {
                             Text("IT").tag(AppLanguage.it)
@@ -118,7 +141,7 @@ struct RootView: View {
                 Circle().fill(Palette.accent).frame(width: 6, height: 6)
                 Text(store.t("Tutto sul tuo Mac", "Everything on your Mac")).font(.caption)
                 Spacer()
-                Text("1.2 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
+                Text("1.3 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
             }.foregroundStyle(.secondary).padding(18)
         }
     }

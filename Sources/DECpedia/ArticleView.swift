@@ -80,11 +80,8 @@ struct ArticleView: View {
     @ViewBuilder
     private func blockView(_ block: ContentBlock) -> some View {
         let editorial = block.provenance == .editorial
-        let teaching = block.id.hasPrefix("learn-") || block.id.hasPrefix("proof-")
-        let callout = editorial && !teaching
         VStack(alignment: .leading, spacing: 13) {
             HStack(spacing: 7) {
-                if callout { Image(systemName: block.id == "editorial-note" ? "info.circle" : "sparkle") }
                 Text(block.title).font(.system(size: 13, weight: .semibold))
                 Spacer()
                 if editorial {
@@ -93,9 +90,9 @@ struct ArticleView: View {
                     Text(store.t("FONTE", "SOURCE")).font(.system(size: 8, weight: .semibold)).tracking(1)
                         .padding(.horizontal, 6).padding(.vertical, 3).background(Palette.accent.opacity(0.09), in: Capsule())
                 }
-            }.foregroundStyle(callout ? Color.orange : Palette.accent)
+            }.foregroundStyle(Palette.accent)
             if block.kind == .formula, let math = block.mathML, let latex = block.latex {
-                FormulaView(mathML: math, latex: latex, description: block.text, emphasized: block.emphasized ?? false)
+                FormulaView(mathML: math, latex: latex, description: block.text)
             } else {
                 RichMathView(text: block.text)
             }
@@ -115,9 +112,7 @@ struct ArticleView: View {
                 }
             }
         }
-        .padding(callout ? 18 : 0)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(callout ? Color.orange.opacity(0.055) : .clear, in: RoundedRectangle(cornerRadius: 10))
     }
 
     private var connections: some View {

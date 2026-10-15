@@ -196,6 +196,7 @@ public struct PersonalState: Codable {
     public var notes: [String: String] = [:]
     public var lastConceptID: String? = nil
     public var language: String? = nil
+    public var theme: String? = nil
     public init() {}
     public static func read(from url: URL) throws -> PersonalState {
         let state = try JSONDecoder().decode(Self.self, from: Data(contentsOf: url))
@@ -214,4 +215,16 @@ public enum AppLanguage: String, Codable, CaseIterable, Identifiable {
     case it, en
     public var id: String { rawValue }
     public func text(_ italian: String, _ english: String) -> String { self == .it ? italian : english }
+}
+
+public enum AppTheme: String, Codable, CaseIterable, Identifiable {
+    case automatic, light, dark
+    public var id: String { rawValue }
+    public func title(_ language: AppLanguage) -> String {
+        switch self {
+        case .automatic: return language.text("Automatico", "Automatic")
+        case .light: return language.text("Chiaro", "Light")
+        case .dark: return language.text("Scuro", "Dark")
+        }
+    }
 }

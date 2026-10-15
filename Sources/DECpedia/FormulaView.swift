@@ -7,15 +7,14 @@ struct FormulaView: View {
     let mathML: String
     let latex: String
     let description: String
-    var emphasized = false
     @State private var copied = false
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            RichMathView(text: "\\[" + latex + "\\]", size: emphasized ? 21 : 18)
+            RichMathView(text: "\\[" + latex + "\\]", size: 19, inFormulaBox: true)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .accessibilityLabel(description)
             HStack(alignment: .top, spacing: 10) {
-                RichMathView(text: description, size: 15)
+                RichMathView(text: description, size: 15, inFormulaBox: true)
                 Spacer(minLength: 0)
                 Button {
                     NSPasteboard.general.clearContents()
@@ -27,16 +26,10 @@ struct FormulaView: View {
                 }.buttonStyle(.borderless).help(store.t("Copia la formula in LaTeX", "Copy formula as LaTeX"))
             }
         }
-        .padding(.horizontal, emphasized ? 24 : 8)
-        .padding(.vertical, emphasized ? 24 : 10)
+        .padding(20)
         .frame(maxWidth: 760, alignment: .center)
-        .background {
-            if emphasized {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.accentColor.opacity(0.055))
-                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.accentColor.opacity(0.22), lineWidth: 1))
-            }
-        }
+        .background(Color.primary.opacity(0.018), in: RoundedRectangle(cornerRadius: 10))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.primary.opacity(0.12), lineWidth: 1))
         .frame(maxWidth: .infinity, alignment: .center)
     }
 }

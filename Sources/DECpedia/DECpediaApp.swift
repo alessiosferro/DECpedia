@@ -1,5 +1,8 @@
 import SwiftUI
 import AppKit
+#if canImport(DECpediaCore)
+import DECpediaCore
+#endif
 
 @main
 struct DECpediaApp: App {
@@ -10,6 +13,7 @@ struct DECpediaApp: App {
     var body: some Scene {
         WindowGroup("DECpedia") {
             RootView().environmentObject(store)
+                .preferredColorScheme(store.theme.colorScheme)
                 .frame(minWidth: 1120, minHeight: 720)
                 .tint(Palette.accent)
                 .onAppear { NSApplication.shared.activate(ignoringOtherApps: true) }
@@ -22,6 +26,13 @@ struct DECpediaApp: App {
             }
             CommandGroup(after: .saveItem) {
                 Button(store.t("Esporta note e preferiti…", "Export notes and bookmarks…")) { store.exportNotes() }
+            }
+            CommandMenu(store.t("Aspetto", "Appearance")) {
+                Picker(store.t("Tema", "Theme"), selection: $store.theme) {
+                    ForEach(AppTheme.allCases) { theme in
+                        Text(theme.title(store.language)).tag(theme)
+                    }
+                }
             }
             CommandMenu(store.t("Studio", "Study")) {
                 Button(store.t("Tutte le voci", "All entries")) { store.scope = "all"; store.query = "" }

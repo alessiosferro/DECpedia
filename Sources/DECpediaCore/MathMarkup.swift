@@ -33,12 +33,41 @@ public enum MathMarkup {
             .replacingOccurrences(of: "'", with: "&#39;")
     }
     public static func html(_ text: String) -> String {
-        fragments(text).map { fragment in
+        let parts = fragments(text)
+        // Only explicit paired **markers** select key concepts. Math, numbers,
+        // arbitrary HTML, and unpaired markers never receive automatic emphasis.
+        let markers = parts.reduce(0) { count, fragment in
+            if case .prose(let value) = fragment { return count + value.components(separatedBy: "**").count - 1 }
+            return count
+        }
+        var emphasized = false
+        return parts.enumerated().map { index, fragment in
             switch fragment {
-            case .prose(let value): return escape(value).replacingOccurrences(of: "\n\n", with: "<br><br>").replacingOccurrences(of: "\n", with: "<br>")
+            case .prose(var value):
+                // Display blocks supply their own vertical space. Do not turn
+                // surrounding source newlines into a second set of blank lines.
+                if index > 0, case .display = parts[index - 1] {
+                    value = String(value.drop(while: \.isWhitespace))
+                }
+                if index + 1 < parts.count, case .display = parts[index + 1] {
+                    value = String(value.reversed().drop(while: \.isWhitespace).reversed())
+                }
+                guard markers > 0 && markers.isMultiple(of: 2) else { return proseHTML(value) }
+                return value.components(separatedBy: "**").enumerated().map { index, part in
+                    let marker: String
+                    if index == 0 { marker = "" }
+                    else {
+                        emphasized.toggle()
+                        marker = emphasized ? "<strong class=\"key-concept\">" : "</strong>"
+                    }
+                    return marker + proseHTML(part)
+                }.joined()
             case .inline(let value): return "<span class=\"math inline\">\(escape(value))</span>"
             case .display(let value): return "<div class=\"math display\">\(escape(value))</div>"
             }
         }.joined()
+    }
+    private static func proseHTML(_ value: String) -> String {
+        escape(value).replacingOccurrences(of: "\n\n", with: "<br><br>").replacingOccurrences(of: "\n", with: "<br>")
     }
 }
