@@ -1,0 +1,53 @@
+// !$*UTF8*$!
+{
+archiveVersion = 1;
+classes = {};
+objectVersion = 56;
+objects = {
+F2ABA25921F07013C991CAB0 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpedia/AppStore.swift"; sourceTree = SOURCE_ROOT; };
+DC29C3A3010AFE39D43A965E = { isa = PBXBuildFile; fileRef = F2ABA25921F07013C991CAB0; };
+E13C58EEA3936985C04996E2 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpedia/ArticleView.swift"; sourceTree = SOURCE_ROOT; };
+FD08DF2E2EEE9F6592A517EB = { isa = PBXBuildFile; fileRef = E13C58EEA3936985C04996E2; };
+D04C5375655C95560FEB908A = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpedia/DECpediaApp.swift"; sourceTree = SOURCE_ROOT; };
+9E4D5239696676D2232B4752 = { isa = PBXBuildFile; fileRef = D04C5375655C95560FEB908A; };
+5D0D2DDF92F56449781EF703 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpedia/FormulaView.swift"; sourceTree = SOURCE_ROOT; };
+5C77B29730AC91B98934D022 = { isa = PBXBuildFile; fileRef = 5D0D2DDF92F56449781EF703; };
+590505F48E0D27C4EEFD75CE = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpedia/NativeSearchField.swift"; sourceTree = SOURCE_ROOT; };
+9E10E1B5BC261796E392354E = { isa = PBXBuildFile; fileRef = 590505F48E0D27C4EEFD75CE; };
+21642EA6A6C06269B16EC016 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpedia/PDFReaderView.swift"; sourceTree = SOURCE_ROOT; };
+EE9C04750E975858DC03F833 = { isa = PBXBuildFile; fileRef = 21642EA6A6C06269B16EC016; };
+900C2B553182C50B887CC7DB = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpedia/RichMathView.swift"; sourceTree = SOURCE_ROOT; };
+59138572ED047627D11F519F = { isa = PBXBuildFile; fileRef = 900C2B553182C50B887CC7DB; };
+B54387B2790C5F2FB8123014 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpedia/RootView.swift"; sourceTree = SOURCE_ROOT; };
+81A3E3289F10E221F7C10F7B = { isa = PBXBuildFile; fileRef = B54387B2790C5F2FB8123014; };
+8B4AF83ADC517226CE4C6113 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpedia/SourcesView.swift"; sourceTree = SOURCE_ROOT; };
+EC05C3698514A14C7DC9EBF8 = { isa = PBXBuildFile; fileRef = 8B4AF83ADC517226CE4C6113; };
+7CB39853AF0B004FE7C1002E = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpedia/TeachingDiagram.swift"; sourceTree = SOURCE_ROOT; };
+912332E2B149B9335DE02F1B = { isa = PBXBuildFile; fileRef = 7CB39853AF0B004FE7C1002E; };
+FF1122465010B2A4D6D18FD6 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpediaCore/Library.swift"; sourceTree = SOURCE_ROOT; };
+DBCCDC77276BB6DFF8A7574C = { isa = PBXBuildFile; fileRef = FF1122465010B2A4D6D18FD6; };
+8BD3B64562127B43F01F8581 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DECpediaCore/MathMarkup.swift"; sourceTree = SOURCE_ROOT; };
+C72D1069E31ACC1C53FE01D0 = { isa = PBXBuildFile; fileRef = 8BD3B64562127B43F01F8581; };
+0189424A5A60FED329FA868E = { isa = PBXFileReference; lastKnownFileType = folder; path = "Sources/DECpedia/Resources"; sourceTree = SOURCE_ROOT; };
+8E2BC9944DFD1BADD2E26952 = { isa = PBXBuildFile; fileRef = 0189424A5A60FED329FA868E; };
+F8995BA5891B07E328C60D6B = { isa = PBXFileReference; lastKnownFileType = image.icns; path = "Support/AppIcon.icns"; sourceTree = SOURCE_ROOT; };
+53F7CE0E268A7CFDFE2CD118 = { isa = PBXBuildFile; fileRef = F8995BA5891B07E328C60D6B; };
+38A007151ABE87CC01A5B6E9 = { isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DECpedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+3A2A88DEEFF3D1D23E496597 = { isa = PBXGroup; name = "SwiftUI App"; children = (F2ABA25921F07013C991CAB0,E13C58EEA3936985C04996E2,D04C5375655C95560FEB908A,5D0D2DDF92F56449781EF703,590505F48E0D27C4EEFD75CE,21642EA6A6C06269B16EC016,900C2B553182C50B887CC7DB,B54387B2790C5F2FB8123014,8B4AF83ADC517226CE4C6113,7CB39853AF0B004FE7C1002E); sourceTree = "<group>"; };
+DCB3E622126A8498E305E230 = { isa = PBXGroup; name = "Catalog and Search"; children = (FF1122465010B2A4D6D18FD6,8BD3B64562127B43F01F8581); sourceTree = "<group>"; };
+1EE63A94BAD0DF0FCB0E7B8C = { isa = PBXGroup; name = Products; children = (38A007151ABE87CC01A5B6E9); sourceTree = "<group>"; };
+B28B7AF69320201D1CF206EB = { isa = PBXGroup; children = (3A2A88DEEFF3D1D23E496597,DCB3E622126A8498E305E230,0189424A5A60FED329FA868E,F8995BA5891B07E328C60D6B,1EE63A94BAD0DF0FCB0E7B8C); sourceTree = "<group>"; };
+BCE16DD0260827ECF338C787 = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (DC29C3A3010AFE39D43A965E,FD08DF2E2EEE9F6592A517EB,9E4D5239696676D2232B4752,5C77B29730AC91B98934D022,9E10E1B5BC261796E392354E,EE9C04750E975858DC03F833,59138572ED047627D11F519F,81A3E3289F10E221F7C10F7B,EC05C3698514A14C7DC9EBF8,912332E2B149B9335DE02F1B,DBCCDC77276BB6DFF8A7574C,C72D1069E31ACC1C53FE01D0); runOnlyForDeploymentPostprocessing = 0; };
+7561BFB015D8F536760CB671 = { isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+ECE2D868E17AEF81A05610A3 = { isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (8E2BC9944DFD1BADD2E26952,53F7CE0E268A7CFDFE2CD118); runOnlyForDeploymentPostprocessing = 0; };
+0E8A3AD980EC179856012B7E = { isa = PBXNativeTarget; buildConfigurationList = C57128001CE614BF8549D6BB; buildPhases = (BCE16DD0260827ECF338C787,7561BFB015D8F536760CB671,ECE2D868E17AEF81A05610A3); buildRules = (); dependencies = (); name = DECpedia; productName = DECpedia; productReference = 38A007151ABE87CC01A5B6E9; productType = "com.apple.product-type.application"; };
+89E1FD6268CC0F221A2BE178 = { isa = XCBuildConfiguration; buildSettings = { CLANG_ENABLE_MODULES = YES; MACOSX_DEPLOYMENT_TARGET = 13.0; SDKROOT = macosx; SWIFT_VERSION = 5.0; }; name = Debug; };
+7082CC0B6FC1282FCEABD07A = { isa = XCBuildConfiguration; buildSettings = { CODE_SIGN_STYLE = Manual; CODE_SIGN_IDENTITY = "-"; COMBINE_HIDPI_IMAGES = YES; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Support/Info.plist; PRODUCT_BUNDLE_IDENTIFIER = dev.local.DECpedia; PRODUCT_NAME = "$(TARGET_NAME)"; ENABLE_APP_SANDBOX = NO; ENABLE_HARDENED_RUNTIME = NO; SWIFT_EMIT_LOC_STRINGS = NO; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG; DEBUG_INFORMATION_FORMAT = dwarf; }; name = Debug; };
+E6DE6C99132752C914FEF632 = { isa = XCBuildConfiguration; buildSettings = { CLANG_ENABLE_MODULES = YES; MACOSX_DEPLOYMENT_TARGET = 13.0; SDKROOT = macosx; SWIFT_VERSION = 5.0; }; name = Release; };
+639A7CA24D39909E713B47F7 = { isa = XCBuildConfiguration; buildSettings = { CODE_SIGN_STYLE = Manual; CODE_SIGN_IDENTITY = "-"; COMBINE_HIDPI_IMAGES = YES; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Support/Info.plist; PRODUCT_BUNDLE_IDENTIFIER = dev.local.DECpedia; PRODUCT_NAME = "$(TARGET_NAME)"; ENABLE_APP_SANDBOX = NO; ENABLE_HARDENED_RUNTIME = NO; SWIFT_EMIT_LOC_STRINGS = NO; SWIFT_OPTIMIZATION_LEVEL = "-O"; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; }; name = Release; };
+862894B703A6DEDF96A9DD6C = { isa = XCConfigurationList; buildConfigurations = (89E1FD6268CC0F221A2BE178,E6DE6C99132752C914FEF632); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+C57128001CE614BF8549D6BB = { isa = XCConfigurationList; buildConfigurations = (7082CC0B6FC1282FCEABD07A,639A7CA24D39909E713B47F7); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+98F54143AB4E86B28C3AFEE0 = { isa = PBXProject; attributes = { LastUpgradeCheck = 1500; }; buildConfigurationList = 862894B703A6DEDF96A9DD6C; compatibilityVersion = "Xcode 14.0"; developmentRegion = it; hasScannedForEncodings = 0; knownRegions = (it,en,Base); mainGroup = B28B7AF69320201D1CF206EB; productRefGroup = 1EE63A94BAD0DF0FCB0E7B8C; projectDirPath = ""; projectRoot = ""; targets = (0E8A3AD980EC179856012B7E); };
+};
+rootObject = 98F54143AB4E86B28C3AFEE0;
+}
