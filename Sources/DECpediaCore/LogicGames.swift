@@ -9,6 +9,7 @@ public enum PuzzleKind: String, Codable { case gears, xor, route, curve, seals, 
 public struct LogicGame: Codable, Identifiable {
     public var id: String { categoryID }
     public let categoryID: String
+    public let revision: Int?
     public let title: GameText
     public let introduction: GameText
     public let levels: [LogicLevel]
@@ -141,7 +142,7 @@ public struct LogicGames: Codable {
                     let nodeIDs = Set(p.nodes.map(\.id)); let tokens = Set(p.tokens.map(\.id))
                     if nodeIDs.count != p.nodes.count || !nodeIDs.contains(p.start) || !nodeIDs.contains(p.goal) || p.nodes.contains(where: { !full($0.title) || !full($0.detail) || !$0.exits.allSatisfy(nodeIDs.contains) || !($0.requires+$0.grants+$0.removes).allSatisfy(tokens.contains) || $0.row < 0 || $0.column < 0 || $0.column > 2 }) || !(p.initialTokens+p.goalTokens).allSatisfy(tokens.contains) || Set(p.nodes.map({"\($0.row),\($0.column)"})).count != p.nodes.count { errors.append("Invalid route: \(level.id)") }
                 case .curve:
-                    guard let p = level.curve, [5,7,11,13].contains(p.p), mod(4*p.a*p.a*p.a+27*p.b*p.b,p.p) != 0, p.contains(p.start), p.contains(p.target), !p.moves.isEmpty, p.moves.allSatisfy({ full($0.name) && (["double","negate"].contains($0.operation) || ($0.operation == "add" && $0.point.map(p.contains) == true)) }) else { errors.append("Invalid elliptic board: \(level.id)"); continue }
+                    guard let p = level.curve, [5,7,11,13,17].contains(p.p), mod(4*p.a*p.a*p.a+27*p.b*p.b,p.p) != 0, p.contains(p.start), p.contains(p.target), !p.moves.isEmpty, p.moves.allSatisfy({ full($0.name) && (["double","negate"].contains($0.operation) || ($0.operation == "add" && $0.point.map(p.contains) == true)) }) else { errors.append("Invalid elliptic board: \(level.id)"); continue }
                 case .seals:
                     guard let p = level.seals, p.n > 2, p.n <= 10000, p.e > 0, p.e < 10000, !p.messages.isEmpty, p.messages.allSatisfy({full($0.label) && (0..<p.n).contains($0.digest)}), p.seals.allSatisfy({(0..<p.n).contains($0.value)}), Set(p.messages.map(\.id)).count == p.messages.count, Set(p.seals.map(\.id)).count == p.seals.count else { errors.append("Invalid seals: \(level.id)"); continue }
                 case .factor:
@@ -285,15 +286,18 @@ public struct LogicSession {
     }
 }
 public struct LogicRecord: Codable {
+    public let revision: Int?
+    public func matches(_ game: LogicGame) -> Bool { (revision ?? 1) == (game.revision ?? 1) }
     public let completedRuns: Int
     public let bestMoves: Int
     public let lastMoves: Int
     public let lastHints: Int
     public let levels: Int
     public let completedAt: Date
-    public init(session:LogicSession,levels:Int,previous:LogicRecord?) {
+    public init(session:LogicSession,levels:Int,previous:LogicRecord?,revision:Int = 1) {
+        self.revision = revision
         completedRuns = (previous?.completedRuns ?? 0)+1
-        bestMoves = previous?.levels == levels ? min(previous!.bestMoves,session.totalMoves) : session.totalMoves
+        bestMoves = previous?.levels == levels && (previous?.revision ?? 1) == revision ? min(previous!.bestMoves,session.totalMoves) : session.totalMoves
         lastMoves = session.totalMoves; lastHints = session.totalHints; self.levels = levels; completedAt = Date()
     }
 }

@@ -24,6 +24,30 @@ extension View {
             foregroundStyle(Palette.accent)
         }
     }
+
+    @ViewBuilder
+    func removeNativeToolbarTitleWhenAvailable() -> some View {
+        if #available(macOS 15.0, *) {
+            toolbar(removing: .title)
+        } else {
+            self
+        }
+    }
+}
+
+private struct WindowTitlebarTitleHider: NSViewRepresentable {
+    func makeNSView(context: Context) -> NSView { TitlebarView() }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        nsView.window?.titleVisibility = .hidden
+    }
+
+    private final class TitlebarView: NSView {
+        override func viewDidMoveToWindow() {
+            super.viewDidMoveToWindow()
+            window?.titleVisibility = .hidden
+        }
+    }
 }
 
 extension AppTheme {
@@ -74,6 +98,10 @@ struct RootView: View {
                     }
                 }
                 .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("DECpedia")
+                            .font(.system(size: 13, weight: .semibold))
+                    }
                     ToolbarItem(placement: .primaryAction) {
                         Menu {
                             Picker(store.t("Aspetto", "Appearance"), selection: $store.theme) {
@@ -114,8 +142,10 @@ struct RootView: View {
                             .help(store.t("Mostra o nascondi i collegamenti", "Show or hide connections"))
                     }
                 }
+                .removeNativeToolbarTitleWhenAvailable()
             }
         }
+        .background(WindowTitlebarTitleHider())
         .sheet(item: $store.pdfRequest) { request in PDFReaderView(request: request) }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             if let issue = store.persistenceIssue {
@@ -165,7 +195,7 @@ struct RootView: View {
                 Circle().fill(Palette.accent).frame(width: 6, height: 6)
                 Text(store.t("Tutto sul tuo Mac", "Everything on your Mac")).font(.caption)
                 Spacer()
-                Text("1.4 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
+                Text("1.4.1 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
             }.foregroundStyle(.secondary).padding(18)
         }
     }

@@ -20,6 +20,21 @@ struct DECpediaApp: App {
         }
         .defaultSize(width: 1460, height: 940)
         .commands {
+            #if DECPEDIA_MANUAL_QA
+            CommandMenu("Manual QA") {
+                Button("Next game") {
+                    let games = store.games?.games ?? []
+                    if let i = games.firstIndex(where: { $0.id == store.selectedGameID }), !games.isEmpty {
+                        store.openGame(games[(i + 1) % games.count].id)
+                    }
+                }.keyboardShortcut("j", modifiers: [.control, .option])
+                Button("Italian") { store.language = .it }.keyboardShortcut("i", modifiers: [.control, .option])
+                Button("English") { store.language = .en }.keyboardShortcut("e", modifiers: [.control, .option])
+                Button("Light") { store.theme = .light }.keyboardShortcut("l", modifiers: [.control, .option])
+                Button("Dark") { store.theme = .dark }.keyboardShortcut("d", modifiers: [.control, .option])
+                Button("Automatic") { store.theme = .automatic }.keyboardShortcut("a", modifiers: [.control, .option])
+            }
+            #endif
             CommandGroup(after: .textEditing) {
                 Button(store.t("Cerca in DECpedia", "Search DECpedia")) { store.searchFocusRequest += 1 }
                     .keyboardShortcut("f", modifiers: .command)

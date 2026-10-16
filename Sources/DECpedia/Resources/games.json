@@ -1456,22 +1456,22 @@
             "en": "The reflection"
           },
           "mission": {
-            "it": "Raggiungi la stella usando le mosse disponibili. Non puoi scegliere liberamente un punto: ogni salto deve rispettare la legge di gruppo della curva.",
-            "en": "Reach the star using the available moves. You cannot choose a point freely: every jump must follow the curve’s group law."
+            "it": "La stella si trova nel punto opposto a \\(3P\\). Parti da \\(P=(5,1)\\) e raggiungila entro \\(3\\) mosse sulla curva \\(y^2=x^3+2x+2\\) su \\(\\mathbb F_{17}\\). Il raddoppio e la riflessione sono strumenti diversi: scegli quando usarli.",
+            "en": "The star is at the inverse of \\(3P\\). Starting from \\(P=(5,1)\\), reach it within \\(3\\) moves on the curve \\(y^2=x^3+2x+2\\) over \\(\\mathbb F_{17}\\). Doubling and reflection are different tools: decide when to use each."
           },
           "hints": [
             {
-              "it": "Il raddoppio usa il punto in cui ti trovi, mentre la pietra aggiunta resta sempre la stessa.",
-              "en": "Doubling uses your current point, while the point being added stays fixed."
+              "it": "Puoi prima costruire \\(3P\\) e poi rifletterlo. Il punto opposto ha la stessa ascissa, ma l’ordinata cambia segno nel campo.",
+              "en": "You can first construct \\(3P\\), then reflect it. The inverse has the same horizontal coordinate, while its vertical coordinate changes sign in the field."
             },
             {
-              "it": "Il punto all’infinito \\(\\Omega\\) è il neutro. Riflettere manda \\((x,y)\\) in \\((x,-y)\\).",
-              "en": "The point at infinity \\(\\Omega\\) is the identity. Reflection sends \\((x,y)\\) to \\((x,-y)\\)."
+              "it": "Raddoppia \\(P\\), aggiungi ancora \\(P\\), poi rifletti: \\(P\\to 2P\\to 3P\\to -3P\\). Ricorda che \\(-6\\equiv11\\pmod{17}\\).",
+              "en": "Double \\(P\\), add \\(P\\) once more, then reflect: \\(P\\to 2P\\to 3P\\to -3P\\). Remember that \\(-6\\equiv11\\pmod{17}\\)."
             }
           ],
           "explanation": {
-            "it": "Le pietre rappresentano tutti i punti affini della curva nel campo indicato; \\(\\Omega\\) compare fuori dalla griglia. I salti non sono somme di coordinate. Per \\(R+S\\) si usa la pendenza della secante o della tangente, poi si riflette l’intersezione. Il raddoppio e l’addizione consentono di comporre moltiplicazioni scalari; la riflessione fornisce l’opposto. Tutti i risultati sono ridotti nel campo finito.",
-            "en": "The stones represent every affine point of the curve over the displayed field; \\(\\Omega\\) appears outside the grid. Jumps do not add coordinates. Computing \\(R+S\\) uses the secant or tangent slope and reflects the intersection. Doubling and addition compose scalar multiplications; reflection gives the inverse. Every result is reduced in the finite field."
+            "it": "La riflessione non è un salto arbitrario: fornisce l’opposto nella legge di gruppo. Qui tutti i calcoli si svolgono modulo \\(17\\). Per raddoppiare \\(P=(5,1)\\), la pendenza della tangente è \\(\\lambda=(3\\cdot5^2+2)(2\\cdot1)^{-1}\\equiv13\\), perché \\(2^{-1}\\equiv9\\). Quindi\n\\[\\begin{aligned}x_{2P}&=13^2-2\\cdot5\\equiv6,\\\\y_{2P}&=13(5-6)-1\\equiv3,\\\\2P&=(6,3).\\end{aligned}\\]\nOra aggiungiamo \\(P\\). La secante ha pendenza \\(\\lambda=(3-1)(6-5)^{-1}=2\\), perciò\n\\[\\begin{aligned}x_{3P}&=2^2-6-5\\equiv10,\\\\y_{3P}&=2(5-10)-1\\equiv6,\\\\3P&=(10,6).\\end{aligned}\\]\nInfine cambiamo il segno dell’ordinata:\n\\[-3P=(10,-6)=(10,11).\\]\nEcco il percorso: raddoppio, addizione, riflessione. Sommare le coordinate non produrrebbe questi punti. La riflessione serve davvero: senza di essa non si raggiunge la stella entro il limite delle mosse.",
+            "en": "Reflection is not an arbitrary jump: it gives the inverse under the group law. All calculations here are modulo \\(17\\). To double \\(P=(5,1)\\), the tangent slope is \\(\\lambda=(3\\cdot5^2+2)(2\\cdot1)^{-1}\\equiv13\\), since \\(2^{-1}\\equiv9\\). Thus\n\\[\\begin{aligned}x_{2P}&=13^2-2\\cdot5\\equiv6,\\\\y_{2P}&=13(5-6)-1\\equiv3,\\\\2P&=(6,3).\\end{aligned}\\]\nNow add \\(P\\). The secant slope is \\(\\lambda=(3-1)(6-5)^{-1}=2\\), so\n\\[\\begin{aligned}x_{3P}&=2^2-6-5\\equiv10,\\\\y_{3P}&=2(5-10)-1\\equiv6,\\\\3P&=(10,6).\\end{aligned}\\]\nFinally, change the sign of the vertical coordinate:\n\\[-3P=(10,-6)=(10,11).\\]\nThe route is doubling, addition, reflection. Adding coordinates would not produce these points. Reflection is essential: without it, the star cannot be reached within the move limit."
           },
           "conceptIDs": [
             "elliptic-addition",
@@ -1479,18 +1479,18 @@
             "elliptic-curves"
           ],
           "kind": "curve",
-          "moveLimit": 6,
+          "moveLimit": 3,
           "curve": {
-            "p": 7,
+            "p": 17,
             "a": 2,
-            "b": 1,
+            "b": 2,
             "start": {
-              "x": 0,
+              "x": 5,
               "y": 1
             },
             "target": {
-              "x": 1,
-              "y": 5
+              "x": 10,
+              "y": 11
             },
             "moves": [
               {
@@ -1500,7 +1500,7 @@
                 },
                 "operation": "add",
                 "point": {
-                  "x": 0,
+                  "x": 5,
                   "y": 1
                 }
               },
@@ -1521,7 +1521,8 @@
             ]
           }
         }
-      ]
+      ],
+      "revision": 2
     },
     {
       "categoryID": "signatures",

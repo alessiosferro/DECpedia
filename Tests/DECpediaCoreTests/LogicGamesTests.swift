@@ -104,6 +104,25 @@ final class LogicGamesTests:XCTestCase {
         XCTAssertEqual(modularPower(18,3,55),2)
         XCTAssertEqual(modularPower(16,3,33),4)
     }
+    func testReflectionLevelRequiresTheInverseWithinItsMoveBudget() throws {
+        let level = try catalog().game("curves")!.levels[2]
+        var run = LogicRun(level: level)
+        XCTAssertTrue(run.apply(.curve(1), level: level))
+        XCTAssertEqual(run.state.point, CurvePoint(x: 6, y: 3))
+        XCTAssertTrue(run.apply(.curve(0), level: level))
+        XCTAssertEqual(run.state.point, CurvePoint(x: 10, y: 6))
+        XCTAssertTrue(run.apply(.curve(2), level: level))
+        XCTAssertTrue(run.isSolved(level: level))
+        var queue = [LogicRun(level: level)], cursor = 0
+        while cursor < queue.count {
+            let candidate = queue[cursor]; cursor += 1
+            XCTAssertFalse(candidate.isSolved(level: level), "Reflection must be necessary")
+            for index in [0, 1] {
+                var next = candidate
+                if next.apply(.curve(index), level: level) { queue.append(next) }
+            }
+        }
+    }
     func testCompletedGameRecordsAndOldNotesRemainCompatible() throws {
         let games=try catalog(); let game=games.game("algebra")!
         var session=LogicSession(game:game)
@@ -124,6 +143,23 @@ final class LogicGamesTests:XCTestCase {
         XCTAssertEqual(decoded.bookmarks,["rsa"])
         XCTAssertEqual(decoded.gameRecords?[game.id]?.bestMoves,moves)
         XCTAssertEqual(decoded.gameRecords?[game.id]?.completedRuns,1)
+    }
+    func testRuleRevisionKeepsRunHistoryButResetsIncomparableBestScores() throws {
+        let game = try catalog().game("curves")!
+        var session = LogicSession(game: game)
+        for level in game.levels {
+            session.run = try solve(level)
+            XCTAssertTrue(session.advance(game: game))
+        }
+        let prior = LogicRecord(session: session, levels: 3, previous: nil)
+        XCTAssertFalse(prior.matches(game))
+        let current = LogicRecord(session: session, levels: 3, previous: prior, revision: game.revision ?? 1)
+        XCTAssertTrue(current.matches(game))
+        XCTAssertEqual(current.completedRuns, 2)
+        XCTAssertEqual(current.bestMoves, session.totalMoves)
+        let legacy = try JSONDecoder().decode(LogicRecord.self, from: Data(#"{"completedRuns":1,"bestMoves":7,"lastMoves":7,"lastHints":0,"levels":3,"completedAt":0}"#.utf8))
+        XCTAssertFalse(legacy.matches(game))
+        XCTAssertEqual(legacy.completedRuns, 1)
     }
     func testMoveLimitsAndAssignmentsAreTransactional() throws {
         let games=try catalog()

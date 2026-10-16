@@ -63,6 +63,11 @@ final class AppStore: ObservableObject {
             selectedID = initial
             history = [initial]
             historyIndex = 0
+            #if DECPEDIA_MANUAL_QA
+            // A dedicated QA build opens a native-only screen before accessibility
+            // attaches. Shipping builds do not include this launch override.
+            scope = "games"
+            #endif
         } catch { loadIssue = error.localizedDescription }
     }
 
@@ -131,7 +136,7 @@ final class AppStore: ObservableObject {
         gameSession = session
         if session.isComplete {
             var records = personal.gameRecords ?? [:]
-            records[game.id] = LogicRecord(session:session,levels:game.levels.count,previous:records[game.id])
+            records[game.id] = LogicRecord(session:session,levels:game.levels.count,previous:records[game.id],revision:game.revision ?? 1)
             personal.gameRecords = records; save()
         }
     }

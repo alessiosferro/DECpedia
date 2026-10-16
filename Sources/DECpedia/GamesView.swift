@@ -3,6 +3,25 @@ import SwiftUI
 import DECpediaCore
 #endif
 
+extension View {
+    @ViewBuilder
+    func manualQAKey(_ key: String) -> some View {
+        #if DECPEDIA_MANUAL_QA
+        keyboardShortcut(KeyEquivalent(Character(key)), modifiers: [.command, .control])
+        #else
+        self
+        #endif
+    }
+}
+
+// Keep mathematical evidence readable when a completed board disables its controls.
+private struct GameBoardButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.8 : 1)
+    }
+}
+
 struct GameListView: View {
     @EnvironmentObject private var store: AppStore
     var body: some View {
@@ -19,7 +38,7 @@ struct GameListView: View {
                             .font(.system(size:14,weight:.semibold))
                         Text(store.category(game.id)?.title ?? "").font(.caption)
                             .selectionAwareAccent(isSelected:store.selectedGameID == game.id)
-                        if let record = store.personal.gameRecords?[game.id] {
+                        if let record = store.personal.gameRecords?[game.id], record.matches(game) {
                             Label(store.t("Completato · \(record.bestMoves) mosse","Completed · \(record.bestMoves) moves"),systemImage:"checkmark.seal")
                                 .font(.caption2).foregroundStyle(.secondary)
                         } else {
@@ -54,8 +73,9 @@ struct GameDetailView: View {
                             Label(level.title.value(store.language),systemImage:"circle.dotted").font(.callout)
                         }
                         Button(store.t("Entra nel gioco","Enter the game")) { store.startGame(game) }
+                            .manualQAKey("\r")
                             .buttonStyle(.borderedProminent).controlSize(.large)
-                        if let record = store.personal.gameRecords?[game.id] {
+                        if let record = store.personal.gameRecords?[game.id], record.matches(game) {
                             Text(store.t("Il tuo percorso migliore: \(record.bestMoves) mosse. Partite completate: \(record.completedRuns).","Your best route: \(record.bestMoves) moves. Completed runs: \(record.completedRuns)."))
                                 .font(.caption).foregroundStyle(.secondary)
                         }
@@ -77,7 +97,7 @@ struct GameDetailView: View {
             Label(store.t("Percorso completato","Route completed"),systemImage:"flag.checkered").font(.title2)
             Text(store.t("Hai attraversato tutti i livelli: \(session.totalMoves) mosse e \(session.totalHints) indizi.","You crossed every level: \(session.totalMoves) moves and \(session.totalHints) hints.")).font(.body)
             Text(store.t("Puoi provare un percorso più breve o esplorare il gioco di un’altra sezione.","Try a shorter route, or explore another section’s game.")).foregroundStyle(.secondary)
-            Button(store.t("Nuova partita","New game")) { store.startGame(game) }.buttonStyle(.borderedProminent)
+            Button(store.t("Nuova partita","New game")) { store.startGame(game) }.manualQAKey("\r").buttonStyle(.borderedProminent)
             ForEach(game.levels) { level in
                 DisclosureGroup(level.title.value(store.language)) {
                     RichMathView(text:level.explanation.value(store.language),size:16)
@@ -118,13 +138,13 @@ private struct GameControls:View {
                 RichMathView(text:level.hints[run.hintsUsed-1].value(store.language),size:14,compact:true).padding(.horizontal,20)
             }
             HStack {
-                Button { store.undoGame() } label:{Label(store.t("Annulla","Undo"),systemImage:"arrow.uturn.backward")}.disabled(run.history.isEmpty)
-                Button { store.restartLevel(level) } label:{Label(store.t("Ricomincia","Restart"),systemImage:"arrow.clockwise")}
+                Button { store.undoGame() } label:{Label(store.t("Annulla","Undo"),systemImage:"arrow.uturn.backward")}.manualQAKey("z").disabled(run.history.isEmpty)
+                Button { store.restartLevel(level) } label:{Label(store.t("Ricomincia","Restart"),systemImage:"arrow.clockwise")}.manualQAKey("r")
                 Spacer()
                 if run.isSolved(level:level) {
-                    Button(store.gameSession?.levelIndex == game.levels.count-1 ? store.t("Concludi il percorso","Finish the route"):store.t("Prossimo livello","Next level")) {store.advanceGame(game)}.buttonStyle(.borderedProminent)
+                    Button(store.gameSession?.levelIndex == game.levels.count-1 ? store.t("Concludi il percorso","Finish the route"):store.t("Prossimo livello","Next level")) {store.advanceGame(game)}.manualQAKey("\r").buttonStyle(.borderedProminent)
                 } else {
-                    Button {store.gameHint(level)} label:{Label(store.t("Un indizio","A hint"),systemImage:"lightbulb")}.disabled(run.hintsUsed >= level.hints.count)
+                    Button {store.gameHint(level)} label:{Label(store.t("Un indizio","A hint"),systemImage:"lightbulb")}.manualQAKey("h").disabled(run.hintsUsed >= level.hints.count)
                 }
             }.buttonStyle(.bordered).padding(.horizontal,20).padding(.bottom,12)
         }.frame(maxWidth:920).frame(maxWidth:.infinity).background(.regularMaterial)
@@ -214,7 +234,7 @@ struct PuzzleView: View {
             ForEach(puzzle.moves.indices,id:\.self) { i in
                 Button { play(.gear(i)) } label: {
                     tile { HStack { Label(puzzle.moves[i].name.value(store.language),systemImage:"gearshape").font(.headline); Spacer(); math("+("+puzzle.moves[i].deltas.map(String.init).joined(separator:",")+")",size:17).frame(maxWidth:260) } }
-                }.buttonStyle(.plain).disabled(solved).accessibilityLabel(puzzle.moves[i].name.value(store.language))
+                }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String(i+1)).disabled(solved).accessibilityLabel(puzzle.moves[i].name.value(store.language))
             }
         }
     }
@@ -231,7 +251,7 @@ struct PuzzleView: View {
                                 Text(run.state.values[i] == 1 ? store.t("Acceso","On"):store.t("Spento","Off")).font(.caption2)
                             }
                         }
-                    }.buttonStyle(.plain).disabled(solved).accessibilityLabel(store.t("Interruttore \(i+1)","Switch \(i+1)"))
+                    }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String(i+1)).disabled(solved).accessibilityLabel(store.t("Interruttore \(i+1)","Switch \(i+1)"))
                         .accessibilityValue(run.state.values[i] == 1 ? store.t("Acceso","On"):store.t("Spento","Off"))
                 }
             }
@@ -298,7 +318,7 @@ struct PuzzleView: View {
                                 Text(node.title.value(store.language)).font(.system(size:12,weight:.medium)).lineLimit(3).multilineTextAlignment(.center)
                             }.padding(9).frame(width:width-16,height:96).background(node.id == current.id ? Palette.accent.opacity(0.12):Color(nsColor:.controlBackgroundColor),in:RoundedRectangle(cornerRadius:12))
                                 .overlay(RoundedRectangle(cornerRadius:12).stroke(node.id == current.id ? Palette.accent:Color.secondary.opacity(0.3),lineWidth:node.id == current.id ? 2:1))
-                        }.buttonStyle(.plain).disabled(solved || node.id == current.id)
+                        }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String(node.row*3+node.column+1)).disabled(solved || node.id == current.id)
                             .position(x:(CGFloat(node.column)+0.5)*width,y:(CGFloat(node.row)+0.5)*height)
                     }
                 }
@@ -323,7 +343,7 @@ struct PuzzleView: View {
                         Spacer()
                         if let point=puzzle.moves[i].point { math("P="+point.latex,size:16).frame(maxWidth:180) }
                     } }
-                }.buttonStyle(.plain).disabled(solved).accessibilityLabel(puzzle.moves[i].name.value(store.language))
+                }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String(i+1)).disabled(solved).accessibilityLabel(puzzle.moves[i].name.value(store.language))
             }
             Label(store.t("La figura indica le posizioni nel campo; i salti seguono la legge di gruppo.","The figure shows field positions; jumps follow the group law."),systemImage:"point.3.connected.trianglepath.dotted").font(.caption).foregroundStyle(.secondary)
         }
@@ -340,7 +360,7 @@ struct PuzzleView: View {
                             math("s="+String(seal.value),size:17)
                             Text(run.state.assignments.values.contains(seal.id) ? store.t("Su un pacco","On a parcel"):store.t("Nel vassoio","In the tray")).font(.caption2)
                         } }
-                    }.buttonStyle(.plain).disabled(solved).accessibilityLabel(store.t("Sigillo ","Seal ")+String(seal.value))
+                    }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String((puzzle.seals.firstIndex(where: {$0.id == seal.id}) ?? 0)+1)).disabled(solved).accessibilityLabel(store.t("Sigillo ","Seal ")+String(seal.value))
                 }
             }
             ForEach(puzzle.messages) { parcel in
@@ -358,7 +378,7 @@ struct PuzzleView: View {
                             } else { Text(store.t("In attesa di un sigillo","Waiting for a seal")).font(.caption).foregroundStyle(.secondary) }
                         }
                     }
-                }.buttonStyle(.plain).disabled(solved).accessibilityLabel(parcel.label.value(store.language))
+                }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String(UnicodeScalar(97+(puzzle.messages.firstIndex(where: {$0.id == parcel.id}) ?? 0))!)).disabled(solved).accessibilityLabel(parcel.label.value(store.language))
             }
         }
     }
@@ -370,7 +390,7 @@ struct PuzzleView: View {
                 ForEach(run.state.factors.indices,id:\.self) { i in
                     Button { selectedFactor=i; message=nil } label: {
                         tile(selected:selectedFactor == i) { VStack { math(String(run.state.factors[i])); Label(isPrime(run.state.factors[i]) ? store.t("Primo","Prime"):store.t("Composto","Composite"),systemImage:isPrime(run.state.factors[i]) ? "checkmark.seal":"cube.transparent").font(.caption) } }
-                    }.buttonStyle(.plain).disabled(solved || isPrime(run.state.factors[i])).accessibilityLabel(store.t("Blocco ","Block ")+String(run.state.factors[i]))
+                    }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String(UnicodeScalar(97+i)!)).disabled(solved || isPrime(run.state.factors[i])).accessibilityLabel(store.t("Blocco ","Block ")+String(run.state.factors[i]))
                 }
             }
             Text(store.t("Attrezzi disponibili","Available tools")).font(.headline)
@@ -387,7 +407,7 @@ struct PuzzleView: View {
                         Spacer()
                         RichMathView(text:puzzle.tools[i].derivation.value(store.language),size:16,compact:true).allowsHitTesting(false).frame(maxWidth:220)
                     } }
-                }.buttonStyle(.plain).disabled(solved || run.state.usedTools.contains(i)).accessibilityLabel(puzzle.tools[i].title.value(store.language))
+                }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String(i+1)).disabled(solved || run.state.usedTools.contains(i)).accessibilityLabel(puzzle.tools[i].title.value(store.language))
             }
         }
     }
@@ -412,7 +432,7 @@ struct PuzzleView: View {
                                 }
                             }
                         }
-                    }.buttonStyle(.plain).disabled(solved || puzzle.locked.contains(i)).accessibilityLabel(store.t("Bit \(i+1)","Bit \(i+1)")+(puzzle.locked.contains(i) ? store.t(", bloccato",", locked"):""))
+                    }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String(i+1)).disabled(solved || puzzle.locked.contains(i)).accessibilityLabel(store.t("Bit \(i+1)","Bit \(i+1)")+(puzzle.locked.contains(i) ? store.t(", bloccato",", locked"):""))
                 }
             }
             Text(store.t("Le lampadine piene indicano bit attivi. I pallini pieni sotto ogni leva indicano i controlli collegati.","Filled bulbs indicate active bits. Filled dots below each switch indicate its connected checks.")).font(.caption).foregroundStyle(.secondary)
@@ -435,7 +455,7 @@ struct PuzzleView: View {
                             math("["+String(card.n)+","+String(card.k)+","+String(card.d)+"]_{"+String(card.q)+"}",size:16)
                             Text(run.state.assignments.values.contains(card.id) ? store.t("Assegnata","Assigned"):store.t("Disponibile","Available")).font(.caption2).foregroundStyle(.secondary)
                         } }
-                    }.buttonStyle(.plain).disabled(solved).accessibilityLabel(card.name.value(store.language))
+                    }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String((puzzle.cards.firstIndex(where: {$0.id == card.id}) ?? 0)+1)).disabled(solved).accessibilityLabel(card.name.value(store.language))
                 }
             }
             ForEach(puzzle.stations) { station in
@@ -451,7 +471,7 @@ struct PuzzleView: View {
                             Text(run.stationFits(station,puzzle:puzzle) ? store.t("Vincoli locali rispettati","Local constraints satisfied"):store.t("Controlla alfabeto, capacità, errori e lunghezza.","Check alphabet, capacity, errors, and length.")).font(.caption).foregroundStyle(.secondary)
                         } else { Text(store.t("In attesa di una tessera","Waiting for a tile")).font(.caption).foregroundStyle(.secondary) }
                     } }
-                }.buttonStyle(.plain).disabled(solved).accessibilityLabel(station.name.value(store.language))
+                }.buttonStyle(GameBoardButtonStyle()).manualQAKey(String(UnicodeScalar(97+(puzzle.stations.firstIndex(where: {$0.id == station.id}) ?? 0))!)).disabled(solved).accessibilityLabel(station.name.value(store.language))
             }
         }
     }
