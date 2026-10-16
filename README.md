@@ -1,4 +1,4 @@
-# DECpedia 1.3
+# DECpedia 1.3.1
 
 A personal, fully offline encyclopedia for Mac, with an interface, explanations, examples, and proofs in Italian and English. The **IT / EN** selector keeps the current entry open and remembers your language choice.
 
@@ -29,6 +29,8 @@ The script builds and opens `Build/DECpedia.app`. If macOS blocks the downloaded
 ## Appearance and reading
 
 Choose **Automatic**, **Light**, or **Dark** from the appearance button in the toolbar or the **Appearance** menu. Automatic follows the macOS appearance, including system changes while the app is open. Your selection is saved with your notes and bookmarks; existing saved data remains compatible.
+
+Selected entries, bookmarks, category icons, and source documents use the native macOS selection foreground instead of green, keeping them readable on the selection background in every appearance.
 
 ## Read and study
 

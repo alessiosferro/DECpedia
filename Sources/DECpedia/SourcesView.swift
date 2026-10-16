@@ -17,7 +17,8 @@ struct SourceListView: View {
                     store.query.isEmpty || Library.normalized($0.title + " " + $0.fileName).contains(Library.normalized(store.query))
                 }) { source in
                     HStack(alignment: .top, spacing: 13) {
-                        Image(systemName: "doc.richtext").font(.system(size: 30, weight: .light)).foregroundStyle(Palette.accent)
+                        Image(systemName: "doc.richtext").font(.system(size: 30, weight: .light))
+                            .selectionAwareAccent(isSelected: store.selectedSourceID == source.id)
                         VStack(alignment: .leading, spacing: 7) {
                             Text(source.title).font(.system(size: 14, weight: .semibold))
                             Text("\(source.pageCount) " + store.t("pagine", "pages")).font(.caption).foregroundStyle(.secondary)

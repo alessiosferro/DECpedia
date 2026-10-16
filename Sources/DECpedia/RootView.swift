@@ -14,6 +14,18 @@ enum Palette {
     static let editorial = Color.orange
 }
 
+extension View {
+    @ViewBuilder
+    func selectionAwareAccent(isSelected: Bool) -> some View {
+        if isSelected {
+            // Inherit the native selection foreground, including inactive selections.
+            self
+        } else {
+            foregroundStyle(Palette.accent)
+        }
+    }
+}
+
 extension AppTheme {
     var colorScheme: ColorScheme? {
         switch self {
@@ -128,7 +140,8 @@ struct RootView: View {
                 Section(store.t("Esplora gli argomenti", "Explore topics")) {
                     ForEach((store.library?.categories ?? []).map { $0.localized(store.language) }) { category in
                         HStack(spacing: 9) {
-                            Image(systemName: category.symbol).foregroundStyle(Palette.accent).frame(width: 19)
+                            Image(systemName: category.symbol)
+                                .selectionAwareAccent(isSelected: store.scope == category.id).frame(width: 19)
                             Text(category.title).font(.system(size: 12.5))
                         }.padding(.vertical, 3).tag(category.id)
                     }
@@ -141,7 +154,7 @@ struct RootView: View {
                 Circle().fill(Palette.accent).frame(width: 6, height: 6)
                 Text(store.t("Tutto sul tuo Mac", "Everything on your Mac")).font(.caption)
                 Spacer()
-                Text("1.3 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
+                Text("1.3.1 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
             }.foregroundStyle(.secondary).padding(18)
         }
     }
@@ -168,12 +181,14 @@ struct RootView: View {
                                 Text(concept.title).font(.system(size: 14, weight: .semibold))
                                 Spacer(minLength: 0)
                                 if store.personal.bookmarks.contains(concept.id) {
-                                    Image(systemName: "bookmark.fill").font(.caption2).foregroundStyle(Palette.accent)
+                                    Image(systemName: "bookmark.fill").font(.caption2)
+                                        .selectionAwareAccent(isSelected: store.selectedID == concept.id)
                                 }
                             }
                             Text(concept.summary.contains("\\(") || concept.summary.contains("\\[") ? store.t("Definizioni, esempi e passaggi spiegati nella voce.", "Definitions, examples and reasoning inside the entry.") : concept.summary).font(.system(size: 12)).foregroundStyle(.secondary).lineLimit(2)
                             Text(store.category(concept.category)?.title ?? "")
-                                .font(.system(size: 9, weight: .medium)).foregroundStyle(Palette.accent)
+                                .font(.system(size: 9, weight: .medium))
+                                .selectionAwareAccent(isSelected: store.selectedID == concept.id)
                         }.padding(.vertical, 9).tag(concept.id).id(concept.id)
                     }
                   }.listStyle(.inset)
