@@ -98,3 +98,7 @@ xcodebuild -project DECpedia.xcodeproj -scheme DECpedia -configuration Release \
 The app uses SwiftUI, Foundation, AppKit, PDFKit and WebKit. KaTeX and fonts are bundled locally, with the MIT license in `Resources/MathAssets/LICENSE`. JavaScript is confined to the local reader; documents receive escaped text, KaTeX disables trusted content, a local handler admits only bundled resources, and external connections are blocked. No telemetry or network requests are implemented.
 
 PDF rights remain with their authors; this personal project grants no public redistribution license for them.
+
+## Logic games
+
+Open **Logic games** in the sidebar or press **⌘4**. Every topic section has a game with three interactive levels. Use the board controls to change its state; Undo, Restart, and Hints stay visible below the board. Unlocking a level shows the mathematical explanation. You can review a linked entry and return to the same board, or switch between unfinished games while the app stays open. Completed-run records persist on your Mac; unfinished boards restart after quitting.

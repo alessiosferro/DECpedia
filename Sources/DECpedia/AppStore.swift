@@ -24,6 +24,16 @@ final class AppStore: ObservableObject {
     @Published var personal = PersonalState()
     @Published var showContext = true
     @Published var pdfRequest: PDFRequest?
+    @Published var games: LogicGames?
+    @Published var gameLoadIssue: String?
+    @Published var selectedGameID: String? {
+        willSet {
+            if let gameSession { suspendedGames[gameSession.gameID] = gameSession }
+        }
+        didSet { gameSession = selectedGameID.flatMap { suspendedGames[$0] } }
+    }
+    @Published var gameSession: LogicSession?
+    private var suspendedGames: [String:LogicSession] = [:]
     @Published private(set) var history: [String] = []
     @Published private(set) var historyIndex = -1
     private var readOnlyState = false
@@ -36,6 +46,10 @@ final class AppStore: ObservableObject {
         do {
             let url = try Self.resourceURL("catalog.json")
             library = try Library.decode(Data(contentsOf: url))
+            do {
+                games = try LogicGames.decode(Data(contentsOf: Self.resourceURL("games.json")), library: library!)
+                selectedGameID = games?.games.first?.id
+            } catch { gameLoadIssue = error.localizedDescription }
             if FileManager.default.fileExists(atPath: self.stateURL.path) {
                 do { personal = try PersonalState.read(from: self.stateURL) }
                 catch {
@@ -75,6 +89,7 @@ final class AppStore: ObservableObject {
                         saved: scope == "saved" ? personal.bookmarks : nil).map { $0.localized(language) } ?? []
     }
     var scopeTitle: String {
+        if scope == "games" { return t("Minigiochi", "Logic games") }
         if scope == "saved" { return t("Preferiti", "Bookmarks") }
         return category(scope)?.title ?? t("Tutte le voci", "All entries")
     }
@@ -82,6 +97,44 @@ final class AppStore: ObservableObject {
     func category(_ id: String) -> TopicCategory? { library?.category(id)?.localized(language) }
     func concept(_ id: String) -> Concept? { library?.concept(id)?.localized(language) }
     func t(_ it: String, _ en: String) -> String { language.text(it, en) }
+    var selectedGame: LogicGame? { selectedGameID.flatMap { games?.game($0) } }
+    var visibleGames: [LogicGame] {
+        let tokens = Library.normalized(query).split(whereSeparator: \.isWhitespace)
+        return (games?.games ?? []).filter { game in
+            let text = Library.normalized([game.title.it,game.title.en,game.introduction.it,game.introduction.en,category(game.id)?.title ?? ""].joined(separator:" "))
+            return tokens.allSatisfy { text.contains($0) }
+        }
+    }
+    func openGame(_ id: String? = nil) {
+        if let id, games?.game(id) != nil { selectedGameID = id }
+        scope = "games"; query = ""
+    }
+    func startGame(_ game: LogicGame) { gameSession = LogicSession(game:game) }
+    @discardableResult
+    func play(_ move: LogicMove, level: LogicLevel) -> Bool {
+        guard var session = gameSession, !session.isComplete else { return false }
+        let changed = session.run.apply(move,level:level)
+        if changed { gameSession = session }
+        return changed
+    }
+    func undoGame() { gameSession?.run.undo() }
+    func restartLevel(_ level: LogicLevel) {
+        guard gameSession?.run.levelID == level.id else { return }
+        gameSession?.run.restart(level:level)
+    }
+    func gameHint(_ level: LogicLevel) {
+        guard gameSession?.run.levelID == level.id else { return }
+        gameSession?.run.revealHint(level:level)
+    }
+    func advanceGame(_ game: LogicGame) {
+        guard var session = gameSession, session.advance(game:game) else { return }
+        gameSession = session
+        if session.isComplete {
+            var records = personal.gameRecords ?? [:]
+            records[game.id] = LogicRecord(session:session,levels:game.levels.count,previous:records[game.id])
+            personal.gameRecords = records; save()
+        }
+    }
     var canGoBack: Bool { historyIndex > 0 }
     var canGoForward: Bool { historyIndex + 1 < history.count }
 

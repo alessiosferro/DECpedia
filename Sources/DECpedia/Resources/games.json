@@ -1,0 +1,4842 @@
+{
+  "schemaVersion": 1,
+  "games": [
+    {
+      "categoryID": "algebra",
+      "title": {
+        "it": "La serratura dei resti",
+        "en": "The remainder lock"
+      },
+      "introduction": {
+        "it": "Gli ingranaggi sono collegati: ogni leva muove più quadranti. Apri la serratura portandoli insieme sui bersagli.",
+        "en": "The gears are coupled: each lever moves several dials. Open the lock by bringing them to their targets together."
+      },
+      "levels": [
+        {
+          "id": "algebra-gears-a",
+          "title": {
+            "it": "Ingranaggi accoppiati",
+            "en": "Coupled gears"
+          },
+          "mission": {
+            "it": "Porta entrambi i quadranti sui bersagli. Ogni quadrante riparte da zero quando raggiunge il proprio modulo.",
+            "en": "Bring both dials to their targets. Each dial wraps back to zero at its own modulus."
+          },
+          "hints": [
+            {
+              "it": "Conta l’effetto complessivo delle leve, non soltanto il quadrante che vuoi sistemare per primo.",
+              "en": "Consider the combined effect of the levers, rather than fixing one dial at a time."
+            },
+            {
+              "it": "Confronta il vettore finale con \\(a(1,2)+b(2,1)\\), ridotto nei rispettivi moduli.",
+              "en": "Compare the final vector with \\(a(1,2)+b(2,1)\\), reduced in the respective moduli."
+            }
+          ],
+          "explanation": {
+            "it": "Le mosse si sommano componente per componente. Nella prima ruota lavori modulo \\(5\\), nella seconda modulo \\(7\\). Un giro completo non cambia il resto: puoi quindi superare un bersaglio e tornarci. La serratura mette insieme più congruenze; sistemare una ruota ignorando l’altra può disfare il lavoro già fatto.",
+            "en": "Moves add component by component. The first wheel works modulo \\(5\\), the second modulo \\(7\\). A complete turn leaves the remainder unchanged, so passing a target can bring you back to it. The lock combines several congruences; fixing one wheel while ignoring the other may undo earlier progress."
+          },
+          "conceptIDs": [
+            "modular-arithmetic",
+            "chinese-remainder"
+          ],
+          "kind": "gears",
+          "moveLimit": 6,
+          "gears": {
+            "moduli": [
+              5,
+              7
+            ],
+            "start": [
+              0,
+              0
+            ],
+            "target": [
+              0,
+              4
+            ],
+            "moves": [
+              {
+                "name": {
+                  "it": "Ingranaggio A",
+                  "en": "Gear A"
+                },
+                "deltas": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "name": {
+                  "it": "Ingranaggio B",
+                  "en": "Gear B"
+                },
+                "deltas": [
+                  2,
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "algebra-gears-b",
+          "title": {
+            "it": "La ruota che salta",
+            "en": "The skipping wheel"
+          },
+          "mission": {
+            "it": "Una leva fa saltare dei valori sulla prima ruota. Usa l’altra per correggere la seconda senza toccare la prima.",
+            "en": "One lever skips values on the first wheel. Use the other to adjust the second without changing the first."
+          },
+          "hints": [
+            {
+              "it": "Osserva quali resti la prima leva può raggiungere partendo dalla posizione iniziale.",
+              "en": "Notice which remainders the first lever can reach from the initial position."
+            },
+            {
+              "it": "Aggiungere \\(2\\) modulo \\(6\\) conserva la parità: il quadrante iniziale è dispari.",
+              "en": "Adding \\(2\\) modulo \\(6\\) preserves parity: the initial dial is odd."
+            }
+          ],
+          "explanation": {
+            "it": "Il MCD spiega il vincolo nascosto: \\(\\gcd(2,6)=2\\), perciò una leva che aggiunge \\(2\\) non può cambiare la parità. La seconda leva lascia ferma quella ruota e permette di regolare l’altra. Cercare un invariante prima di muovere riduce molto i tentativi.",
+            "en": "The gcd explains the hidden constraint: \\(\\gcd(2,6)=2\\), so a lever adding \\(2\\) cannot change parity. The second lever leaves that wheel fixed and lets you adjust the other. Finding an invariant before moving greatly reduces trial and error."
+          },
+          "conceptIDs": [
+            "linear-congruences",
+            "integer-divisibility"
+          ],
+          "kind": "gears",
+          "moveLimit": 6,
+          "gears": {
+            "moduli": [
+              6,
+              5
+            ],
+            "start": [
+              1,
+              0
+            ],
+            "target": [
+              5,
+              4
+            ],
+            "moves": [
+              {
+                "name": {
+                  "it": "Ingranaggio A",
+                  "en": "Gear A"
+                },
+                "deltas": [
+                  2,
+                  1
+                ]
+              },
+              {
+                "name": {
+                  "it": "Ingranaggio B",
+                  "en": "Gear B"
+                },
+                "deltas": [
+                  0,
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "algebra-gears-c",
+          "title": {
+            "it": "La combinazione nascosta",
+            "en": "The hidden combination"
+          },
+          "mission": {
+            "it": "Coordina tutti i quadranti: anche la leva che arretra può avvicinarti alla soluzione.",
+            "en": "Coordinate all the dials: even the lever that moves backwards can bring you closer to the solution."
+          },
+          "hints": [
+            {
+              "it": "Ragiona sui vettori delle leve. Il loro ordine non cambia la somma finale.",
+              "en": "Think about the lever vectors. Their order does not change the final sum."
+            },
+            {
+              "it": "Un incremento negativo si riduce come qualsiasi altro intero: \\(-1\\equiv6\\pmod7\\).",
+              "en": "A negative increment reduces like any other integer: \\(-1\\equiv6\\pmod7\\)."
+            }
+          ],
+          "explanation": {
+            "it": "Questa è una piccola combinazione lineare in un prodotto di gruppi ciclici. Ogni ruota tiene soltanto il proprio resto. Non serve imporre che i valori interi coincidano con i bersagli prima della riduzione: conta la classe di congruenza. Le mosse inverse e i giri completi sono risorse utili, non errori.",
+            "en": "This is a small linear combination in a product of cyclic groups. Each wheel keeps only its own remainder. Integer values need not equal the targets before reduction: their congruence classes matter. Backward moves and full turns are useful resources, rather than mistakes."
+          },
+          "conceptIDs": [
+            "groups",
+            "cyclic-groups",
+            "modular-arithmetic"
+          ],
+          "kind": "gears",
+          "moveLimit": 7,
+          "gears": {
+            "moduli": [
+              7,
+              5,
+              3
+            ],
+            "start": [
+              0,
+              0,
+              0
+            ],
+            "target": [
+              3,
+              0,
+              0
+            ],
+            "moves": [
+              {
+                "name": {
+                  "it": "Ingranaggio A",
+                  "en": "Gear A"
+                },
+                "deltas": [
+                  1,
+                  2,
+                  1
+                ]
+              },
+              {
+                "name": {
+                  "it": "Ingranaggio B",
+                  "en": "Gear B"
+                },
+                "deltas": [
+                  2,
+                  1,
+                  0
+                ]
+              },
+              {
+                "name": {
+                  "it": "Ingranaggio C",
+                  "en": "Gear C"
+                },
+                "deltas": [
+                  -1,
+                  0,
+                  1
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categoryID": "classic",
+      "title": {
+        "it": "Le lanterne della chiave",
+        "en": "The key lanterns"
+      },
+      "introduction": {
+        "it": "Due messaggi hanno riutilizzato la stessa chiave. Ricostruiscili usando gli indizi: cambiare un interruttore modifica entrambe le righe.",
+        "en": "Two messages have reused the same key. Reconstruct them from the clues: changing a switch affects both rows."
+      },
+      "levels": [
+        {
+          "id": "classic-pad-0",
+          "title": {
+            "it": "Le lanterne gemelle",
+            "en": "Twin lanterns"
+          },
+          "mission": {
+            "it": "Ricostruisci la chiave comune azionando gli interruttori. Ogni interruttore cambia contemporaneamente le lanterne dei messaggi. Tutti gli indizi visibili devono coincidere.",
+            "en": "Reconstruct the shared key using the switches. Each switch changes both message lanterns at once. All visible clues must match."
+          },
+          "hints": [
+            {
+              "it": "Un indizio noto in una riga fissa la stessa posizione della chiave anche per l’altra riga.",
+              "en": "A known clue in one row determines the same key position for the other row."
+            },
+            {
+              "it": "Usa \\(k_i=c_i\\oplus m_i\\): non indovinare separatamente i messaggi.",
+              "en": "Use \\(k_i=c_i\\oplus m_i\\): do not guess the messages independently."
+            }
+          ],
+          "explanation": {
+            "it": "Lo XOR è reversibile: \\((m\\oplus k)\\oplus k=m\\). Con la stessa chiave, inoltre, \\(c_A\\oplus c_B=m_A\\oplus m_B\\). Per questo un frammento noto di un messaggio rivela il corrispondente frammento dell’altro. Qui gli indizi, distribuiti fra le righe, determinano tutta la chiave. Una chiave monouso sicura deve essere uniforme, segreta, lunga quanto il messaggio e mai riutilizzata.",
+            "en": "XOR is reversible: \\((m\\oplus k)\\oplus k=m\\). Reusing the key also gives \\(c_A\\oplus c_B=m_A\\oplus m_B\\). A known message fragment therefore reveals the corresponding fragment of the other message. Here the clues distributed across the rows determine the entire key. A secure one-time pad must be uniform, secret, as long as the message, and never reused."
+          },
+          "conceptIDs": [
+            "vernam",
+            "cryptography"
+          ],
+          "kind": "xor",
+          "moveLimit": 6,
+          "xor": {
+            "ciphertexts": [
+              [
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                0,
+                1
+              ]
+            ],
+            "clues": [
+              [
+                1,
+                null,
+                0,
+                null
+              ],
+              [
+                null,
+                1,
+                null,
+                0
+              ]
+            ],
+            "startKey": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "id": "classic-pad-1",
+          "title": {
+            "it": "Indizi alternati",
+            "en": "Alternating clues"
+          },
+          "mission": {
+            "it": "Ricostruisci la chiave comune azionando gli interruttori. Ogni interruttore cambia contemporaneamente le lanterne dei messaggi. Tutti gli indizi visibili devono coincidere.",
+            "en": "Reconstruct the shared key using the switches. Each switch changes both message lanterns at once. All visible clues must match."
+          },
+          "hints": [
+            {
+              "it": "Un indizio noto in una riga fissa la stessa posizione della chiave anche per l’altra riga.",
+              "en": "A known clue in one row determines the same key position for the other row."
+            },
+            {
+              "it": "Usa \\(k_i=c_i\\oplus m_i\\): non indovinare separatamente i messaggi.",
+              "en": "Use \\(k_i=c_i\\oplus m_i\\): do not guess the messages independently."
+            }
+          ],
+          "explanation": {
+            "it": "Lo XOR è reversibile: \\((m\\oplus k)\\oplus k=m\\). Con la stessa chiave, inoltre, \\(c_A\\oplus c_B=m_A\\oplus m_B\\). Per questo un frammento noto di un messaggio rivela il corrispondente frammento dell’altro. Qui gli indizi, distribuiti fra le righe, determinano tutta la chiave. Una chiave monouso sicura deve essere uniforme, segreta, lunga quanto il messaggio e mai riutilizzata.",
+            "en": "XOR is reversible: \\((m\\oplus k)\\oplus k=m\\). Reusing the key also gives \\(c_A\\oplus c_B=m_A\\oplus m_B\\). A known message fragment therefore reveals the corresponding fragment of the other message. Here the clues distributed across the rows determine the entire key. A secure one-time pad must be uniform, secret, as long as the message, and never reused."
+          },
+          "conceptIDs": [
+            "vernam",
+            "cryptography"
+          ],
+          "kind": "xor",
+          "moveLimit": 7,
+          "xor": {
+            "ciphertexts": [
+              [
+                1,
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                1,
+                0,
+                0,
+                1
+              ]
+            ],
+            "clues": [
+              [
+                0,
+                null,
+                1,
+                null,
+                1
+              ],
+              [
+                null,
+                0,
+                null,
+                1,
+                null
+              ]
+            ],
+            "startKey": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "id": "classic-pad-2",
+          "title": {
+            "it": "Il filo comune",
+            "en": "The common thread"
+          },
+          "mission": {
+            "it": "Ricostruisci la chiave comune azionando gli interruttori. Ogni interruttore cambia contemporaneamente le lanterne dei messaggi. Tutti gli indizi visibili devono coincidere.",
+            "en": "Reconstruct the shared key using the switches. Each switch changes both message lanterns at once. All visible clues must match."
+          },
+          "hints": [
+            {
+              "it": "Un indizio noto in una riga fissa la stessa posizione della chiave anche per l’altra riga.",
+              "en": "A known clue in one row determines the same key position for the other row."
+            },
+            {
+              "it": "Usa \\(k_i=c_i\\oplus m_i\\): non indovinare separatamente i messaggi.",
+              "en": "Use \\(k_i=c_i\\oplus m_i\\): do not guess the messages independently."
+            }
+          ],
+          "explanation": {
+            "it": "Lo XOR è reversibile: \\((m\\oplus k)\\oplus k=m\\). Con la stessa chiave, inoltre, \\(c_A\\oplus c_B=m_A\\oplus m_B\\). Per questo un frammento noto di un messaggio rivela il corrispondente frammento dell’altro. Qui gli indizi, distribuiti fra le righe, determinano tutta la chiave. Una chiave monouso sicura deve essere uniforme, segreta, lunga quanto il messaggio e mai riutilizzata.",
+            "en": "XOR is reversible: \\((m\\oplus k)\\oplus k=m\\). Reusing the key also gives \\(c_A\\oplus c_B=m_A\\oplus m_B\\). A known message fragment therefore reveals the corresponding fragment of the other message. Here the clues distributed across the rows determine the entire key. A secure one-time pad must be uniform, secret, as long as the message, and never reused."
+          },
+          "conceptIDs": [
+            "vernam",
+            "cryptography"
+          ],
+          "kind": "xor",
+          "moveLimit": 8,
+          "xor": {
+            "ciphertexts": [
+              [
+                1,
+                1,
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                1,
+                0,
+                1
+              ]
+            ],
+            "clues": [
+              [
+                1,
+                null,
+                1,
+                null,
+                0,
+                null
+              ],
+              [
+                null,
+                1,
+                null,
+                1,
+                null,
+                0
+              ]
+            ],
+            "startKey": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categoryID": "public",
+      "title": {
+        "it": "Il corriere delle chiavi",
+        "en": "The key courier"
+      },
+      "introduction": {
+        "it": "Guida un pacco in una rete sorvegliata. Le chiavi restano ai proprietari: devi scegliere destinatario, percorso e ordine delle operazioni.",
+        "en": "Guide a parcel through a watched network. Keys stay with their owners: choose the recipient, route, and order of operations."
+      },
+      "levels": [
+        {
+          "id": "public-courier-0",
+          "title": {
+            "it": "Il destinatario giusto",
+            "en": "The right recipient"
+          },
+          "mission": {
+            "it": "Porta il pacco da Alice a Bob. Scegli le strade sulla mappa; le porte si aprono solo con lo stato richiesto.",
+            "en": "Deliver the parcel from Alice to Bob. Choose roads on the map; doors open only when the required state is present."
+          },
+          "hints": [
+            {
+              "it": "Leggi i requisiti delle porte. Una chiave pubblica protegge per il proprietario del corrispondente segreto.",
+              "en": "Read the door requirements. A public key protects data for the owner of the corresponding secret."
+            },
+            {
+              "it": "Se imbocchi la strada sbagliata, torna indietro con Annulla; non è necessario ricominciare.",
+              "en": "If you take the wrong road, use Undo to go back; you do not have to restart."
+            }
+          ],
+          "explanation": {
+            "it": "Il gioco distingue i ruoli delle chiavi. Per la riservatezza si cifra con la chiave pubblica del destinatario e si apre con il suo segreto. Per autenticare Alice, invece, firma lei con il proprio segreto e verifica Bob con la chiave pubblica di Alice. Il relay è autorizzato a leggere: la cifratura viene ricreata sul tratto successivo. Le porte rappresentano questo protocollo didattico, non un’implementazione crittografica sicura.",
+            "en": "The game distinguishes the roles of keys. Confidentiality uses the recipient’s public key for encryption and their secret for decryption. To authenticate Alice, she signs using her secret and Bob verifies with Alice’s public key. The relay is authorized to read the message; encryption is recreated for the next leg. The doors represent this teaching protocol, rather than a secure cryptographic implementation."
+          },
+          "conceptIDs": [
+            "public-key",
+            "rsa"
+          ],
+          "kind": "route",
+          "moveLimit": 14,
+          "route": {
+            "nodes": [
+              {
+                "id": "start",
+                "row": 0,
+                "column": 0,
+                "title": {
+                  "it": "Alice",
+                  "en": "Alice"
+                },
+                "detail": {
+                  "it": "Il messaggio è ancora aperto. Scegli la chiave del destinatario prima di attraversare il canale.",
+                  "en": "The message is still open. Choose the recipient’s key before crossing the channel."
+                },
+                "exits": [
+                  "pubB",
+                  "pubA",
+                  "leak"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "pubA",
+                "row": 0,
+                "column": 1,
+                "title": {
+                  "it": "Chiave di Alice",
+                  "en": "Alice’s key"
+                },
+                "detail": {
+                  "it": "Questa chiave rende il pacco leggibile soltanto con il segreto di Alice.",
+                  "en": "This key makes the parcel readable only with Alice’s secret."
+                },
+                "exits": [
+                  "wire",
+                  "undoA"
+                ],
+                "requires": [
+                  "plain"
+                ],
+                "grants": [
+                  "alice"
+                ],
+                "removes": [
+                  "plain"
+                ],
+                "blockedReason": null
+              },
+              {
+                "id": "leak",
+                "row": 0,
+                "column": 2,
+                "title": {
+                  "it": "Scorciatoia",
+                  "en": "Shortcut"
+                },
+                "detail": {
+                  "it": "La strada è sorvegliata.",
+                  "en": "The road is watched."
+                },
+                "exits": [],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": {
+                  "it": "Inviare una chiave privata o il testo in chiaro nel canale rende inutile la protezione.",
+                  "en": "Sending a private key or plaintext through the channel defeats the protection."
+                }
+              },
+              {
+                "id": "pubB",
+                "row": 1,
+                "column": 0,
+                "title": {
+                  "it": "Chiave di Bob",
+                  "en": "Bob’s key"
+                },
+                "detail": {
+                  "it": "Il lucchetto pubblico di Bob trasforma \\(m\\) in \\(m^{e_B}\\bmod n_B\\).",
+                  "en": "Bob’s public lock transforms \\(m\\) into \\(m^{e_B}\\bmod n_B\\)."
+                },
+                "exits": [
+                  "wire"
+                ],
+                "requires": [
+                  "plain"
+                ],
+                "grants": [
+                  "bob"
+                ],
+                "removes": [
+                  "plain"
+                ],
+                "blockedReason": null
+              },
+              {
+                "id": "wire",
+                "row": 1,
+                "column": 1,
+                "title": {
+                  "it": "Canale osservato",
+                  "en": "Watched channel"
+                },
+                "detail": {
+                  "it": "Il pacco può passare solo se è cifrato per Bob.",
+                  "en": "The parcel may pass only when encrypted for Bob."
+                },
+                "exits": [
+                  "privateB"
+                ],
+                "requires": [
+                  "bob"
+                ],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "privateB",
+                "row": 1,
+                "column": 2,
+                "title": {
+                  "it": "Segreto di Bob",
+                  "en": "Bob’s secret"
+                },
+                "detail": {
+                  "it": "Bob apre il proprio lucchetto con la chiave privata, che resta qui.",
+                  "en": "Bob opens his lock with his private key, which stays here."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [
+                  "bob"
+                ],
+                "grants": [
+                  "received"
+                ],
+                "removes": [
+                  "bob"
+                ],
+                "blockedReason": null
+              },
+              {
+                "id": "undoA",
+                "row": 2,
+                "column": 1,
+                "title": {
+                  "it": "Ritorno da Alice",
+                  "en": "Back to Alice"
+                },
+                "detail": {
+                  "it": "Alice può aprire il lucchetto sbagliato e preparare di nuovo il pacco.",
+                  "en": "Alice can open the wrong lock and prepare the parcel again."
+                },
+                "exits": [
+                  "start"
+                ],
+                "requires": [
+                  "alice"
+                ],
+                "grants": [
+                  "plain"
+                ],
+                "removes": [
+                  "alice"
+                ],
+                "blockedReason": null
+              },
+              {
+                "id": "goal",
+                "row": 2,
+                "column": 2,
+                "title": {
+                  "it": "Consegna",
+                  "en": "Delivery"
+                },
+                "detail": {
+                  "it": "Il destinatario autorizzato ha letto il messaggio.",
+                  "en": "The authorized recipient has read the message."
+                },
+                "exits": [],
+                "requires": [
+                  "received"
+                ],
+                "grants": [
+                  "delivered"
+                ],
+                "removes": [],
+                "blockedReason": null
+              }
+            ],
+            "start": "start",
+            "goal": "goal",
+            "tokens": [
+              {
+                "id": "plain",
+                "label": {
+                  "it": "Messaggio aperto",
+                  "en": "Open message"
+                }
+              },
+              {
+                "id": "bob",
+                "label": {
+                  "it": "Cifrato per Bob",
+                  "en": "Encrypted for Bob"
+                }
+              },
+              {
+                "id": "alice",
+                "label": {
+                  "it": "Cifrato per Alice",
+                  "en": "Encrypted for Alice"
+                }
+              },
+              {
+                "id": "received",
+                "label": {
+                  "it": "Bob ha letto",
+                  "en": "Bob has read it"
+                }
+              },
+              {
+                "id": "delivered",
+                "label": {
+                  "it": "Consegna completata",
+                  "en": "Delivery complete"
+                }
+              }
+            ],
+            "initialTokens": [
+              "plain"
+            ],
+            "goalTokens": [
+              "delivered"
+            ]
+          }
+        },
+        {
+          "id": "public-courier-1",
+          "title": {
+            "it": "Il relay",
+            "en": "The relay"
+          },
+          "mission": {
+            "it": "Consegna il messaggio anche a Carol, passando dal relay autorizzato Bob.",
+            "en": "Deliver the message to Carol through the authorized relay Bob."
+          },
+          "hints": [
+            {
+              "it": "Leggi i requisiti delle porte. Una chiave pubblica protegge per il proprietario del corrispondente segreto.",
+              "en": "Read the door requirements. A public key protects data for the owner of the corresponding secret."
+            },
+            {
+              "it": "Se imbocchi la strada sbagliata, torna indietro con Annulla; non è necessario ricominciare.",
+              "en": "If you take the wrong road, use Undo to go back; you do not have to restart."
+            }
+          ],
+          "explanation": {
+            "it": "Il gioco distingue i ruoli delle chiavi. Per la riservatezza si cifra con la chiave pubblica del destinatario e si apre con il suo segreto. Per autenticare Alice, invece, firma lei con il proprio segreto e verifica Bob con la chiave pubblica di Alice. Il relay è autorizzato a leggere: la cifratura viene ricreata sul tratto successivo. Le porte rappresentano questo protocollo didattico, non un’implementazione crittografica sicura.",
+            "en": "The game distinguishes the roles of keys. Confidentiality uses the recipient’s public key for encryption and their secret for decryption. To authenticate Alice, she signs using her secret and Bob verifies with Alice’s public key. The relay is authorized to read the message; encryption is recreated for the next leg. The doors represent this teaching protocol, rather than a secure cryptographic implementation."
+          },
+          "conceptIDs": [
+            "public-key",
+            "rsa"
+          ],
+          "kind": "route",
+          "moveLimit": 14,
+          "route": {
+            "nodes": [
+              {
+                "id": "start",
+                "row": 0,
+                "column": 0,
+                "title": {
+                  "it": "Alice",
+                  "en": "Alice"
+                },
+                "detail": {
+                  "it": "Il corriere deve raggiungere Bob e poi Carol.",
+                  "en": "The courier must reach Bob and then Carol."
+                },
+                "exits": [
+                  "encB"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "encB",
+                "row": 0,
+                "column": 1,
+                "title": {
+                  "it": "Cifra per Bob",
+                  "en": "Encrypt for Bob"
+                },
+                "detail": {
+                  "it": "Applica la chiave pubblica di Bob.",
+                  "en": "Apply Bob’s public key."
+                },
+                "exits": [
+                  "wireB"
+                ],
+                "requires": [
+                  "plain"
+                ],
+                "grants": [
+                  "bob"
+                ],
+                "removes": [
+                  "plain"
+                ],
+                "blockedReason": null
+              },
+              {
+                "id": "wireB",
+                "row": 0,
+                "column": 2,
+                "title": {
+                  "it": "Primo canale",
+                  "en": "First channel"
+                },
+                "detail": {
+                  "it": "Bob è il destinatario di questo tratto.",
+                  "en": "Bob is the recipient of this leg."
+                },
+                "exits": [
+                  "decB"
+                ],
+                "requires": [
+                  "bob"
+                ],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "encC",
+                "row": 1,
+                "column": 0,
+                "title": {
+                  "it": "Cifra per Carol",
+                  "en": "Encrypt for Carol"
+                },
+                "detail": {
+                  "it": "Serve il messaggio già aperto da Bob, non il cifrato del primo tratto.",
+                  "en": "This needs the message already opened by Bob, rather than the ciphertext from the first leg."
+                },
+                "exits": [
+                  "wireC"
+                ],
+                "requires": [
+                  "relay"
+                ],
+                "grants": [
+                  "carol"
+                ],
+                "removes": [
+                  "relay"
+                ],
+                "blockedReason": null
+              },
+              {
+                "id": "decB",
+                "row": 1,
+                "column": 1,
+                "title": {
+                  "it": "Bob apre",
+                  "en": "Bob opens"
+                },
+                "detail": {
+                  "it": "Il relay autorizzato usa il proprio segreto e ottiene il messaggio.",
+                  "en": "The authorized relay uses his secret and obtains the message."
+                },
+                "exits": [
+                  "encC",
+                  "goal",
+                  "leak"
+                ],
+                "requires": [
+                  "bob"
+                ],
+                "grants": [
+                  "relay"
+                ],
+                "removes": [
+                  "bob"
+                ],
+                "blockedReason": null
+              },
+              {
+                "id": "leak",
+                "row": 1,
+                "column": 2,
+                "title": {
+                  "it": "Invio aperto",
+                  "en": "Open forwarding"
+                },
+                "detail": {
+                  "it": "Questo tratto è pubblico.",
+                  "en": "This leg is public."
+                },
+                "exits": [],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": {
+                  "it": "Il fatto che Bob abbia decifrato non protegge il successivo invio a Carol. Occorre una nuova cifratura per lei.",
+                  "en": "Bob having decrypted the message does not protect the next transmission to Carol. It must be encrypted for her."
+                }
+              },
+              {
+                "id": "wireC",
+                "row": 2,
+                "column": 0,
+                "title": {
+                  "it": "Secondo canale",
+                  "en": "Second channel"
+                },
+                "detail": {
+                  "it": "Carol deve poter aprire il pacco.",
+                  "en": "Carol must be able to open the parcel."
+                },
+                "exits": [
+                  "decC"
+                ],
+                "requires": [
+                  "carol"
+                ],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "decC",
+                "row": 2,
+                "column": 1,
+                "title": {
+                  "it": "Carol apre",
+                  "en": "Carol opens"
+                },
+                "detail": {
+                  "it": "Solo il segreto di Carol apre questo tratto.",
+                  "en": "Only Carol’s secret opens this leg."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [
+                  "carol"
+                ],
+                "grants": [
+                  "done"
+                ],
+                "removes": [
+                  "carol"
+                ],
+                "blockedReason": null
+              },
+              {
+                "id": "goal",
+                "row": 2,
+                "column": 2,
+                "title": {
+                  "it": "Archivio di Carol",
+                  "en": "Carol’s archive"
+                },
+                "detail": {
+                  "it": "La consegna termina dopo la lettura di Carol.",
+                  "en": "Delivery ends after Carol has read it."
+                },
+                "exits": [],
+                "requires": [
+                  "done"
+                ],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              }
+            ],
+            "start": "start",
+            "goal": "goal",
+            "tokens": [
+              {
+                "id": "plain",
+                "label": {
+                  "it": "Pronto per Bob",
+                  "en": "Ready for Bob"
+                }
+              },
+              {
+                "id": "bob",
+                "label": {
+                  "it": "Lucchetto di Bob",
+                  "en": "Bob’s lock"
+                }
+              },
+              {
+                "id": "relay",
+                "label": {
+                  "it": "Bob, testo aperto",
+                  "en": "Bob, open text"
+                }
+              },
+              {
+                "id": "carol",
+                "label": {
+                  "it": "Lucchetto di Carol",
+                  "en": "Carol’s lock"
+                }
+              },
+              {
+                "id": "done",
+                "label": {
+                  "it": "Carol ha letto",
+                  "en": "Carol has read it"
+                }
+              }
+            ],
+            "initialTokens": [
+              "plain"
+            ],
+            "goalTokens": [
+              "done"
+            ]
+          }
+        },
+        {
+          "id": "public-courier-2",
+          "title": {
+            "it": "Doppia protezione",
+            "en": "Two protections"
+          },
+          "mission": {
+            "it": "Porta il messaggio nell’archivio: il protocollo richiede prima la firma, poi la cifratura e infine la verifica.",
+            "en": "Reach the archive: this protocol requires signing, then encryption, and finally verification."
+          },
+          "hints": [
+            {
+              "it": "Leggi i requisiti delle porte. Una chiave pubblica protegge per il proprietario del corrispondente segreto.",
+              "en": "Read the door requirements. A public key protects data for the owner of the corresponding secret."
+            },
+            {
+              "it": "Se imbocchi la strada sbagliata, torna indietro con Annulla; non è necessario ricominciare.",
+              "en": "If you take the wrong road, use Undo to go back; you do not have to restart."
+            }
+          ],
+          "explanation": {
+            "it": "Il gioco distingue i ruoli delle chiavi. Per la riservatezza si cifra con la chiave pubblica del destinatario e si apre con il suo segreto. Per autenticare Alice, invece, firma lei con il proprio segreto e verifica Bob con la chiave pubblica di Alice. Il relay è autorizzato a leggere: la cifratura viene ricreata sul tratto successivo. Le porte rappresentano questo protocollo didattico, non un’implementazione crittografica sicura.",
+            "en": "The game distinguishes the roles of keys. Confidentiality uses the recipient’s public key for encryption and their secret for decryption. To authenticate Alice, she signs using her secret and Bob verifies with Alice’s public key. The relay is authorized to read the message; encryption is recreated for the next leg. The doors represent this teaching protocol, rather than a secure cryptographic implementation."
+          },
+          "conceptIDs": [
+            "public-key",
+            "rsa",
+            "digital-signatures"
+          ],
+          "kind": "route",
+          "moveLimit": 14,
+          "route": {
+            "nodes": [
+              {
+                "id": "start",
+                "row": 0,
+                "column": 0,
+                "title": {
+                  "it": "Officina di Alice",
+                  "en": "Alice’s workshop"
+                },
+                "detail": {
+                  "it": "Servono riservatezza e autenticità del messaggio.",
+                  "en": "The message needs confidentiality and authenticity."
+                },
+                "exits": [
+                  "sign",
+                  "encrypt"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "sign",
+                "row": 0,
+                "column": 1,
+                "title": {
+                  "it": "Sigilla il testo",
+                  "en": "Seal the text"
+                },
+                "detail": {
+                  "it": "In questo protocollo didattico Alice firma il digest del testo prima della cifratura.",
+                  "en": "In this teaching protocol Alice signs the plaintext digest before encryption."
+                },
+                "exits": [
+                  "encrypt"
+                ],
+                "requires": [
+                  "plain"
+                ],
+                "grants": [
+                  "signed"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "encrypt",
+                "row": 0,
+                "column": 2,
+                "title": {
+                  "it": "Lucchetto di Bob",
+                  "en": "Bob’s lock"
+                },
+                "detail": {
+                  "it": "La cifratura protegge testo e sigillo nel canale.",
+                  "en": "Encryption protects the text and seal on the channel."
+                },
+                "exits": [
+                  "wire"
+                ],
+                "requires": [
+                  "plain"
+                ],
+                "grants": [
+                  "cipher"
+                ],
+                "removes": [
+                  "plain"
+                ],
+                "blockedReason": null
+              },
+              {
+                "id": "wire",
+                "row": 1,
+                "column": 2,
+                "title": {
+                  "it": "Canale ostile",
+                  "en": "Hostile channel"
+                },
+                "detail": {
+                  "it": "Il protocollo accetta soltanto un pacco cifrato e già sigillato.",
+                  "en": "The protocol accepts only an encrypted parcel that already carries a seal."
+                },
+                "exits": [
+                  "decrypt"
+                ],
+                "requires": [
+                  "cipher",
+                  "signed"
+                ],
+                "grants": [
+                  "crossed"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "decrypt",
+                "row": 1,
+                "column": 1,
+                "title": {
+                  "it": "Bob apre",
+                  "en": "Bob opens"
+                },
+                "detail": {
+                  "it": "Bob usa il proprio segreto per recuperare testo e firma.",
+                  "en": "Bob uses his secret to recover the text and signature."
+                },
+                "exits": [
+                  "verify",
+                  "goal"
+                ],
+                "requires": [
+                  "cipher",
+                  "crossed"
+                ],
+                "grants": [
+                  "read"
+                ],
+                "removes": [
+                  "cipher"
+                ],
+                "blockedReason": null
+              },
+              {
+                "id": "verify",
+                "row": 2,
+                "column": 1,
+                "title": {
+                  "it": "Controlla Alice",
+                  "en": "Check Alice"
+                },
+                "detail": {
+                  "it": "Bob verifica la firma con la chiave pubblica di Alice e confronta il digest ricevuto.",
+                  "en": "Bob verifies the signature with Alice’s public key and compares it with the received digest."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [
+                  "read",
+                  "signed"
+                ],
+                "grants": [
+                  "valid"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "goal",
+                "row": 2,
+                "column": 2,
+                "title": {
+                  "it": "Archivio verificato",
+                  "en": "Verified archive"
+                },
+                "detail": {
+                  "it": "La consegna richiede anche la verifica del sigillo.",
+                  "en": "Delivery also requires checking the seal."
+                },
+                "exits": [],
+                "requires": [
+                  "valid"
+                ],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              }
+            ],
+            "start": "start",
+            "goal": "goal",
+            "tokens": [
+              {
+                "id": "plain",
+                "label": {
+                  "it": "Testo da firmare",
+                  "en": "Text to sign"
+                }
+              },
+              {
+                "id": "signed",
+                "label": {
+                  "it": "Sigillo di Alice",
+                  "en": "Alice’s seal"
+                }
+              },
+              {
+                "id": "cipher",
+                "label": {
+                  "it": "Cifrato per Bob",
+                  "en": "Encrypted for Bob"
+                }
+              },
+              {
+                "id": "crossed",
+                "label": {
+                  "it": "Canale attraversato",
+                  "en": "Channel crossed"
+                }
+              },
+              {
+                "id": "read",
+                "label": {
+                  "it": "Testo ricevuto",
+                  "en": "Text received"
+                }
+              },
+              {
+                "id": "valid",
+                "label": {
+                  "it": "Firma verificata",
+                  "en": "Signature verified"
+                }
+              }
+            ],
+            "initialTokens": [
+              "plain"
+            ],
+            "goalTokens": [
+              "valid"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categoryID": "curves",
+      "title": {
+        "it": "Il giardino delle corde",
+        "en": "The chord garden"
+      },
+      "introduction": {
+        "it": "Attraversa un giardino di punti finiti. La legge della curva decide dove atterri: pianifica salti, raddoppi e riflessi.",
+        "en": "Cross a garden of finite points. The curve’s law determines where you land: plan additions, doublings, and reflections."
+      },
+      "levels": [
+        {
+          "id": "curves-walk-0",
+          "title": {
+            "it": "Le pietre della curva",
+            "en": "Curve stepping stones"
+          },
+          "mission": {
+            "it": "Raggiungi la stella usando le mosse disponibili. Non puoi scegliere liberamente un punto: ogni salto deve rispettare la legge di gruppo della curva.",
+            "en": "Reach the star using the available moves. You cannot choose a point freely: every jump must follow the curve’s group law."
+          },
+          "hints": [
+            {
+              "it": "Il raddoppio usa il punto in cui ti trovi, mentre la pietra aggiunta resta sempre la stessa.",
+              "en": "Doubling uses your current point, while the point being added stays fixed."
+            },
+            {
+              "it": "Il punto all’infinito \\(\\Omega\\) è il neutro. Riflettere manda \\((x,y)\\) in \\((x,-y)\\).",
+              "en": "The point at infinity \\(\\Omega\\) is the identity. Reflection sends \\((x,y)\\) to \\((x,-y)\\)."
+            }
+          ],
+          "explanation": {
+            "it": "Le pietre rappresentano tutti i punti affini della curva nel campo indicato; \\(\\Omega\\) compare fuori dalla griglia. I salti non sono somme di coordinate. Per \\(R+S\\) si usa la pendenza della secante o della tangente, poi si riflette l’intersezione. Il raddoppio e l’addizione consentono di comporre moltiplicazioni scalari; la riflessione fornisce l’opposto. Tutti i risultati sono ridotti nel campo finito.",
+            "en": "The stones represent every affine point of the curve over the displayed field; \\(\\Omega\\) appears outside the grid. Jumps do not add coordinates. Computing \\(R+S\\) uses the secant or tangent slope and reflects the intersection. Doubling and addition compose scalar multiplications; reflection gives the inverse. Every result is reduced in the finite field."
+          },
+          "conceptIDs": [
+            "elliptic-addition",
+            "double-add",
+            "elliptic-curves"
+          ],
+          "kind": "curve",
+          "moveLimit": 6,
+          "curve": {
+            "p": 5,
+            "a": 1,
+            "b": 1,
+            "start": {
+              "x": null,
+              "y": null
+            },
+            "target": {
+              "x": 2,
+              "y": 1
+            },
+            "moves": [
+              {
+                "name": {
+                  "it": "Avanza di \\(P\\)",
+                  "en": "Add \\(P\\)"
+                },
+                "operation": "add",
+                "point": {
+                  "x": 0,
+                  "y": 1
+                }
+              },
+              {
+                "name": {
+                  "it": "Raddoppia",
+                  "en": "Double"
+                },
+                "operation": "double"
+              },
+              {
+                "name": {
+                  "it": "Rifletti",
+                  "en": "Reflect"
+                },
+                "operation": "negate"
+              }
+            ]
+          }
+        },
+        {
+          "id": "curves-walk-1",
+          "title": {
+            "it": "Un salto più lungo",
+            "en": "A longer jump"
+          },
+          "mission": {
+            "it": "Raggiungi la stella usando le mosse disponibili. Non puoi scegliere liberamente un punto: ogni salto deve rispettare la legge di gruppo della curva.",
+            "en": "Reach the star using the available moves. You cannot choose a point freely: every jump must follow the curve’s group law."
+          },
+          "hints": [
+            {
+              "it": "Il raddoppio usa il punto in cui ti trovi, mentre la pietra aggiunta resta sempre la stessa.",
+              "en": "Doubling uses your current point, while the point being added stays fixed."
+            },
+            {
+              "it": "Il punto all’infinito \\(\\Omega\\) è il neutro. Riflettere manda \\((x,y)\\) in \\((x,-y)\\).",
+              "en": "The point at infinity \\(\\Omega\\) is the identity. Reflection sends \\((x,y)\\) to \\((x,-y)\\)."
+            }
+          ],
+          "explanation": {
+            "it": "Le pietre rappresentano tutti i punti affini della curva nel campo indicato; \\(\\Omega\\) compare fuori dalla griglia. I salti non sono somme di coordinate. Per \\(R+S\\) si usa la pendenza della secante o della tangente, poi si riflette l’intersezione. Il raddoppio e l’addizione consentono di comporre moltiplicazioni scalari; la riflessione fornisce l’opposto. Tutti i risultati sono ridotti nel campo finito.",
+            "en": "The stones represent every affine point of the curve over the displayed field; \\(\\Omega\\) appears outside the grid. Jumps do not add coordinates. Computing \\(R+S\\) uses the secant or tangent slope and reflects the intersection. Doubling and addition compose scalar multiplications; reflection gives the inverse. Every result is reduced in the finite field."
+          },
+          "conceptIDs": [
+            "elliptic-addition",
+            "double-add",
+            "elliptic-curves"
+          ],
+          "kind": "curve",
+          "moveLimit": 6,
+          "curve": {
+            "p": 5,
+            "a": 1,
+            "b": 1,
+            "start": {
+              "x": 0,
+              "y": 1
+            },
+            "target": {
+              "x": 3,
+              "y": 1
+            },
+            "moves": [
+              {
+                "name": {
+                  "it": "Avanza di \\(P\\)",
+                  "en": "Add \\(P\\)"
+                },
+                "operation": "add",
+                "point": {
+                  "x": 0,
+                  "y": 1
+                }
+              },
+              {
+                "name": {
+                  "it": "Raddoppia",
+                  "en": "Double"
+                },
+                "operation": "double"
+              },
+              {
+                "name": {
+                  "it": "Rifletti",
+                  "en": "Reflect"
+                },
+                "operation": "negate"
+              }
+            ]
+          }
+        },
+        {
+          "id": "curves-walk-2",
+          "title": {
+            "it": "Il riflesso",
+            "en": "The reflection"
+          },
+          "mission": {
+            "it": "Raggiungi la stella usando le mosse disponibili. Non puoi scegliere liberamente un punto: ogni salto deve rispettare la legge di gruppo della curva.",
+            "en": "Reach the star using the available moves. You cannot choose a point freely: every jump must follow the curve’s group law."
+          },
+          "hints": [
+            {
+              "it": "Il raddoppio usa il punto in cui ti trovi, mentre la pietra aggiunta resta sempre la stessa.",
+              "en": "Doubling uses your current point, while the point being added stays fixed."
+            },
+            {
+              "it": "Il punto all’infinito \\(\\Omega\\) è il neutro. Riflettere manda \\((x,y)\\) in \\((x,-y)\\).",
+              "en": "The point at infinity \\(\\Omega\\) is the identity. Reflection sends \\((x,y)\\) to \\((x,-y)\\)."
+            }
+          ],
+          "explanation": {
+            "it": "Le pietre rappresentano tutti i punti affini della curva nel campo indicato; \\(\\Omega\\) compare fuori dalla griglia. I salti non sono somme di coordinate. Per \\(R+S\\) si usa la pendenza della secante o della tangente, poi si riflette l’intersezione. Il raddoppio e l’addizione consentono di comporre moltiplicazioni scalari; la riflessione fornisce l’opposto. Tutti i risultati sono ridotti nel campo finito.",
+            "en": "The stones represent every affine point of the curve over the displayed field; \\(\\Omega\\) appears outside the grid. Jumps do not add coordinates. Computing \\(R+S\\) uses the secant or tangent slope and reflects the intersection. Doubling and addition compose scalar multiplications; reflection gives the inverse. Every result is reduced in the finite field."
+          },
+          "conceptIDs": [
+            "elliptic-addition",
+            "double-add",
+            "elliptic-curves"
+          ],
+          "kind": "curve",
+          "moveLimit": 6,
+          "curve": {
+            "p": 7,
+            "a": 2,
+            "b": 1,
+            "start": {
+              "x": 0,
+              "y": 1
+            },
+            "target": {
+              "x": 1,
+              "y": 5
+            },
+            "moves": [
+              {
+                "name": {
+                  "it": "Avanza di \\(P\\)",
+                  "en": "Add \\(P\\)"
+                },
+                "operation": "add",
+                "point": {
+                  "x": 0,
+                  "y": 1
+                }
+              },
+              {
+                "name": {
+                  "it": "Raddoppia",
+                  "en": "Double"
+                },
+                "operation": "double"
+              },
+              {
+                "name": {
+                  "it": "Rifletti",
+                  "en": "Reflect"
+                },
+                "operation": "negate"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categoryID": "signatures",
+      "title": {
+        "it": "L’officina dei sigilli",
+        "en": "The seal workshop"
+      },
+      "introduction": {
+        "it": "Rimetti in ordine una consegna manomessa. Abbina sigilli e pacchi attraverso la verifica pubblica e lascia nel vassoio l’intruso.",
+        "en": "Repair a tampered delivery. Match seals to parcels using public verification, leaving the intruder in the tray."
+      },
+      "levels": [
+        {
+          "id": "signatures-seals-0",
+          "title": {
+            "it": "I pacchi scambiati",
+            "en": "Mixed-up parcels"
+          },
+          "mission": {
+            "it": "I sigilli si sono staccati dai pacchi e ce n’è uno falso. Scegli un sigillo nel vassoio, poi un pacco. Se sposti un sigillo già usato, i sigilli dei pacchi si scambiano. Accendi tutti i controlli di verifica.",
+            "en": "The seals have fallen off the parcels, and one is forged. Select a seal in the tray, then a parcel. Moving a seal already in use swaps the parcels’ seals. Make every verification check light up."
+          },
+          "hints": [
+            {
+              "it": "Per ciascun sigillo osserva il valore \\(s^e\\bmod n\\). Deve coincidere con il digest del pacco.",
+              "en": "For each seal, inspect \\(s^e\\bmod n\\). It must match the parcel’s digest."
+            },
+            {
+              "it": "Non fidarti dell’aspetto o della posizione dei sigilli: il controllo pubblico è il tuo indizio.",
+              "en": "Do not trust the appearance or position of the seals: public verification is your clue."
+            }
+          ],
+          "explanation": {
+            "it": "La verifica RSA didattica confronta \\(s^e\\bmod n\\) con il digest dichiarato del messaggio. Il sigillo falso non supera nessuno dei controlli; gli altri vanno abbinati al proprio digest. La chiave privata non serve per verificare. I numeri sono volutamente piccoli e non si usa un padding sicuro: questo tabellone illustra soltanto la relazione matematica. Nella pratica servono schemi standard, digest resistenti alle collisioni e parametri adeguati.",
+            "en": "Teaching RSA verification compares \\(s^e\\bmod n\\) with the message’s declared digest. The forged seal passes none of the checks; the others must be matched with their digests. Verification does not require the private key. The numbers are deliberately small and secure padding is absent: this board illustrates only the mathematical relation. Real applications require standard schemes, collision-resistant digests, and suitable parameters."
+          },
+          "conceptIDs": [
+            "rsa-signature",
+            "digital-signatures",
+            "hash"
+          ],
+          "kind": "seals",
+          "moveLimit": 9,
+          "seals": {
+            "n": 33,
+            "e": 3,
+            "messages": [
+              {
+                "id": "m0",
+                "label": {
+                  "it": "Pacco A",
+                  "en": "Parcel A"
+                },
+                "digest": 2
+              },
+              {
+                "id": "m1",
+                "label": {
+                  "it": "Pacco B",
+                  "en": "Parcel B"
+                },
+                "digest": 4
+              },
+              {
+                "id": "m2",
+                "label": {
+                  "it": "Pacco C",
+                  "en": "Parcel C"
+                },
+                "digest": 5
+              }
+            ],
+            "seals": [
+              {
+                "id": "s0",
+                "value": 14
+              },
+              {
+                "id": "s1",
+                "value": 16
+              },
+              {
+                "id": "s2",
+                "value": 29
+              },
+              {
+                "id": "s3",
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "signatures-seals-1",
+          "title": {
+            "it": "Il sigillo intruso",
+            "en": "The intruding seal"
+          },
+          "mission": {
+            "it": "I sigilli si sono staccati dai pacchi e ce n’è uno falso. Scegli un sigillo nel vassoio, poi un pacco. Se sposti un sigillo già usato, i sigilli dei pacchi si scambiano. Accendi tutti i controlli di verifica.",
+            "en": "The seals have fallen off the parcels, and one is forged. Select a seal in the tray, then a parcel. Moving a seal already in use swaps the parcels’ seals. Make every verification check light up."
+          },
+          "hints": [
+            {
+              "it": "Per ciascun sigillo osserva il valore \\(s^e\\bmod n\\). Deve coincidere con il digest del pacco.",
+              "en": "For each seal, inspect \\(s^e\\bmod n\\). It must match the parcel’s digest."
+            },
+            {
+              "it": "Non fidarti dell’aspetto o della posizione dei sigilli: il controllo pubblico è il tuo indizio.",
+              "en": "Do not trust the appearance or position of the seals: public verification is your clue."
+            }
+          ],
+          "explanation": {
+            "it": "La verifica RSA didattica confronta \\(s^e\\bmod n\\) con il digest dichiarato del messaggio. Il sigillo falso non supera nessuno dei controlli; gli altri vanno abbinati al proprio digest. La chiave privata non serve per verificare. I numeri sono volutamente piccoli e non si usa un padding sicuro: questo tabellone illustra soltanto la relazione matematica. Nella pratica servono schemi standard, digest resistenti alle collisioni e parametri adeguati.",
+            "en": "Teaching RSA verification compares \\(s^e\\bmod n\\) with the message’s declared digest. The forged seal passes none of the checks; the others must be matched with their digests. Verification does not require the private key. The numbers are deliberately small and secure padding is absent: this board illustrates only the mathematical relation. Real applications require standard schemes, collision-resistant digests, and suitable parameters."
+          },
+          "conceptIDs": [
+            "rsa-signature",
+            "digital-signatures",
+            "hash"
+          ],
+          "kind": "seals",
+          "moveLimit": 9,
+          "seals": {
+            "n": 55,
+            "e": 3,
+            "messages": [
+              {
+                "id": "m0",
+                "label": {
+                  "it": "Pacco A",
+                  "en": "Parcel A"
+                },
+                "digest": 3
+              },
+              {
+                "id": "m1",
+                "label": {
+                  "it": "Pacco B",
+                  "en": "Parcel B"
+                },
+                "digest": 7
+              },
+              {
+                "id": "m2",
+                "label": {
+                  "it": "Pacco C",
+                  "en": "Parcel C"
+                },
+                "digest": 9
+              }
+            ],
+            "seals": [
+              {
+                "id": "s0",
+                "value": 4
+              },
+              {
+                "id": "s1",
+                "value": 28
+              },
+              {
+                "id": "s2",
+                "value": 42
+              },
+              {
+                "id": "s3",
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "signatures-seals-2",
+          "title": {
+            "it": "L’ultimo corriere",
+            "en": "The last courier"
+          },
+          "mission": {
+            "it": "I sigilli si sono staccati dai pacchi e ce n’è uno falso. Scegli un sigillo nel vassoio, poi un pacco. Se sposti un sigillo già usato, i sigilli dei pacchi si scambiano. Accendi tutti i controlli di verifica.",
+            "en": "The seals have fallen off the parcels, and one is forged. Select a seal in the tray, then a parcel. Moving a seal already in use swaps the parcels’ seals. Make every verification check light up."
+          },
+          "hints": [
+            {
+              "it": "Per ciascun sigillo osserva il valore \\(s^e\\bmod n\\). Deve coincidere con il digest del pacco.",
+              "en": "For each seal, inspect \\(s^e\\bmod n\\). It must match the parcel’s digest."
+            },
+            {
+              "it": "Non fidarti dell’aspetto o della posizione dei sigilli: il controllo pubblico è il tuo indizio.",
+              "en": "Do not trust the appearance or position of the seals: public verification is your clue."
+            }
+          ],
+          "explanation": {
+            "it": "La verifica RSA didattica confronta \\(s^e\\bmod n\\) con il digest dichiarato del messaggio. Il sigillo falso non supera nessuno dei controlli; gli altri vanno abbinati al proprio digest. La chiave privata non serve per verificare. I numeri sono volutamente piccoli e non si usa un padding sicuro: questo tabellone illustra soltanto la relazione matematica. Nella pratica servono schemi standard, digest resistenti alle collisioni e parametri adeguati.",
+            "en": "Teaching RSA verification compares \\(s^e\\bmod n\\) with the message’s declared digest. The forged seal passes none of the checks; the others must be matched with their digests. Verification does not require the private key. The numbers are deliberately small and secure padding is absent: this board illustrates only the mathematical relation. Real applications require standard schemes, collision-resistant digests, and suitable parameters."
+          },
+          "conceptIDs": [
+            "rsa-signature",
+            "digital-signatures",
+            "hash"
+          ],
+          "kind": "seals",
+          "moveLimit": 9,
+          "seals": {
+            "n": 77,
+            "e": 7,
+            "messages": [
+              {
+                "id": "m0",
+                "label": {
+                  "it": "Pacco A",
+                  "en": "Parcel A"
+                },
+                "digest": 2
+              },
+              {
+                "id": "m1",
+                "label": {
+                  "it": "Pacco B",
+                  "en": "Parcel B"
+                },
+                "digest": 6
+              },
+              {
+                "id": "m2",
+                "label": {
+                  "it": "Pacco C",
+                  "en": "Parcel C"
+                },
+                "digest": 10
+              }
+            ],
+            "seals": [
+              {
+                "id": "s0",
+                "value": 10
+              },
+              {
+                "id": "s1",
+                "value": 62
+              },
+              {
+                "id": "s2",
+                "value": 30
+              },
+              {
+                "id": "s3",
+                "value": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categoryID": "factoring",
+      "title": {
+        "it": "La fabbrica dei fattori",
+        "en": "The factor factory"
+      },
+      "introduction": {
+        "it": "Una macchina, pochi attrezzi e un blocco da smontare. Scegli su quale ramo usare ciascun MCD per arrivare ai mattoni primi.",
+        "en": "One machine, a few tools, and a block to dismantle. Choose which branch receives each gcd to uncover the prime building blocks."
+      },
+      "levels": [
+        {
+          "id": "factoring-factory-0",
+          "title": {
+            "it": "La prima biforcazione",
+            "en": "The first fork"
+          },
+          "mission": {
+            "it": "Smonta il blocco iniziale fino a ottenere soltanto primi. Seleziona un blocco composto, poi un attrezzo: il MCD produce la separazione. Ogni attrezzo utile si può usare una sola volta.",
+            "en": "Break the initial block into primes. Select a composite block, then a tool: the gcd performs the split. Each useful tool can be used only once."
+          },
+          "hints": [
+            {
+              "it": "Un MCD utile è strettamente compreso fra \\(1\\) e il blocco scelto.",
+              "en": "A useful gcd lies strictly between \\(1\\) and the selected block."
+            },
+            {
+              "it": "Dopo una separazione scegli il ramo ancora composto. Non spendere un attrezzo su un primo.",
+              "en": "After a split, choose the branch that is still composite. Do not spend a tool on a prime."
+            }
+          ],
+          "explanation": {
+            "it": "Se \\(d=\\gcd(N,u)\\) e \\(1<d<N\\), allora \\(N=d(N/d)\\). Il blocco può contenere più fattori: per questo il lavoro continua sui rami composti. Pollard, le collisioni di rho e le mancate inversioni di ECM producono candidati diversi, ma il controllo finale è sempre un MCD. Qui i candidati sono già nel vassoio: il gioco riguarda la scelta e il riuso dei risultati, non una simulazione completa di questi algoritmi. Un tentativo con MCD banale non consuma l’attrezzo.",
+            "en": "If \\(d=\\gcd(N,u)\\) and \\(1<d<N\\), then \\(N=d(N/d)\\). A block may contain several factors, so work continues on composite branches. Pollard, rho collisions, and failed ECM inversions produce different candidates, but the final check is always a gcd. Here the candidates are already in the tray: the game is about choosing and reusing results, rather than fully simulating those algorithms. A trivial gcd does not consume the tool."
+          },
+          "conceptIDs": [
+            "factorization",
+            "pollard-p1",
+            "pollard-rho",
+            "lenstra"
+          ],
+          "kind": "factor",
+          "moveLimit": 3,
+          "factor": {
+            "number": 105,
+            "tools": [
+              {
+                "title": {
+                  "it": "Pollard",
+                  "en": "Pollard"
+                },
+                "operand": 15,
+                "derivation": {
+                  "it": "\\(2^4-1=15\\)",
+                  "en": "\\(2^4-1=15\\)"
+                }
+              },
+              {
+                "title": {
+                  "it": "Rho",
+                  "en": "Rho"
+                },
+                "operand": 14,
+                "derivation": {
+                  "it": "\\(|17-3|=14\\)",
+                  "en": "\\(|17-3|=14\\)"
+                }
+              },
+              {
+                "title": {
+                  "it": "ECM",
+                  "en": "ECM"
+                },
+                "operand": 10,
+                "derivation": {
+                  "it": "\\(10\\)",
+                  "en": "\\(10\\)"
+                }
+              },
+              {
+                "title": {
+                  "it": "Esplorazione",
+                  "en": "Probe"
+                },
+                "operand": 16,
+                "derivation": {
+                  "it": "\\(16\\)",
+                  "en": "\\(16\\)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "factoring-factory-1",
+          "title": {
+            "it": "Attrezzi contesi",
+            "en": "Competing tools"
+          },
+          "mission": {
+            "it": "Smonta il blocco iniziale fino a ottenere soltanto primi. Seleziona un blocco composto, poi un attrezzo: il MCD produce la separazione. Ogni attrezzo utile si può usare una sola volta.",
+            "en": "Break the initial block into primes. Select a composite block, then a tool: the gcd performs the split. Each useful tool can be used only once."
+          },
+          "hints": [
+            {
+              "it": "Un MCD utile è strettamente compreso fra \\(1\\) e il blocco scelto.",
+              "en": "A useful gcd lies strictly between \\(1\\) and the selected block."
+            },
+            {
+              "it": "Dopo una separazione scegli il ramo ancora composto. Non spendere un attrezzo su un primo.",
+              "en": "After a split, choose the branch that is still composite. Do not spend a tool on a prime."
+            }
+          ],
+          "explanation": {
+            "it": "Se \\(d=\\gcd(N,u)\\) e \\(1<d<N\\), allora \\(N=d(N/d)\\). Il blocco può contenere più fattori: per questo il lavoro continua sui rami composti. Pollard, le collisioni di rho e le mancate inversioni di ECM producono candidati diversi, ma il controllo finale è sempre un MCD. Qui i candidati sono già nel vassoio: il gioco riguarda la scelta e il riuso dei risultati, non una simulazione completa di questi algoritmi. Un tentativo con MCD banale non consuma l’attrezzo.",
+            "en": "If \\(d=\\gcd(N,u)\\) and \\(1<d<N\\), then \\(N=d(N/d)\\). A block may contain several factors, so work continues on composite branches. Pollard, rho collisions, and failed ECM inversions produce different candidates, but the final check is always a gcd. Here the candidates are already in the tray: the game is about choosing and reusing results, rather than fully simulating those algorithms. A trivial gcd does not consume the tool."
+          },
+          "conceptIDs": [
+            "factorization",
+            "pollard-p1",
+            "pollard-rho",
+            "lenstra"
+          ],
+          "kind": "factor",
+          "moveLimit": 3,
+          "factor": {
+            "number": 385,
+            "tools": [
+              {
+                "title": {
+                  "it": "Pollard",
+                  "en": "Pollard"
+                },
+                "operand": 15,
+                "derivation": {
+                  "it": "\\(2^4-1=15\\)",
+                  "en": "\\(2^4-1=15\\)"
+                }
+              },
+              {
+                "title": {
+                  "it": "Rho",
+                  "en": "Rho"
+                },
+                "operand": 22,
+                "derivation": {
+                  "it": "\\(|31-9|=22\\)",
+                  "en": "\\(|31-9|=22\\)"
+                }
+              },
+              {
+                "title": {
+                  "it": "ECM",
+                  "en": "ECM"
+                },
+                "operand": 10,
+                "derivation": {
+                  "it": "\\(10\\)",
+                  "en": "\\(10\\)"
+                }
+              },
+              {
+                "title": {
+                  "it": "Esplorazione",
+                  "en": "Probe"
+                },
+                "operand": 64,
+                "derivation": {
+                  "it": "\\(64\\)",
+                  "en": "\\(64\\)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "factoring-factory-2",
+          "title": {
+            "it": "Il pezzo ostinato",
+            "en": "The stubborn part"
+          },
+          "mission": {
+            "it": "Smonta il blocco iniziale fino a ottenere soltanto primi. Seleziona un blocco composto, poi un attrezzo: il MCD produce la separazione. Ogni attrezzo utile si può usare una sola volta.",
+            "en": "Break the initial block into primes. Select a composite block, then a tool: the gcd performs the split. Each useful tool can be used only once."
+          },
+          "hints": [
+            {
+              "it": "Un MCD utile è strettamente compreso fra \\(1\\) e il blocco scelto.",
+              "en": "A useful gcd lies strictly between \\(1\\) and the selected block."
+            },
+            {
+              "it": "Dopo una separazione scegli il ramo ancora composto. Non spendere un attrezzo su un primo.",
+              "en": "After a split, choose the branch that is still composite. Do not spend a tool on a prime."
+            }
+          ],
+          "explanation": {
+            "it": "Se \\(d=\\gcd(N,u)\\) e \\(1<d<N\\), allora \\(N=d(N/d)\\). Il blocco può contenere più fattori: per questo il lavoro continua sui rami composti. Pollard, le collisioni di rho e le mancate inversioni di ECM producono candidati diversi, ma il controllo finale è sempre un MCD. Qui i candidati sono già nel vassoio: il gioco riguarda la scelta e il riuso dei risultati, non una simulazione completa di questi algoritmi. Un tentativo con MCD banale non consuma l’attrezzo.",
+            "en": "If \\(d=\\gcd(N,u)\\) and \\(1<d<N\\), then \\(N=d(N/d)\\). A block may contain several factors, so work continues on composite branches. Pollard, rho collisions, and failed ECM inversions produce different candidates, but the final check is always a gcd. Here the candidates are already in the tray: the game is about choosing and reusing results, rather than fully simulating those algorithms. A trivial gcd does not consume the tool."
+          },
+          "conceptIDs": [
+            "factorization",
+            "pollard-p1",
+            "pollard-rho",
+            "lenstra"
+          ],
+          "kind": "factor",
+          "moveLimit": 3,
+          "factor": {
+            "number": 1001,
+            "tools": [
+              {
+                "title": {
+                  "it": "Pollard",
+                  "en": "Pollard"
+                },
+                "operand": 63,
+                "derivation": {
+                  "it": "\\(2^6-1=63\\)",
+                  "en": "\\(2^6-1=63\\)"
+                }
+              },
+              {
+                "title": {
+                  "it": "Rho",
+                  "en": "Rho"
+                },
+                "operand": 22,
+                "derivation": {
+                  "it": "\\(|31-9|=22\\)",
+                  "en": "\\(|31-9|=22\\)"
+                }
+              },
+              {
+                "title": {
+                  "it": "ECM",
+                  "en": "ECM"
+                },
+                "operand": 26,
+                "derivation": {
+                  "it": "\\(26\\)",
+                  "en": "\\(26\\)"
+                }
+              },
+              {
+                "title": {
+                  "it": "Esplorazione",
+                  "en": "Probe"
+                },
+                "operand": 64,
+                "derivation": {
+                  "it": "\\(64\\)",
+                  "en": "\\(64\\)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categoryID": "linear",
+      "title": {
+        "it": "Il ponte dei bit",
+        "en": "The bit bridge"
+      },
+      "introduction": {
+        "it": "Ogni leva controlla più lampade. Trova una combinazione che rispetti tutti i vincoli di parità, anche quando alcune leve sono bloccate.",
+        "en": "Each switch controls several lamps. Find a combination satisfying every parity constraint, even when some switches are locked."
+      },
+      "levels": [
+        {
+          "id": "linear-lights-0",
+          "title": {
+            "it": "Una lampada di troppo",
+            "en": "One lamp too many"
+          },
+          "mission": {
+            "it": "Spegni tutte le lampade di controllo cambiando i bit della passerella. Ogni colonna indica quali lampade un interruttore cambia; i bit con il lucchetto restano fermi.",
+            "en": "Turn off every check lamp by changing the bridge bits. Each column shows which lamps a switch toggles; padlocked bits stay fixed."
+          },
+          "hints": [
+            {
+              "it": "Il cambiamento di un bit aggiunge la sua colonna alla sindrome, con lo XOR.",
+              "en": "Changing a bit adds its column to the syndrome using XOR."
+            },
+            {
+              "it": "Quando nessuna leva da sola basta, cerca colonne la cui somma annulli le lampade ancora accese.",
+              "en": "When no single lever is enough, look for columns whose sum cancels the lamps still on."
+            }
+          ],
+          "explanation": {
+            "it": "La sindrome è \\(s=Hr^{\\mathsf T}\\). Se cambi il bit nella posizione \\(i\\), ottieni \\(s+h_i\\), dove \\(h_i\\) è la colonna corrispondente. Nel campo binario sommare significa fare XOR: azionare due volte la stessa leva annulla il suo effetto. Una sindrome nulla certifica una parola del codice, non garantisce da sola che sia il messaggio originario. Nei livelli con più guasti il gioco chiede infatti una configurazione valida, senza attribuirle un’origine che i dati non determinano.",
+            "en": "The syndrome is \\(s=Hr^{\\mathsf T}\\). Flipping position \\(i\\) gives \\(s+h_i\\), where \\(h_i\\) is the corresponding column. Over the binary field, addition is XOR: flipping the same switch twice cancels its effect. A zero syndrome certifies a codeword, rather than guaranteeing the original message. In levels with several faults, the game therefore asks for a valid configuration without claiming an origin that the data do not determine."
+          },
+          "conceptIDs": [
+            "parity-check",
+            "syndrome-decoding",
+            "minimum-distance"
+          ],
+          "kind": "parity",
+          "moveLimit": 1,
+          "parity": {
+            "start": [
+              1,
+              1,
+              0,
+              1,
+              1,
+              1,
+              1
+            ],
+            "columns": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                1,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1
+              ]
+            ],
+            "locked": []
+          }
+        },
+        {
+          "id": "linear-lights-1",
+          "title": {
+            "it": "Un guasto intrecciato",
+            "en": "Entangled damage"
+          },
+          "mission": {
+            "it": "Spegni tutte le lampade di controllo cambiando i bit della passerella. Ogni colonna indica quali lampade un interruttore cambia; i bit con il lucchetto restano fermi.",
+            "en": "Turn off every check lamp by changing the bridge bits. Each column shows which lamps a switch toggles; padlocked bits stay fixed."
+          },
+          "hints": [
+            {
+              "it": "Il cambiamento di un bit aggiunge la sua colonna alla sindrome, con lo XOR.",
+              "en": "Changing a bit adds its column to the syndrome using XOR."
+            },
+            {
+              "it": "Quando nessuna leva da sola basta, cerca colonne la cui somma annulli le lampade ancora accese.",
+              "en": "When no single lever is enough, look for columns whose sum cancels the lamps still on."
+            }
+          ],
+          "explanation": {
+            "it": "La sindrome è \\(s=Hr^{\\mathsf T}\\). Se cambi il bit nella posizione \\(i\\), ottieni \\(s+h_i\\), dove \\(h_i\\) è la colonna corrispondente. Nel campo binario sommare significa fare XOR: azionare due volte la stessa leva annulla il suo effetto. Una sindrome nulla certifica una parola del codice, non garantisce da sola che sia il messaggio originario. Nei livelli con più guasti il gioco chiede infatti una configurazione valida, senza attribuirle un’origine che i dati non determinano.",
+            "en": "The syndrome is \\(s=Hr^{\\mathsf T}\\). Flipping position \\(i\\) gives \\(s+h_i\\), where \\(h_i\\) is the corresponding column. Over the binary field, addition is XOR: flipping the same switch twice cancels its effect. A zero syndrome certifies a codeword, rather than guaranteeing the original message. In levels with several faults, the game therefore asks for a valid configuration without claiming an origin that the data do not determine."
+          },
+          "conceptIDs": [
+            "parity-check",
+            "syndrome-decoding",
+            "minimum-distance"
+          ],
+          "kind": "parity",
+          "moveLimit": 2,
+          "parity": {
+            "start": [
+              1,
+              0,
+              1,
+              1,
+              0,
+              1,
+              1,
+              1
+            ],
+            "columns": [
+              [
+                1,
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                0,
+                1
+              ],
+              [
+                1,
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0,
+                1
+              ]
+            ],
+            "locked": []
+          }
+        },
+        {
+          "id": "linear-lights-2",
+          "title": {
+            "it": "Gli interruttori bloccati",
+            "en": "Locked switches"
+          },
+          "mission": {
+            "it": "Spegni tutte le lampade di controllo cambiando i bit della passerella. Ogni colonna indica quali lampade un interruttore cambia; i bit con il lucchetto restano fermi.",
+            "en": "Turn off every check lamp by changing the bridge bits. Each column shows which lamps a switch toggles; padlocked bits stay fixed."
+          },
+          "hints": [
+            {
+              "it": "Il cambiamento di un bit aggiunge la sua colonna alla sindrome, con lo XOR.",
+              "en": "Changing a bit adds its column to the syndrome using XOR."
+            },
+            {
+              "it": "Quando nessuna leva da sola basta, cerca colonne la cui somma annulli le lampade ancora accese.",
+              "en": "When no single lever is enough, look for columns whose sum cancels the lamps still on."
+            }
+          ],
+          "explanation": {
+            "it": "La sindrome è \\(s=Hr^{\\mathsf T}\\). Se cambi il bit nella posizione \\(i\\), ottieni \\(s+h_i\\), dove \\(h_i\\) è la colonna corrispondente. Nel campo binario sommare significa fare XOR: azionare due volte la stessa leva annulla il suo effetto. Una sindrome nulla certifica una parola del codice, non garantisce da sola che sia il messaggio originario. Nei livelli con più guasti il gioco chiede infatti una configurazione valida, senza attribuirle un’origine che i dati non determinano.",
+            "en": "The syndrome is \\(s=Hr^{\\mathsf T}\\). Flipping position \\(i\\) gives \\(s+h_i\\), where \\(h_i\\) is the corresponding column. Over the binary field, addition is XOR: flipping the same switch twice cancels its effect. A zero syndrome certifies a codeword, rather than guaranteeing the original message. In levels with several faults, the game therefore asks for a valid configuration without claiming an origin that the data do not determine."
+          },
+          "conceptIDs": [
+            "parity-check",
+            "syndrome-decoding",
+            "minimum-distance"
+          ],
+          "kind": "parity",
+          "moveLimit": 2,
+          "parity": {
+            "start": [
+              1,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "columns": [
+              [
+                1,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                1
+              ],
+              [
+                1,
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                1
+              ]
+            ],
+            "locked": [
+              0,
+              2
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categoryID": "families",
+      "title": {
+        "it": "Il villaggio dei codici",
+        "en": "The code village"
+      },
+      "introduction": {
+        "it": "Collega le stazioni del villaggio con le tessere disponibili. Un buon progetto deve proteggere ogni linea e rispettare il budget comune.",
+        "en": "Connect the village stations using the available tiles. A good design protects every link while respecting the shared budget."
+      },
+      "levels": [
+        {
+          "id": "families-bridges-0",
+          "title": {
+            "it": "Le linee del villaggio",
+            "en": "The village links"
+          },
+          "mission": {
+            "it": "Assegna un codice a ogni linea: scegli una tessera e poi una stazione. Devono bastare capacità, protezione e lunghezza; inoltre la ridondanza totale deve rientrare nel budget. Ogni tessera si usa su una sola linea.",
+            "en": "Assign a code to every link: select a tile, then a station. Capacity, protection, and length must fit, and total redundancy must stay within budget. Each tile may serve only one link."
+          },
+          "hints": [
+            {
+              "it": "Per correggere \\(t\\) errori serve \\(2t<d\\). La capacità si misura in simboli del campo indicato, non sempre in bit.",
+              "en": "Correcting \\(t\\) errors requires \\(2t<d\\). Capacity is measured in symbols over the stated field, which are not always bits."
+            },
+            {
+              "it": "Controlla anche il costo \\(n-k\\): un codice che protegge di più può esaurire il budget delle altre linee.",
+              "en": "Also check the cost \\(n-k\\): stronger protection may exhaust the budget needed by other links."
+            }
+          ],
+          "explanation": {
+            "it": "Una famiglia non è “migliore” in assoluto. Per ogni linea devono valere insieme \\(q=q_{\\mathrm{richiesto}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\) e \\(n\\le n_{\\max}\\). Il costo della tessera è \\(n-k\\) simboli ridondanti. Il budget di questo gioco conta simboli trasmessi, non bit né un costo fisico universale: canali con alfabeti diversi hanno costi reali diversi. L’abbinamento globale evita di sprecare una tessera necessaria altrove.",
+            "en": "No family is universally “best.” Each link must simultaneously satisfy \\(q=q_{\\mathrm{required}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\), and \\(n\\le n_{\\max}\\). A tile costs \\(n-k\\) redundant symbols. This game’s budget counts transmitted symbols, rather than bits or a universal physical cost: channels with different alphabets have different real costs. Global matching avoids spending a tile needed elsewhere."
+          },
+          "conceptIDs": [
+            "repetition",
+            "hamming",
+            "reed-solomon",
+            "error-correction"
+          ],
+          "kind": "allocation",
+          "moveLimit": 12,
+          "allocation": {
+            "cards": [
+              {
+                "id": "ext",
+                "name": {
+                  "it": "Hamming esteso",
+                  "en": "Extended Hamming"
+                },
+                "n": 8,
+                "k": 4,
+                "d": 4,
+                "q": 2
+              },
+              {
+                "id": "rs6",
+                "name": {
+                  "it": "Reed–Solomon robusto",
+                  "en": "Robust Reed–Solomon"
+                },
+                "n": 6,
+                "k": 2,
+                "d": 5,
+                "q": 7
+              },
+              {
+                "id": "rep5",
+                "name": {
+                  "it": "Ripetizione lunga",
+                  "en": "Long repetition"
+                },
+                "n": 5,
+                "k": 1,
+                "d": 5,
+                "q": 2
+              },
+              {
+                "id": "ham",
+                "name": {
+                  "it": "Hamming",
+                  "en": "Hamming"
+                },
+                "n": 7,
+                "k": 4,
+                "d": 3,
+                "q": 2
+              }
+            ],
+            "stations": [
+              {
+                "id": "alarm",
+                "name": {
+                  "it": "Allarme",
+                  "en": "Alarm"
+                },
+                "q": 2,
+                "payload": 1,
+                "errors": 2,
+                "maxLength": 5
+              },
+              {
+                "id": "photo",
+                "name": {
+                  "it": "Fotocamera",
+                  "en": "Camera"
+                },
+                "q": 2,
+                "payload": 4,
+                "errors": 1,
+                "maxLength": 7
+              },
+              {
+                "id": "sensor",
+                "name": {
+                  "it": "Sensore",
+                  "en": "Sensor"
+                },
+                "q": 7,
+                "payload": 2,
+                "errors": 2,
+                "maxLength": 6
+              }
+            ],
+            "budget": 11
+          }
+        },
+        {
+          "id": "families-bridges-1",
+          "title": {
+            "it": "Banda contesa",
+            "en": "Competing bandwidth"
+          },
+          "mission": {
+            "it": "Assegna un codice a ogni linea: scegli una tessera e poi una stazione. Devono bastare capacità, protezione e lunghezza; inoltre la ridondanza totale deve rientrare nel budget. Ogni tessera si usa su una sola linea.",
+            "en": "Assign a code to every link: select a tile, then a station. Capacity, protection, and length must fit, and total redundancy must stay within budget. Each tile may serve only one link."
+          },
+          "hints": [
+            {
+              "it": "Per correggere \\(t\\) errori serve \\(2t<d\\). La capacità si misura in simboli del campo indicato, non sempre in bit.",
+              "en": "Correcting \\(t\\) errors requires \\(2t<d\\). Capacity is measured in symbols over the stated field, which are not always bits."
+            },
+            {
+              "it": "Controlla anche il costo \\(n-k\\): un codice che protegge di più può esaurire il budget delle altre linee.",
+              "en": "Also check the cost \\(n-k\\): stronger protection may exhaust the budget needed by other links."
+            }
+          ],
+          "explanation": {
+            "it": "Una famiglia non è “migliore” in assoluto. Per ogni linea devono valere insieme \\(q=q_{\\mathrm{richiesto}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\) e \\(n\\le n_{\\max}\\). Il costo della tessera è \\(n-k\\) simboli ridondanti. Il budget di questo gioco conta simboli trasmessi, non bit né un costo fisico universale: canali con alfabeti diversi hanno costi reali diversi. L’abbinamento globale evita di sprecare una tessera necessaria altrove.",
+            "en": "No family is universally “best.” Each link must simultaneously satisfy \\(q=q_{\\mathrm{required}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\), and \\(n\\le n_{\\max}\\). A tile costs \\(n-k\\) redundant symbols. This game’s budget counts transmitted symbols, rather than bits or a universal physical cost: channels with different alphabets have different real costs. Global matching avoids spending a tile needed elsewhere."
+          },
+          "conceptIDs": [
+            "repetition",
+            "hamming",
+            "reed-solomon",
+            "error-correction"
+          ],
+          "kind": "allocation",
+          "moveLimit": 12,
+          "allocation": {
+            "cards": [
+              {
+                "id": "rs6",
+                "name": {
+                  "it": "Reed–Solomon robusto",
+                  "en": "Robust Reed–Solomon"
+                },
+                "n": 6,
+                "k": 2,
+                "d": 5,
+                "q": 7
+              },
+              {
+                "id": "ext",
+                "name": {
+                  "it": "Hamming esteso",
+                  "en": "Extended Hamming"
+                },
+                "n": 8,
+                "k": 4,
+                "d": 4,
+                "q": 2
+              },
+              {
+                "id": "ham",
+                "name": {
+                  "it": "Hamming",
+                  "en": "Hamming"
+                },
+                "n": 7,
+                "k": 4,
+                "d": 3,
+                "q": 2
+              },
+              {
+                "id": "rep5",
+                "name": {
+                  "it": "Ripetizione lunga",
+                  "en": "Long repetition"
+                },
+                "n": 5,
+                "k": 1,
+                "d": 5,
+                "q": 2
+              },
+              {
+                "id": "rs5",
+                "name": {
+                  "it": "Reed–Solomon compatto",
+                  "en": "Compact Reed–Solomon"
+                },
+                "n": 5,
+                "k": 3,
+                "d": 3,
+                "q": 7
+              }
+            ],
+            "stations": [
+              {
+                "id": "image",
+                "name": {
+                  "it": "Immagine",
+                  "en": "Image"
+                },
+                "q": 2,
+                "payload": 4,
+                "errors": 1,
+                "maxLength": 8
+              },
+              {
+                "id": "beacon",
+                "name": {
+                  "it": "Faro",
+                  "en": "Beacon"
+                },
+                "q": 2,
+                "payload": 1,
+                "errors": 2,
+                "maxLength": 5
+              },
+              {
+                "id": "sample",
+                "name": {
+                  "it": "Campione",
+                  "en": "Sample"
+                },
+                "q": 7,
+                "payload": 2,
+                "errors": 1,
+                "maxLength": 6
+              }
+            ],
+            "budget": 9
+          }
+        },
+        {
+          "id": "families-bridges-2",
+          "title": {
+            "it": "L’ultima riserva",
+            "en": "The last reserve"
+          },
+          "mission": {
+            "it": "Assegna un codice a ogni linea: scegli una tessera e poi una stazione. Devono bastare capacità, protezione e lunghezza; inoltre la ridondanza totale deve rientrare nel budget. Ogni tessera si usa su una sola linea.",
+            "en": "Assign a code to every link: select a tile, then a station. Capacity, protection, and length must fit, and total redundancy must stay within budget. Each tile may serve only one link."
+          },
+          "hints": [
+            {
+              "it": "Per correggere \\(t\\) errori serve \\(2t<d\\). La capacità si misura in simboli del campo indicato, non sempre in bit.",
+              "en": "Correcting \\(t\\) errors requires \\(2t<d\\). Capacity is measured in symbols over the stated field, which are not always bits."
+            },
+            {
+              "it": "Controlla anche il costo \\(n-k\\): un codice che protegge di più può esaurire il budget delle altre linee.",
+              "en": "Also check the cost \\(n-k\\): stronger protection may exhaust the budget needed by other links."
+            }
+          ],
+          "explanation": {
+            "it": "Una famiglia non è “migliore” in assoluto. Per ogni linea devono valere insieme \\(q=q_{\\mathrm{richiesto}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\) e \\(n\\le n_{\\max}\\). Il costo della tessera è \\(n-k\\) simboli ridondanti. Il budget di questo gioco conta simboli trasmessi, non bit né un costo fisico universale: canali con alfabeti diversi hanno costi reali diversi. L’abbinamento globale evita di sprecare una tessera necessaria altrove.",
+            "en": "No family is universally “best.” Each link must simultaneously satisfy \\(q=q_{\\mathrm{required}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\), and \\(n\\le n_{\\max}\\). A tile costs \\(n-k\\) redundant symbols. This game’s budget counts transmitted symbols, rather than bits or a universal physical cost: channels with different alphabets have different real costs. Global matching avoids spending a tile needed elsewhere."
+          },
+          "conceptIDs": [
+            "repetition",
+            "hamming",
+            "reed-solomon",
+            "error-correction"
+          ],
+          "kind": "allocation",
+          "moveLimit": 12,
+          "allocation": {
+            "cards": [
+              {
+                "id": "ham",
+                "name": {
+                  "it": "Hamming",
+                  "en": "Hamming"
+                },
+                "n": 7,
+                "k": 4,
+                "d": 3,
+                "q": 2
+              },
+              {
+                "id": "rep5",
+                "name": {
+                  "it": "Ripetizione lunga",
+                  "en": "Long repetition"
+                },
+                "n": 5,
+                "k": 1,
+                "d": 5,
+                "q": 2
+              },
+              {
+                "id": "rs6",
+                "name": {
+                  "it": "Reed–Solomon robusto",
+                  "en": "Robust Reed–Solomon"
+                },
+                "n": 6,
+                "k": 2,
+                "d": 5,
+                "q": 7
+              },
+              {
+                "id": "ham15",
+                "name": {
+                  "it": "Hamming capiente",
+                  "en": "High-capacity Hamming"
+                },
+                "n": 15,
+                "k": 11,
+                "d": 3,
+                "q": 2
+              },
+              {
+                "id": "rs5",
+                "name": {
+                  "it": "Reed–Solomon compatto",
+                  "en": "Compact Reed–Solomon"
+                },
+                "n": 5,
+                "k": 3,
+                "d": 3,
+                "q": 7
+              },
+              {
+                "id": "rep3",
+                "name": {
+                  "it": "Ripetizione breve",
+                  "en": "Short repetition"
+                },
+                "n": 3,
+                "k": 1,
+                "d": 3,
+                "q": 2
+              }
+            ],
+            "stations": [
+              {
+                "id": "bell",
+                "name": {
+                  "it": "Campanello",
+                  "en": "Doorbell"
+                },
+                "q": 2,
+                "payload": 1,
+                "errors": 1,
+                "maxLength": 7
+              },
+              {
+                "id": "archive",
+                "name": {
+                  "it": "Archivio",
+                  "en": "Archive"
+                },
+                "q": 2,
+                "payload": 11,
+                "errors": 1,
+                "maxLength": 15
+              },
+              {
+                "id": "lab",
+                "name": {
+                  "it": "Laboratorio",
+                  "en": "Laboratory"
+                },
+                "q": 7,
+                "payload": 3,
+                "errors": 1,
+                "maxLength": 5
+              }
+            ],
+            "budget": 8
+          }
+        }
+      ]
+    },
+    {
+      "categoryID": "exercises",
+      "title": {
+        "it": "La stanza degli indizi",
+        "en": "The clue room"
+      },
+      "introduction": {
+        "it": "Una porta, una passerella e un’uscita sulla curva. Riutilizza strumenti diversi per completare una piccola fuga matematica.",
+        "en": "A door, a walkway, and a curve exit. Reuse different tools to complete a small mathematical escape."
+      },
+      "levels": [
+        {
+          "id": "exercises-lock",
+          "title": {
+            "it": "La porta dei resti",
+            "en": "The remainder door"
+          },
+          "mission": {
+            "it": "Apri la porta coordinando le ruote. Le leve fanno avanzare entrambi i quadranti: il passaggio si libera solo quando coincidono con i bersagli.",
+            "en": "Open the door by coordinating the wheels. The levers move both dials; the passage opens only when both match their targets."
+          },
+          "hints": [
+            {
+              "it": "Riduci ogni incremento nel proprio modulo. Le ruote non hanno lo stesso periodo.",
+              "en": "Reduce each increment in its own modulus. The wheels have different periods."
+            },
+            {
+              "it": "Prova a ragionare sul numero di utilizzi di ciascuna leva invece che sull’ordine delle mosse.",
+              "en": "Try reasoning about how often each lever is used rather than the order of the moves."
+            }
+          ],
+          "explanation": {
+            "it": "Come nei calcoli modulari degli esercizi crittografici, puoi ridurre dopo ogni operazione senza cambiare il risultato finale. Il gioco richiede una combinazione di incrementi compatibile con tutti i resti, non una sequenza di divisioni decimali. Gli indizi e i numeri di questa stanza sono creati per il gioco: non sono consegne tratte dai PDF.",
+            "en": "As in modular cryptographic calculations, reducing after each operation does not change the final result. The game requires a combination of increments compatible with every remainder, rather than decimal division. This room’s clues and numbers were created for the game; they are not problem statements from the PDFs."
+          },
+          "conceptIDs": [
+            "ex-06",
+            "modular-arithmetic"
+          ],
+          "kind": "gears",
+          "moveLimit": 7,
+          "gears": {
+            "moduli": [
+              11,
+              7
+            ],
+            "start": [
+              1,
+              2
+            ],
+            "target": [
+              8,
+              1
+            ],
+            "moves": [
+              {
+                "name": {
+                  "it": "Ingranaggio A",
+                  "en": "Gear A"
+                },
+                "deltas": [
+                  2,
+                  1
+                ]
+              },
+              {
+                "name": {
+                  "it": "Ingranaggio B",
+                  "en": "Gear B"
+                },
+                "deltas": [
+                  1,
+                  3
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "exercises-bridge",
+          "title": {
+            "it": "La passerella guasta",
+            "en": "The damaged walkway"
+          },
+          "mission": {
+            "it": "Le leve indicate dal lucchetto non si possono spostare. Trova un altro modo di annullare tutti i controlli entro il limite.",
+            "en": "Padlocked switches cannot move. Find another way to cancel every check within the limit."
+          },
+          "hints": [
+            {
+              "it": "Due interruttori diversi possono produrre insieme lo stesso cambiamento di un gruppo di interruttori bloccati.",
+              "en": "Two other switches may together produce the same change as a group of locked switches."
+            },
+            {
+              "it": "Cerca due colonne la cui somma sia la sindrome corrente.",
+              "en": "Look for two columns whose sum is the current syndrome."
+            }
+          ],
+          "explanation": {
+            "it": "La sindrome dipende soltanto dalla somma delle colonne attive. Perciò due configurazioni diverse possono superare gli stessi controlli. Trovare una parola valida e ricostruire con certezza la parola trasmessa sono problemi diversi: il secondo richiede anche un’ipotesi sul numero di errori e una distanza sufficiente.",
+            "en": "The syndrome depends only on the sum of the active columns. Different configurations may therefore pass the same checks. Finding a valid codeword and identifying the transmitted codeword with certainty are different tasks: the latter also requires an error-count assumption and sufficient distance."
+          },
+          "conceptIDs": [
+            "ex-17",
+            "parity-check"
+          ],
+          "kind": "parity",
+          "moveLimit": 2,
+          "parity": {
+            "start": [
+              1,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "columns": [
+              [
+                1,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                1
+              ],
+              [
+                1,
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                1
+              ]
+            ],
+            "locked": [
+              0,
+              2
+            ]
+          }
+        },
+        {
+          "id": "exercises-stones",
+          "title": {
+            "it": "L’uscita sulla curva",
+            "en": "The curve exit"
+          },
+          "mission": {
+            "it": "Raggiungi l’uscita componendo i salti consentiti. La griglia serve a vedere i punti; non puoi camminare su una casella qualsiasi.",
+            "en": "Reach the exit by composing the allowed jumps. The grid displays the points; it does not let you walk to any square."
+          },
+          "hints": [
+            {
+              "it": "Tieni traccia di quante volte il punto fisso è contenuto nel punto corrente.",
+              "en": "Keep track of how many copies of the fixed point make up your current point."
+            },
+            {
+              "it": "Un raddoppio può sostituire molte addizioni, ma raddoppia tutto il cammino già costruito.",
+              "en": "Doubling can replace many additions, but it doubles the entire path already built."
+            }
+          ],
+          "explanation": {
+            "it": "Il percorso mette in pratica double-and-add: se il punto corrente rappresenta \\(rP\\), aggiungere \\(P\\) lo porta a \\((r+1)P\\), raddoppiarlo a \\((2r)P\\). Le coordinate si calcolano con la legge ellittica, usando inversi nel campo. Anche il punto all’infinito e l’opposto fanno parte del gruppo.",
+            "en": "The path puts double-and-add into practice: if the current point represents \\(rP\\), adding \\(P\\) gives \\((r+1)P\\), while doubling gives \\((2r)P\\). Coordinates are computed with the elliptic law, using field inverses. The point at infinity and inverse points also belong to the group."
+          },
+          "conceptIDs": [
+            "ex-01",
+            "double-add"
+          ],
+          "kind": "curve",
+          "moveLimit": 6,
+          "curve": {
+            "p": 11,
+            "a": 1,
+            "b": 1,
+            "start": {
+              "x": null,
+              "y": null
+            },
+            "target": {
+              "x": 0,
+              "y": 10
+            },
+            "moves": [
+              {
+                "name": {
+                  "it": "Avanza di \\(P\\)",
+                  "en": "Add \\(P\\)"
+                },
+                "operation": "add",
+                "point": {
+                  "x": 1,
+                  "y": 5
+                }
+              },
+              {
+                "name": {
+                  "it": "Raddoppia",
+                  "en": "Double"
+                },
+                "operation": "double"
+              },
+              {
+                "name": {
+                  "it": "Rifletti",
+                  "en": "Reflect"
+                },
+                "operation": "negate"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categoryID": "proof-geometry",
+      "title": {
+        "it": "Il laboratorio delle ipotesi",
+        "en": "The hypothesis laboratory"
+      },
+      "introduction": {
+        "it": "Ricostruisci ponti fra ipotesi e conclusioni. Porta con te i lemmi necessari ed evita le scorciatoie che cancellano condizioni essenziali.",
+        "en": "Rebuild bridges between assumptions and conclusions. Carry the required lemmas and avoid shortcuts that discard essential conditions."
+      },
+      "levels": [
+        {
+          "id": "proof-geometry-map-0",
+          "title": {
+            "it": "Il ponte della dualità",
+            "en": "The duality bridge"
+          },
+          "mission": {
+            "it": "Attraversa il laboratorio raccogliendo risultati compatibili. Il ponte si apre soltanto quando hai completato entrambi i rami; alcune scorciatoie nascondono un passaggio falso. I risultati restano nello zaino.",
+            "en": "Cross the laboratory collecting compatible results. The bridge opens only after both branches are complete; some shortcuts hide a false step. Results stay in your backpack."
+          },
+          "hints": [
+            {
+              "it": "Leggi quali risultati servono alla prossima porta. Puoi tornare all’incrocio e completare l’altro ramo.",
+              "en": "Read which results the next door needs. You can return to the junction and complete the other branch."
+            },
+            {
+              "it": "Una conclusione è utilizzabile soltanto dopo averne ottenuto le ipotesi; non confondere una formula generale con un caso particolare.",
+              "en": "A conclusion becomes usable only after its hypotheses are obtained; do not confuse a general formula with a special case."
+            }
+          ],
+          "explanation": {
+            "it": "Il percorso rende visibili le dipendenze della dimostrazione. Il bilancio e la dualità sono risultati distinti; il termine correttivo si cancella solo dopo averne provato l’annullamento. Nell’applicazione ai codici servono anche una valutazione ben definita e il controllo del nucleo. Le tessere riassumono passaggi già dimostrati nelle voci collegate: attraversare la mappa ne controlla i collegamenti logici, senza sostituire quelle dimostrazioni.",
+            "en": "The route makes the proof dependencies visible. The dimension balance and duality are distinct results; the correction term disappears only after its vanishing is proved. The code application also needs well-defined evaluation and control of the kernel. Tiles summarize steps already proved in the linked entries: traversing the map checks their logical connections without replacing those proofs."
+          },
+          "conceptIDs": [
+            "riemann-roch",
+            "cech-balance",
+            "laurent-duality",
+            "canonical-degree"
+          ],
+          "kind": "route",
+          "moveLimit": 14,
+          "route": {
+            "nodes": [
+              {
+                "id": "start",
+                "row": 0,
+                "column": 0,
+                "title": {
+                  "it": "Banco delle ipotesi",
+                  "en": "Assumption desk"
+                },
+                "detail": {
+                  "it": "La curva è liscia, proiettiva e geometricamente integra su un campo perfetto. Devi collegare il bilancio delle dimensioni alla dualità.",
+                  "en": "The curve is smooth, projective, and geometrically integral over a perfect field. Connect the dimension balance to duality."
+                },
+                "exits": [
+                  "leftA",
+                  "rightA"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftA",
+                "row": 0,
+                "column": 1,
+                "title": {
+                  "it": "Mappa finita",
+                  "en": "Finite map"
+                },
+                "detail": {
+                  "it": "Una variabile separante e la normalizzazione forniscono una descrizione finita su due carte.",
+                  "en": "A separating variable and normalization give a finite description over two charts."
+                },
+                "exits": [
+                  "leftB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "left-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftB",
+                "row": 0,
+                "column": 2,
+                "title": {
+                  "it": "Bilancio",
+                  "en": "Dimension balance"
+                },
+                "detail": {
+                  "it": "Le carte producono \\(\\ell(D)-h^1(D)=\\deg D+1-g\\).",
+                  "en": "The charts give \\(\\ell(D)-h^1(D)=\\deg D+1-g\\)."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "left-pre"
+                ],
+                "grants": [
+                  "left"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightA",
+                "row": 1,
+                "column": 0,
+                "title": {
+                  "it": "Dualità locale",
+                  "en": "Local duality"
+                },
+                "detail": {
+                  "it": "Usa la descrizione finita e l’accoppiamento di traccia per identificare il duale locale.",
+                  "en": "Use the finite description and trace pairing to identify the local dual."
+                },
+                "exits": [
+                  "rightB",
+                  "hub"
+                ],
+                "requires": [
+                  "given",
+                  "left-pre"
+                ],
+                "grants": [
+                  "right-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "hub",
+                "row": 1,
+                "column": 1,
+                "title": {
+                  "it": "Incrocio",
+                  "en": "Junction"
+                },
+                "detail": {
+                  "it": "Puoi portare i risultati da un ramo all’altro. Il ponte finale richiede entrambi i rami.",
+                  "en": "You may carry results between branches. The final bridge requires both branches."
+                },
+                "exits": [
+                  "leftA",
+                  "leftB",
+                  "rightA",
+                  "rightB",
+                  "join",
+                  "trap"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "join",
+                "row": 1,
+                "column": 2,
+                "title": {
+                  "it": "Ponte di Riemann–Roch",
+                  "en": "Riemann–Roch bridge"
+                },
+                "detail": {
+                  "it": "Sostituisci nel bilancio il termine identificato dalla dualità. Servono entrambi i risultati.",
+                  "en": "Substitute the term identified by duality into the dimension balance. Both results are needed."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [
+                  "left",
+                  "right"
+                ],
+                "grants": [
+                  "joined"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightB",
+                "row": 2,
+                "column": 0,
+                "title": {
+                  "it": "Dualità globale",
+                  "en": "Global duality"
+                },
+                "detail": {
+                  "it": "L’accoppiamento sulle sovrapposizioni identifica \\(h^1(D)=\\ell(K_X-D)\\).",
+                  "en": "The pairing on the overlap identifies \\(h^1(D)=\\ell(K_X-D)\\)."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "right-pre"
+                ],
+                "grants": [
+                  "right"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "trap",
+                "row": 2,
+                "column": 1,
+                "title": {
+                  "it": "Scorciatoia fragile",
+                  "en": "Fragile shortcut"
+                },
+                "detail": {
+                  "it": "Questa passerella sembra più breve: controlla il ragionamento.",
+                  "en": "This walkway looks shorter: check the reasoning."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": {
+                  "it": "Non puoi assumere Riemann–Roch per dimostrare il bilancio da cui lo stai ricavando: il ragionamento sarebbe circolare.",
+                  "en": "You cannot assume Riemann–Roch to prove the balance from which you are deriving it: that would be circular."
+                }
+              },
+              {
+                "id": "goal",
+                "row": 2,
+                "column": 2,
+                "title": {
+                  "it": "Riemann–Roch",
+                  "en": "Riemann–Roch"
+                },
+                "detail": {
+                  "it": "\\[\\ell(D)-\\ell(K_X-D)=\\deg D+1-g.\\]",
+                  "en": "\\[\\ell(D)-\\ell(K_X-D)=\\deg D+1-g.\\]"
+                },
+                "exits": [],
+                "requires": [
+                  "joined"
+                ],
+                "grants": [
+                  "done"
+                ],
+                "removes": [],
+                "blockedReason": null
+              }
+            ],
+            "start": "start",
+            "goal": "goal",
+            "tokens": [
+              {
+                "id": "given",
+                "label": {
+                  "it": "Ipotesi del modello",
+                  "en": "Model assumptions"
+                }
+              },
+              {
+                "id": "left-pre",
+                "label": {
+                  "it": "Mappa finita",
+                  "en": "Finite map"
+                }
+              },
+              {
+                "id": "left",
+                "label": {
+                  "it": "Bilancio",
+                  "en": "Dimension balance"
+                }
+              },
+              {
+                "id": "right-pre",
+                "label": {
+                  "it": "Dualità locale",
+                  "en": "Local duality"
+                }
+              },
+              {
+                "id": "right",
+                "label": {
+                  "it": "Dualità globale",
+                  "en": "Global duality"
+                }
+              },
+              {
+                "id": "joined",
+                "label": {
+                  "it": "Ponte di Riemann–Roch",
+                  "en": "Riemann–Roch bridge"
+                }
+              },
+              {
+                "id": "done",
+                "label": {
+                  "it": "Traguardo dimostrato",
+                  "en": "Goal established"
+                }
+              }
+            ],
+            "initialTokens": [
+              "given"
+            ],
+            "goalTokens": [
+              "done"
+            ]
+          }
+        },
+        {
+          "id": "proof-geometry-map-1",
+          "title": {
+            "it": "Il termine nascosto",
+            "en": "The hidden term"
+          },
+          "mission": {
+            "it": "Attraversa il laboratorio raccogliendo risultati compatibili. Il ponte si apre soltanto quando hai completato entrambi i rami; alcune scorciatoie nascondono un passaggio falso. I risultati restano nello zaino.",
+            "en": "Cross the laboratory collecting compatible results. The bridge opens only after both branches are complete; some shortcuts hide a false step. Results stay in your backpack."
+          },
+          "hints": [
+            {
+              "it": "Leggi quali risultati servono alla prossima porta. Puoi tornare all’incrocio e completare l’altro ramo.",
+              "en": "Read which results the next door needs. You can return to the junction and complete the other branch."
+            },
+            {
+              "it": "Una conclusione è utilizzabile soltanto dopo averne ottenuto le ipotesi; non confondere una formula generale con un caso particolare.",
+              "en": "A conclusion becomes usable only after its hypotheses are obtained; do not confuse a general formula with a special case."
+            }
+          ],
+          "explanation": {
+            "it": "Il percorso rende visibili le dipendenze della dimostrazione. Il bilancio e la dualità sono risultati distinti; il termine correttivo si cancella solo dopo averne provato l’annullamento. Nell’applicazione ai codici servono anche una valutazione ben definita e il controllo del nucleo. Le tessere riassumono passaggi già dimostrati nelle voci collegate: attraversare la mappa ne controlla i collegamenti logici, senza sostituire quelle dimostrazioni.",
+            "en": "The route makes the proof dependencies visible. The dimension balance and duality are distinct results; the correction term disappears only after its vanishing is proved. The code application also needs well-defined evaluation and control of the kernel. Tiles summarize steps already proved in the linked entries: traversing the map checks their logical connections without replacing those proofs."
+          },
+          "conceptIDs": [
+            "riemann-roch",
+            "cech-balance",
+            "laurent-duality",
+            "canonical-degree"
+          ],
+          "kind": "route",
+          "moveLimit": 14,
+          "route": {
+            "nodes": [
+              {
+                "id": "start",
+                "row": 0,
+                "column": 0,
+                "title": {
+                  "it": "Banco delle ipotesi",
+                  "en": "Assumption desk"
+                },
+                "detail": {
+                  "it": "Siamo nel modello del corso, con \\(g=2\\) e \\(\\deg D=5\\). Prima di usare la formula breve, devi giustificare la scomparsa del termine correttivo.",
+                  "en": "Work in the course model with \\(g=2\\) and \\(\\deg D=5\\). Before using the short formula, justify why the correction term vanishes."
+                },
+                "exits": [
+                  "leftA",
+                  "rightA"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftA",
+                "row": 0,
+                "column": 1,
+                "title": {
+                  "it": "Grado canonico",
+                  "en": "Canonical degree"
+                },
+                "detail": {
+                  "it": "\\(\\deg K_X=2g-2=2\\).",
+                  "en": "\\(\\deg K_X=2g-2=2\\)."
+                },
+                "exits": [
+                  "leftB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "left-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftB",
+                "row": 0,
+                "column": 2,
+                "title": {
+                  "it": "Grado negativo",
+                  "en": "Negative degree"
+                },
+                "detail": {
+                  "it": "\\(\\deg(K_X-D)=2-5=-3\\), dunque \\(L(K_X-D)=\\{0\\}\\).",
+                  "en": "\\(\\deg(K_X-D)=2-5=-3\\), so \\(L(K_X-D)=\\{0\\}\\)."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "left-pre"
+                ],
+                "grants": [
+                  "left"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightA",
+                "row": 1,
+                "column": 0,
+                "title": {
+                  "it": "Formula completa",
+                  "en": "Full formula"
+                },
+                "detail": {
+                  "it": "Riemann–Roch mantiene \\(\\ell(K_X-D)\\): non puoi cancellarlo senza motivo.",
+                  "en": "Riemann–Roch retains \\(\\ell(K_X-D)\\): it cannot be dropped without justification."
+                },
+                "exits": [
+                  "rightB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "right-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "hub",
+                "row": 1,
+                "column": 1,
+                "title": {
+                  "it": "Incrocio",
+                  "en": "Junction"
+                },
+                "detail": {
+                  "it": "Puoi portare i risultati da un ramo all’altro. Il ponte finale richiede entrambi i rami.",
+                  "en": "You may carry results between branches. The final bridge requires both branches."
+                },
+                "exits": [
+                  "leftA",
+                  "leftB",
+                  "rightA",
+                  "rightB",
+                  "join",
+                  "trap"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "join",
+                "row": 1,
+                "column": 2,
+                "title": {
+                  "it": "Unisci i risultati",
+                  "en": "Combine the results"
+                },
+                "detail": {
+                  "it": "Inserisci il termine nullo nella formula completa.",
+                  "en": "Insert the vanishing term into the full formula."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [
+                  "left",
+                  "right"
+                ],
+                "grants": [
+                  "joined"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightB",
+                "row": 2,
+                "column": 0,
+                "title": {
+                  "it": "Termine correttivo",
+                  "en": "Correction term"
+                },
+                "detail": {
+                  "it": "La formula completa scrive \\(\\ell(D)=5+1-2+\\ell(K_X-D)\\).",
+                  "en": "The full formula gives \\(\\ell(D)=5+1-2+\\ell(K_X-D)\\)."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "right-pre"
+                ],
+                "grants": [
+                  "right"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "trap",
+                "row": 2,
+                "column": 1,
+                "title": {
+                  "it": "Scorciatoia fragile",
+                  "en": "Fragile shortcut"
+                },
+                "detail": {
+                  "it": "Questa passerella sembra più breve: controlla il ragionamento.",
+                  "en": "This walkway looks shorter: check the reasoning."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": {
+                  "it": "Il grado non coincide in generale con la dimensione. Qui \\(5\\) è il grado e \\(4\\) la dimensione.",
+                  "en": "Degree and dimension are not generally equal. Here the degree is \\(5\\) and the dimension is \\(4\\)."
+                }
+              },
+              {
+                "id": "goal",
+                "row": 2,
+                "column": 2,
+                "title": {
+                  "it": "Spazio contato",
+                  "en": "Space counted"
+                },
+                "detail": {
+                  "it": "\\(\\ell(D)=4\\). La dimensione è giustificata, non indovinata dal grado.",
+                  "en": "\\(\\ell(D)=4\\). The dimension is justified, rather than guessed from the degree."
+                },
+                "exits": [],
+                "requires": [
+                  "joined"
+                ],
+                "grants": [
+                  "done"
+                ],
+                "removes": [],
+                "blockedReason": null
+              }
+            ],
+            "start": "start",
+            "goal": "goal",
+            "tokens": [
+              {
+                "id": "given",
+                "label": {
+                  "it": "Ipotesi del modello",
+                  "en": "Model assumptions"
+                }
+              },
+              {
+                "id": "left-pre",
+                "label": {
+                  "it": "Grado canonico",
+                  "en": "Canonical degree"
+                }
+              },
+              {
+                "id": "left",
+                "label": {
+                  "it": "Grado negativo",
+                  "en": "Negative degree"
+                }
+              },
+              {
+                "id": "right-pre",
+                "label": {
+                  "it": "Formula completa",
+                  "en": "Full formula"
+                }
+              },
+              {
+                "id": "right",
+                "label": {
+                  "it": "Termine correttivo",
+                  "en": "Correction term"
+                }
+              },
+              {
+                "id": "joined",
+                "label": {
+                  "it": "Unisci i risultati",
+                  "en": "Combine the results"
+                }
+              },
+              {
+                "id": "done",
+                "label": {
+                  "it": "Traguardo dimostrato",
+                  "en": "Goal established"
+                }
+              }
+            ],
+            "initialTokens": [
+              "given"
+            ],
+            "goalTokens": [
+              "done"
+            ]
+          }
+        },
+        {
+          "id": "proof-geometry-map-2",
+          "title": {
+            "it": "Dalla curva al codice",
+            "en": "From curve to code"
+          },
+          "mission": {
+            "it": "Attraversa il laboratorio raccogliendo risultati compatibili. Il ponte si apre soltanto quando hai completato entrambi i rami; alcune scorciatoie nascondono un passaggio falso. I risultati restano nello zaino.",
+            "en": "Cross the laboratory collecting compatible results. The bridge opens only after both branches are complete; some shortcuts hide a false step. Results stay in your backpack."
+          },
+          "hints": [
+            {
+              "it": "Leggi quali risultati servono alla prossima porta. Puoi tornare all’incrocio e completare l’altro ramo.",
+              "en": "Read which results the next door needs. You can return to the junction and complete the other branch."
+            },
+            {
+              "it": "Una conclusione è utilizzabile soltanto dopo averne ottenuto le ipotesi; non confondere una formula generale con un caso particolare.",
+              "en": "A conclusion becomes usable only after its hypotheses are obtained; do not confuse a general formula with a special case."
+            }
+          ],
+          "explanation": {
+            "it": "Il percorso rende visibili le dipendenze della dimostrazione. Il bilancio e la dualità sono risultati distinti; il termine correttivo si cancella solo dopo averne provato l’annullamento. Nell’applicazione ai codici servono anche una valutazione ben definita e il controllo del nucleo. Le tessere riassumono passaggi già dimostrati nelle voci collegate: attraversare la mappa ne controlla i collegamenti logici, senza sostituire quelle dimostrazioni.",
+            "en": "The route makes the proof dependencies visible. The dimension balance and duality are distinct results; the correction term disappears only after its vanishing is proved. The code application also needs well-defined evaluation and control of the kernel. Tiles summarize steps already proved in the linked entries: traversing the map checks their logical connections without replacing those proofs."
+          },
+          "conceptIDs": [
+            "riemann-roch",
+            "cech-balance",
+            "laurent-duality",
+            "canonical-degree"
+          ],
+          "kind": "route",
+          "moveLimit": 14,
+          "route": {
+            "nodes": [
+              {
+                "id": "start",
+                "row": 0,
+                "column": 0,
+                "title": {
+                  "it": "Banco delle ipotesi",
+                  "en": "Assumption desk"
+                },
+                "detail": {
+                  "it": "Usa \\(g=2\\), \\(\\deg D=5\\) e \\(n=9\\) punti razionali distinti fuori dal supporto di \\(D\\). Raccogli tutti i permessi per costruire il codice.",
+                  "en": "Use \\(g=2\\), \\(\\deg D=5\\), and \\(n=9\\) distinct rational points outside the support of \\(D\\). Gather every permission needed to build the code."
+                },
+                "exits": [
+                  "leftA",
+                  "rightA"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftA",
+                "row": 0,
+                "column": 1,
+                "title": {
+                  "it": "Valutazione definita",
+                  "en": "Evaluation defined"
+                },
+                "detail": {
+                  "it": "Fuori dal supporto del divisore le funzioni ammesse non hanno poli.",
+                  "en": "Away from the divisor support, admissible functions have no poles."
+                },
+                "exits": [
+                  "leftB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "left-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftB",
+                "row": 0,
+                "column": 2,
+                "title": {
+                  "it": "Valutazione iniettiva",
+                  "en": "Injective evaluation"
+                },
+                "detail": {
+                  "it": "Il nucleo è \\(L(D-S)\\); il suo divisore ha grado \\(5-9<0\\), quindi è nullo.",
+                  "en": "The kernel is \\(L(D-S)\\); its divisor has degree \\(5-9<0\\), so the space is zero."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "left-pre"
+                ],
+                "grants": [
+                  "left"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightA",
+                "row": 1,
+                "column": 0,
+                "title": {
+                  "it": "Grado sufficiente",
+                  "en": "Sufficient degree"
+                },
+                "detail": {
+                  "it": "\\(\\deg D>2g-2\\): il termine correttivo si annulla.",
+                  "en": "\\(\\deg D>2g-2\\): the correction term vanishes."
+                },
+                "exits": [
+                  "rightB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "right-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "hub",
+                "row": 1,
+                "column": 1,
+                "title": {
+                  "it": "Incrocio",
+                  "en": "Junction"
+                },
+                "detail": {
+                  "it": "Puoi portare i risultati da un ramo all’altro. Il ponte finale richiede entrambi i rami.",
+                  "en": "You may carry results between branches. The final bridge requires both branches."
+                },
+                "exits": [
+                  "leftA",
+                  "leftB",
+                  "rightA",
+                  "rightB",
+                  "join",
+                  "trap"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "join",
+                "row": 1,
+                "column": 2,
+                "title": {
+                  "it": "Codice costruito",
+                  "en": "Code constructed"
+                },
+                "detail": {
+                  "it": "L’iniettività permette di trasferire al codice la dimensione dello spazio.",
+                  "en": "Injectivity transfers the space dimension to the code."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [
+                  "left",
+                  "right"
+                ],
+                "grants": [
+                  "joined"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightB",
+                "row": 2,
+                "column": 0,
+                "title": {
+                  "it": "Dimensione dello spazio",
+                  "en": "Space dimension"
+                },
+                "detail": {
+                  "it": "Riemann–Roch dà \\(\\ell(D)=5+1-2=4\\).",
+                  "en": "Riemann–Roch gives \\(\\ell(D)=5+1-2=4\\)."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "right-pre"
+                ],
+                "grants": [
+                  "right"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "trap",
+                "row": 2,
+                "column": 1,
+                "title": {
+                  "it": "Scorciatoia fragile",
+                  "en": "Fragile shortcut"
+                },
+                "detail": {
+                  "it": "Questa passerella sembra più breve: controlla il ragionamento.",
+                  "en": "This walkway looks shorter: check the reasoning."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": {
+                  "it": "Valutare in un polo non dà un simbolo del campo. I punti devono essere fuori dal supporto del divisore.",
+                  "en": "Evaluating at a pole does not give a field symbol. The points must lie outside the divisor support."
+                }
+              },
+              {
+                "id": "goal",
+                "row": 2,
+                "column": 2,
+                "title": {
+                  "it": "Distanza protetta",
+                  "en": "Distance protected"
+                },
+                "detail": {
+                  "it": "\\(k_C=4\\) e \\(d_C\\ge9-5=4\\): una funzione non nulla non si annulla in più di \\(5\\) punti scelti.",
+                  "en": "\\(k_C=4\\) and \\(d_C\\ge9-5=4\\): a nonzero function cannot vanish at more than \\(5\\) selected points."
+                },
+                "exits": [],
+                "requires": [
+                  "joined"
+                ],
+                "grants": [
+                  "done"
+                ],
+                "removes": [],
+                "blockedReason": null
+              }
+            ],
+            "start": "start",
+            "goal": "goal",
+            "tokens": [
+              {
+                "id": "given",
+                "label": {
+                  "it": "Ipotesi del modello",
+                  "en": "Model assumptions"
+                }
+              },
+              {
+                "id": "left-pre",
+                "label": {
+                  "it": "Valutazione definita",
+                  "en": "Evaluation defined"
+                }
+              },
+              {
+                "id": "left",
+                "label": {
+                  "it": "Valutazione iniettiva",
+                  "en": "Injective evaluation"
+                }
+              },
+              {
+                "id": "right-pre",
+                "label": {
+                  "it": "Grado sufficiente",
+                  "en": "Sufficient degree"
+                }
+              },
+              {
+                "id": "right",
+                "label": {
+                  "it": "Dimensione dello spazio",
+                  "en": "Space dimension"
+                }
+              },
+              {
+                "id": "joined",
+                "label": {
+                  "it": "Codice costruito",
+                  "en": "Code constructed"
+                }
+              },
+              {
+                "id": "done",
+                "label": {
+                  "it": "Traguardo dimostrato",
+                  "en": "Goal established"
+                }
+              }
+            ],
+            "initialTokens": [
+              "given"
+            ],
+            "goalTokens": [
+              "done"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "categoryID": "proof-analysis",
+      "title": {
+        "it": "Il sentiero dei primi",
+        "en": "The prime trail"
+      },
+      "introduction": {
+        "it": "Porta stime e lemmi attraverso il paesaggio della zeta. Apri i ponti rispettando i domini di validità e le ipotesi.",
+        "en": "Carry bounds and lemmas through the zeta landscape. Open bridges by respecting domains of validity and hypotheses."
+      },
+      "levels": [
+        {
+          "id": "proof-analysis-map-0",
+          "title": {
+            "it": "Il prodotto infinito",
+            "en": "The infinite product"
+          },
+          "mission": {
+            "it": "Raggiungi il teorema portando alla passerella i risultati di entrambi i rami. Il percorso breve può perdere un’ipotesi essenziale: ispeziona le porte prima di attraversarle.",
+            "en": "Reach the theorem by bringing results from both branches to the bridge. A short route may lose an essential hypothesis: inspect the doors before crossing."
+          },
+          "hints": [
+            {
+              "it": "La serie, il suo prolungamento e il valore di un integrale improprio non sono oggetti intercambiabili.",
+              "en": "The series, its continuation, and the value of an improper integral are not interchangeable."
+            },
+            {
+              "it": "Raccogli prima le stime e poi le proprietà sul bordo: il ponte richiede il controllo di entrambe.",
+              "en": "Collect the bounds and boundary properties: the bridge needs control of both."
+            }
+          ],
+          "explanation": {
+            "it": "Una dimostrazione analitica attraversa domini di validità diversi. La convergenza assoluta giustifica il prodotto di Eulero nel suo semipiano; il prolungamento e il controllo degli zeri permettono di studiare il bordo. Il lemma di Newman rimuove lo smorzamento soltanto con le sue ipotesi. Le tessere mostrano questi legami; le voci collegate contengono i passaggi analitici completi. La meta non si ottiene sostituendo formalmente un valore al bordo.",
+            "en": "An analytic proof crosses different domains of validity. Absolute convergence justifies the Euler product in its half-plane; continuation and zero control allow boundary analysis. Newman’s lemma removes damping only under its hypotheses. The tiles show these dependencies; the linked entries contain the full analytic steps. The goal cannot be reached by formally substituting a boundary value."
+          },
+          "conceptIDs": [
+            "prime-number",
+            "zeta-euler",
+            "zeta-boundary",
+            "newman-lemma"
+          ],
+          "kind": "route",
+          "moveLimit": 14,
+          "route": {
+            "nodes": [
+              {
+                "id": "start",
+                "row": 0,
+                "column": 0,
+                "title": {
+                  "it": "Banco delle ipotesi",
+                  "en": "Assumption desk"
+                },
+                "detail": {
+                  "it": "Lavora nel semipiano \\(\\operatorname{Re}s>1\\). Devi costruire il prodotto infinito senza confonderlo con un prodotto soltanto formale.",
+                  "en": "Work in the half-plane \\(\\operatorname{Re}s>1\\). Build the infinite product without treating it as merely formal."
+                },
+                "exits": [
+                  "leftA",
+                  "rightA"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftA",
+                "row": 0,
+                "column": 1,
+                "title": {
+                  "it": "Fattorizzazione unica",
+                  "en": "Unique factorization"
+                },
+                "detail": {
+                  "it": "Ogni intero positivo ha una sola scomposizione in primi, a meno dell’ordine.",
+                  "en": "Every positive integer has a unique prime factorization, up to ordering."
+                },
+                "exits": [
+                  "leftB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "left-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftB",
+                "row": 0,
+                "column": 2,
+                "title": {
+                  "it": "Prodotti finiti",
+                  "en": "Finite products"
+                },
+                "detail": {
+                  "it": "Espandi prima prodotti su un insieme finito di primi: ogni scelta di esponenti dà un intero diverso.",
+                  "en": "First expand products over finitely many primes: each exponent choice gives a different integer."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "left-pre"
+                ],
+                "grants": [
+                  "left"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightA",
+                "row": 1,
+                "column": 0,
+                "title": {
+                  "it": "Convergenza assoluta",
+                  "en": "Absolute convergence"
+                },
+                "detail": {
+                  "it": "Per \\(\\sigma>1\\), \\(\\sum n^{-\\sigma}\\) converge.",
+                  "en": "For \\(\\sigma>1\\), \\(\\sum n^{-\\sigma}\\) converges."
+                },
+                "exits": [
+                  "rightB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "right-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "hub",
+                "row": 1,
+                "column": 1,
+                "title": {
+                  "it": "Incrocio",
+                  "en": "Junction"
+                },
+                "detail": {
+                  "it": "Puoi portare i risultati da un ramo all’altro. Il ponte finale richiede entrambi i rami.",
+                  "en": "You may carry results between branches. The final bridge requires both branches."
+                },
+                "exits": [
+                  "leftA",
+                  "leftB",
+                  "rightA",
+                  "rightB",
+                  "join",
+                  "trap"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "join",
+                "row": 1,
+                "column": 2,
+                "title": {
+                  "it": "Limite del prodotto",
+                  "en": "Product limit"
+                },
+                "detail": {
+                  "it": "Ora il limite dei prodotti finiti coincide con la serie della zeta.",
+                  "en": "The limit of the finite products now equals the zeta series."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [
+                  "left",
+                  "right"
+                ],
+                "grants": [
+                  "joined"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightB",
+                "row": 2,
+                "column": 0,
+                "title": {
+                  "it": "Coda controllata",
+                  "en": "Controlled tail"
+                },
+                "detail": {
+                  "it": "La convergenza assoluta controlla gli interi ancora mancanti quando crescono gli insiemi di primi.",
+                  "en": "Absolute convergence controls the missing integers as the finite prime sets grow."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "right-pre"
+                ],
+                "grants": [
+                  "right"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "trap",
+                "row": 2,
+                "column": 1,
+                "title": {
+                  "it": "Scorciatoia fragile",
+                  "en": "Fragile shortcut"
+                },
+                "detail": {
+                  "it": "Questa passerella sembra più breve: controlla il ragionamento.",
+                  "en": "This walkway looks shorter: check the reasoning."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": {
+                  "it": "Non puoi sostituire \\(s=1\\) nella serie convergente: \\(\\sum 1/n\\) diverge e la zeta ha un polo.",
+                  "en": "You cannot substitute \\(s=1\\) into the convergent series: \\(\\sum 1/n\\) diverges and zeta has a pole."
+                }
+              },
+              {
+                "id": "goal",
+                "row": 2,
+                "column": 2,
+                "title": {
+                  "it": "Prodotto di Eulero",
+                  "en": "Euler product"
+                },
+                "detail": {
+                  "it": "\\[\\zeta(s)=\\prod_p(1-p^{-s})^{-1},\\qquad\\operatorname{Re}s>1.\\]",
+                  "en": "\\[\\zeta(s)=\\prod_p(1-p^{-s})^{-1},\\qquad\\operatorname{Re}s>1.\\]"
+                },
+                "exits": [],
+                "requires": [
+                  "joined"
+                ],
+                "grants": [
+                  "done"
+                ],
+                "removes": [],
+                "blockedReason": null
+              }
+            ],
+            "start": "start",
+            "goal": "goal",
+            "tokens": [
+              {
+                "id": "given",
+                "label": {
+                  "it": "Ipotesi del modello",
+                  "en": "Model assumptions"
+                }
+              },
+              {
+                "id": "left-pre",
+                "label": {
+                  "it": "Fattorizzazione unica",
+                  "en": "Unique factorization"
+                }
+              },
+              {
+                "id": "left",
+                "label": {
+                  "it": "Prodotti finiti",
+                  "en": "Finite products"
+                }
+              },
+              {
+                "id": "right-pre",
+                "label": {
+                  "it": "Convergenza assoluta",
+                  "en": "Absolute convergence"
+                }
+              },
+              {
+                "id": "right",
+                "label": {
+                  "it": "Coda controllata",
+                  "en": "Controlled tail"
+                }
+              },
+              {
+                "id": "joined",
+                "label": {
+                  "it": "Limite del prodotto",
+                  "en": "Product limit"
+                }
+              },
+              {
+                "id": "done",
+                "label": {
+                  "it": "Traguardo dimostrato",
+                  "en": "Goal established"
+                }
+              }
+            ],
+            "initialTokens": [
+              "given"
+            ],
+            "goalTokens": [
+              "done"
+            ]
+          }
+        },
+        {
+          "id": "proof-analysis-map-1",
+          "title": {
+            "it": "La porta del bordo",
+            "en": "The boundary gate"
+          },
+          "mission": {
+            "it": "Raggiungi il teorema portando alla passerella i risultati di entrambi i rami. Il percorso breve può perdere un’ipotesi essenziale: ispeziona le porte prima di attraversarle.",
+            "en": "Reach the theorem by bringing results from both branches to the bridge. A short route may lose an essential hypothesis: inspect the doors before crossing."
+          },
+          "hints": [
+            {
+              "it": "La serie, il suo prolungamento e il valore di un integrale improprio non sono oggetti intercambiabili.",
+              "en": "The series, its continuation, and the value of an improper integral are not interchangeable."
+            },
+            {
+              "it": "Raccogli prima le stime e poi le proprietà sul bordo: il ponte richiede il controllo di entrambe.",
+              "en": "Collect the bounds and boundary properties: the bridge needs control of both."
+            }
+          ],
+          "explanation": {
+            "it": "Una dimostrazione analitica attraversa domini di validità diversi. La convergenza assoluta giustifica il prodotto di Eulero nel suo semipiano; il prolungamento e il controllo degli zeri permettono di studiare il bordo. Il lemma di Newman rimuove lo smorzamento soltanto con le sue ipotesi. Le tessere mostrano questi legami; le voci collegate contengono i passaggi analitici completi. La meta non si ottiene sostituendo formalmente un valore al bordo.",
+            "en": "An analytic proof crosses different domains of validity. Absolute convergence justifies the Euler product in its half-plane; continuation and zero control allow boundary analysis. Newman’s lemma removes damping only under its hypotheses. The tiles show these dependencies; the linked entries contain the full analytic steps. The goal cannot be reached by formally substituting a boundary value."
+          },
+          "conceptIDs": [
+            "prime-number",
+            "zeta-euler",
+            "zeta-boundary",
+            "newman-lemma"
+          ],
+          "kind": "route",
+          "moveLimit": 14,
+          "route": {
+            "nodes": [
+              {
+                "id": "start",
+                "row": 0,
+                "column": 0,
+                "title": {
+                  "it": "Banco delle ipotesi",
+                  "en": "Assumption desk"
+                },
+                "detail": {
+                  "it": "Il parametro reale \\(t\\) è non nullo. Escludi uno zero in \\(1+it\\) combinando un vincolo positivo e un conto degli ordini.",
+                  "en": "The real parameter \\(t\\) is nonzero. Exclude a zero at \\(1+it\\) by combining a positivity bound with an order calculation."
+                },
+                "exits": [
+                  "leftA",
+                  "rightA"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftA",
+                "row": 0,
+                "column": 1,
+                "title": {
+                  "it": "Identità positiva",
+                  "en": "Positive identity"
+                },
+                "detail": {
+                  "it": "\\[3+4\\cos u+\\cos(2u)=2(1+\\cos u)^2\\ge0.\\]",
+                  "en": "\\[3+4\\cos u+\\cos(2u)=2(1+\\cos u)^2\\ge0.\\]"
+                },
+                "exits": [
+                  "leftB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "left-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftB",
+                "row": 0,
+                "column": 2,
+                "title": {
+                  "it": "Vincolo del prodotto",
+                  "en": "Product bound"
+                },
+                "detail": {
+                  "it": "Per \\(\\sigma>1\\), il prodotto di Eulero dà \\(\\zeta(\\sigma)^3|\\zeta(\\sigma+it)|^4|\\zeta(\\sigma+2it)|\\ge1\\).",
+                  "en": "For \\(\\sigma>1\\), the Euler product gives \\(\\zeta(\\sigma)^3|\\zeta(\\sigma+it)|^4|\\zeta(\\sigma+2it)|\\ge1\\)."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "left-pre"
+                ],
+                "grants": [
+                  "left"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightA",
+                "row": 1,
+                "column": 0,
+                "title": {
+                  "it": "Polo e olomorfia",
+                  "en": "Pole and holomorphy"
+                },
+                "detail": {
+                  "it": "La zeta ha un polo semplice in \\(1\\), ma è olomorfa in \\(1+it\\) e \\(1+2it\\).",
+                  "en": "Zeta has a simple pole at \\(1\\), but is holomorphic at \\(1+it\\) and \\(1+2it\\)."
+                },
+                "exits": [
+                  "rightB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "right-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "hub",
+                "row": 1,
+                "column": 1,
+                "title": {
+                  "it": "Incrocio",
+                  "en": "Junction"
+                },
+                "detail": {
+                  "it": "Puoi portare i risultati da un ramo all’altro. Il ponte finale richiede entrambi i rami.",
+                  "en": "You may carry results between branches. The final bridge requires both branches."
+                },
+                "exits": [
+                  "leftA",
+                  "leftB",
+                  "rightA",
+                  "rightB",
+                  "join",
+                  "trap"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "join",
+                "row": 1,
+                "column": 2,
+                "title": {
+                  "it": "Contraddizione",
+                  "en": "Contradiction"
+                },
+                "detail": {
+                  "it": "Il prodotto non può essere almeno uno e tendere a zero.",
+                  "en": "The product cannot stay at least one and tend to zero."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [
+                  "left",
+                  "right"
+                ],
+                "grants": [
+                  "joined"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightB",
+                "row": 2,
+                "column": 0,
+                "title": {
+                  "it": "Zero impossibile",
+                  "en": "Impossible zero"
+                },
+                "detail": {
+                  "it": "Uno zero di ordine \\(m\\ge1\\) farebbe tendere il prodotto a zero: il fattore dominante è \\((\\sigma-1)^{4m-3}\\).",
+                  "en": "A zero of order \\(m\\ge1\\) would send the product to zero: the controlling factor is \\((\\sigma-1)^{4m-3}\\)."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "right-pre"
+                ],
+                "grants": [
+                  "right"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "trap",
+                "row": 2,
+                "column": 1,
+                "title": {
+                  "it": "Scorciatoia fragile",
+                  "en": "Fragile shortcut"
+                },
+                "detail": {
+                  "it": "Questa passerella sembra più breve: controlla il ragionamento.",
+                  "en": "This walkway looks shorter: check the reasoning."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": {
+                  "it": "Il punto \\(t=0\\) non è uno zero da escludere: lì c’è il polo della zeta.",
+                  "en": "The point \\(t=0\\) is not a zero to exclude: zeta has its pole there."
+                }
+              },
+              {
+                "id": "goal",
+                "row": 2,
+                "column": 2,
+                "title": {
+                  "it": "Bordo senza zeri",
+                  "en": "Zero-free boundary"
+                },
+                "detail": {
+                  "it": "\\(\\zeta(1+it)\\ne0\\) per \\(t\\ne0\\).",
+                  "en": "\\(\\zeta(1+it)\\ne0\\) for \\(t\\ne0\\)."
+                },
+                "exits": [],
+                "requires": [
+                  "joined"
+                ],
+                "grants": [
+                  "done"
+                ],
+                "removes": [],
+                "blockedReason": null
+              }
+            ],
+            "start": "start",
+            "goal": "goal",
+            "tokens": [
+              {
+                "id": "given",
+                "label": {
+                  "it": "Ipotesi del modello",
+                  "en": "Model assumptions"
+                }
+              },
+              {
+                "id": "left-pre",
+                "label": {
+                  "it": "Identità positiva",
+                  "en": "Positive identity"
+                }
+              },
+              {
+                "id": "left",
+                "label": {
+                  "it": "Vincolo del prodotto",
+                  "en": "Product bound"
+                }
+              },
+              {
+                "id": "right-pre",
+                "label": {
+                  "it": "Polo e olomorfia",
+                  "en": "Pole and holomorphy"
+                }
+              },
+              {
+                "id": "right",
+                "label": {
+                  "it": "Zero impossibile",
+                  "en": "Impossible zero"
+                }
+              },
+              {
+                "id": "joined",
+                "label": {
+                  "it": "Contraddizione",
+                  "en": "Contradiction"
+                }
+              },
+              {
+                "id": "done",
+                "label": {
+                  "it": "Traguardo dimostrato",
+                  "en": "Goal established"
+                }
+              }
+            ],
+            "initialTokens": [
+              "given"
+            ],
+            "goalTokens": [
+              "done"
+            ]
+          }
+        },
+        {
+          "id": "proof-analysis-map-2",
+          "title": {
+            "it": "Il ponte tauberiano",
+            "en": "The Tauberian bridge"
+          },
+          "mission": {
+            "it": "Raggiungi il teorema portando alla passerella i risultati di entrambi i rami. Il percorso breve può perdere un’ipotesi essenziale: ispeziona le porte prima di attraversarle.",
+            "en": "Reach the theorem by bringing results from both branches to the bridge. A short route may lose an essential hypothesis: inspect the doors before crossing."
+          },
+          "hints": [
+            {
+              "it": "La serie, il suo prolungamento e il valore di un integrale improprio non sono oggetti intercambiabili.",
+              "en": "The series, its continuation, and the value of an improper integral are not interchangeable."
+            },
+            {
+              "it": "Raccogli prima le stime e poi le proprietà sul bordo: il ponte richiede il controllo di entrambe.",
+              "en": "Collect the bounds and boundary properties: the bridge needs control of both."
+            }
+          ],
+          "explanation": {
+            "it": "Una dimostrazione analitica attraversa domini di validità diversi. La convergenza assoluta giustifica il prodotto di Eulero nel suo semipiano; il prolungamento e il controllo degli zeri permettono di studiare il bordo. Il lemma di Newman rimuove lo smorzamento soltanto con le sue ipotesi. Le tessere mostrano questi legami; le voci collegate contengono i passaggi analitici completi. La meta non si ottiene sostituendo formalmente un valore al bordo.",
+            "en": "An analytic proof crosses different domains of validity. Absolute convergence justifies the Euler product in its half-plane; continuation and zero control allow boundary analysis. Newman’s lemma removes damping only under its hypotheses. The tiles show these dependencies; the linked entries contain the full analytic steps. The goal cannot be reached by formally substituting a boundary value."
+          },
+          "conceptIDs": [
+            "prime-number",
+            "zeta-euler",
+            "zeta-boundary",
+            "newman-lemma"
+          ],
+          "kind": "route",
+          "moveLimit": 14,
+          "route": {
+            "nodes": [
+              {
+                "id": "start",
+                "row": 0,
+                "column": 0,
+                "title": {
+                  "it": "Banco delle ipotesi",
+                  "en": "Assumption desk"
+                },
+                "detail": {
+                  "it": "Vuoi passare dalle proprietà della zeta al conteggio dei primi. Il trasporto richiede sia una funzione limitata sia la corretta continuazione della trasformata.",
+                  "en": "Move from zeta properties to prime counting. The crossing needs both a bounded function and the right continuation of its transform."
+                },
+                "exits": [
+                  "leftA",
+                  "rightA"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftA",
+                "row": 0,
+                "column": 1,
+                "title": {
+                  "it": "Stima di Chebyshev",
+                  "en": "Chebyshev bound"
+                },
+                "detail": {
+                  "it": "\\(\\theta(x)=O(x)\\), con \\(\\theta(x)=\\sum_{p\\le x}\\log p\\).",
+                  "en": "\\(\\theta(x)=O(x)\\), where \\(\\theta(x)=\\sum_{p\\le x}\\log p\\)."
+                },
+                "exits": [
+                  "leftB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "left-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "leftB",
+                "row": 0,
+                "column": 2,
+                "title": {
+                  "it": "Funzione limitata",
+                  "en": "Bounded function"
+                },
+                "detail": {
+                  "it": "Quindi \\(f(t)=e^{-t}\\theta(e^t)-1\\) è limitata e localmente integrabile.",
+                  "en": "Thus \\(f(t)=e^{-t}\\theta(e^t)-1\\) is bounded and locally integrable."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "left-pre"
+                ],
+                "grants": [
+                  "left"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightA",
+                "row": 1,
+                "column": 0,
+                "title": {
+                  "it": "Bordo della zeta",
+                  "en": "Zeta boundary"
+                },
+                "detail": {
+                  "it": "Il prodotto di Eulero, il controllo delle potenze prime e l’assenza di zeri sul bordo descrivono la trasformata.",
+                  "en": "The Euler product, control of prime powers, and the zero-free boundary describe the transform."
+                },
+                "exits": [
+                  "rightB",
+                  "hub"
+                ],
+                "requires": [
+                  "given"
+                ],
+                "grants": [
+                  "right-pre"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "hub",
+                "row": 1,
+                "column": 1,
+                "title": {
+                  "it": "Incrocio",
+                  "en": "Junction"
+                },
+                "detail": {
+                  "it": "Puoi portare i risultati da un ramo all’altro. Il ponte finale richiede entrambi i rami.",
+                  "en": "You may carry results between branches. The final bridge requires both branches."
+                },
+                "exits": [
+                  "leftA",
+                  "leftB",
+                  "rightA",
+                  "rightB",
+                  "join",
+                  "trap"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "join",
+                "row": 1,
+                "column": 2,
+                "title": {
+                  "it": "Ponte di Newman",
+                  "en": "Newman bridge"
+                },
+                "detail": {
+                  "it": "Il lemma dà la convergenza di \\(\\int_0^T f(t)\\,dt\\). Servono entrambi i rami.",
+                  "en": "The lemma gives convergence of \\(\\int_0^T f(t)\\,dt\\). Both branches are required."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [
+                  "left",
+                  "right"
+                ],
+                "grants": [
+                  "joined"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "rightB",
+                "row": 2,
+                "column": 0,
+                "title": {
+                  "it": "Trasformata prolungata",
+                  "en": "Extended transform"
+                },
+                "detail": {
+                  "it": "La trasformata di Laplace di \\(f\\), dopo la cancellazione del polo, si prolunga a un intorno del semipiano chiuso.",
+                  "en": "After pole cancellation, the Laplace transform of \\(f\\) extends to a neighborhood of the closed half-plane."
+                },
+                "exits": [
+                  "hub",
+                  "join"
+                ],
+                "requires": [
+                  "right-pre"
+                ],
+                "grants": [
+                  "right"
+                ],
+                "removes": [],
+                "blockedReason": null
+              },
+              {
+                "id": "trap",
+                "row": 2,
+                "column": 1,
+                "title": {
+                  "it": "Scorciatoia fragile",
+                  "en": "Fragile shortcut"
+                },
+                "detail": {
+                  "it": "Questa passerella sembra più breve: controlla il ragionamento.",
+                  "en": "This walkway looks shorter: check the reasoning."
+                },
+                "exits": [
+                  "goal"
+                ],
+                "requires": [],
+                "grants": [],
+                "removes": [],
+                "blockedReason": {
+                  "it": "Conoscere un prolungamento di \\(G\\) non autorizza a sostituire \\(z=0\\) sotto l’integrale improprio senza un argomento tauberiano.",
+                  "en": "Knowing an extension of \\(G\\) does not justify substituting \\(z=0\\) inside the improper integral without a Tauberian argument."
+                }
+              },
+              {
+                "id": "goal",
+                "row": 2,
+                "column": 2,
+                "title": {
+                  "it": "Conteggio dei primi",
+                  "en": "Prime counting"
+                },
+                "detail": {
+                  "it": "La monotonia porta a \\(\\theta(x)\\sim x\\); la sommazione parziale dà \\(\\pi(x)\\sim x/\\log x\\).",
+                  "en": "Monotonicity gives \\(\\theta(x)\\sim x\\); partial summation gives \\(\\pi(x)\\sim x/\\log x\\)."
+                },
+                "exits": [],
+                "requires": [
+                  "joined"
+                ],
+                "grants": [
+                  "done"
+                ],
+                "removes": [],
+                "blockedReason": null
+              }
+            ],
+            "start": "start",
+            "goal": "goal",
+            "tokens": [
+              {
+                "id": "given",
+                "label": {
+                  "it": "Ipotesi del modello",
+                  "en": "Model assumptions"
+                }
+              },
+              {
+                "id": "left-pre",
+                "label": {
+                  "it": "Stima di Chebyshev",
+                  "en": "Chebyshev bound"
+                }
+              },
+              {
+                "id": "left",
+                "label": {
+                  "it": "Funzione limitata",
+                  "en": "Bounded function"
+                }
+              },
+              {
+                "id": "right-pre",
+                "label": {
+                  "it": "Bordo della zeta",
+                  "en": "Zeta boundary"
+                }
+              },
+              {
+                "id": "right",
+                "label": {
+                  "it": "Trasformata prolungata",
+                  "en": "Extended transform"
+                }
+              },
+              {
+                "id": "joined",
+                "label": {
+                  "it": "Ponte di Newman",
+                  "en": "Newman bridge"
+                }
+              },
+              {
+                "id": "done",
+                "label": {
+                  "it": "Traguardo dimostrato",
+                  "en": "Goal established"
+                }
+              }
+            ],
+            "initialTokens": [
+              "given"
+            ],
+            "goalTokens": [
+              "done"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

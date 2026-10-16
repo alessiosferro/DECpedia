@@ -8,9 +8,10 @@ struct RichMathView: View {
     let text: String
     var size: Double = 17
     var inFormulaBox = false
+    var compact = false
     @State private var height: CGFloat = 40
     var body: some View {
-        BookWebView(text: text, size: size, inFormulaBox: inFormulaBox, height: $height)
+        BookWebView(text: text, size: size, inFormulaBox: inFormulaBox, compact: compact, height: $height)
             .frame(height: height)
     }
 }
@@ -19,6 +20,7 @@ private struct BookWebView: NSViewRepresentable {
     let text: String
     let size: Double
     let inFormulaBox: Bool
+    let compact: Bool
     @Binding var height: CGFloat
     @Environment(\.colorScheme) private var scheme
     func makeCoordinator() -> Coordinator { Coordinator(height: $height) }
@@ -36,13 +38,14 @@ private struct BookWebView: NSViewRepresentable {
     func updateNSView(_ view: WKWebView, context: Context) {
         context.coordinator.height = $height
         let dark = scheme == .dark
-        let key = text + String(size) + String(dark) + String(inFormulaBox)
+        let key = text + String(size) + String(dark) + String(inFormulaBox) + String(compact)
         guard key != context.coordinator.lastKey else { return }
         context.coordinator.lastKey = key
         let foreground = dark ? "#ece9e2" : "#252b29"
         let border = dark ? "rgba(236,233,226,0.16)" : "rgba(37,43,41,0.15)"
         let keyLine = dark ? "rgba(128,207,184,0.40)" : "rgba(34,111,92,0.24)"
-        let displayStyle = inFormulaBox ? "border:0;padding:8px 0;margin:8px 0 14px" : "border:1px solid \(border);border-radius:8px;padding:20px 16px;margin:24px 0"
+        let displayStyle = compact ? "border:0;padding:2px 0;margin:0" : inFormulaBox ? "border:0;padding:8px 0;margin:8px 0 14px" : "border:1px solid \(border);border-radius:8px;padding:20px 16px;margin:24px 0"
+        let compactStyle = compact ? "#book{padding:1px 2px}.katex-display{margin:0}html,body{line-height:1.4}" : ""
         let html = """
         <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
         <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src decpedia-math: 'unsafe-inline'; style-src decpedia-math: 'unsafe-inline'; font-src decpedia-math:; connect-src 'none'; img-src 'none'">
@@ -57,6 +60,7 @@ private struct BookWebView: NSViewRepresentable {
         .key-concept{font-weight:700;box-shadow:inset 0 -0.15em 0 \(keyLine);padding-bottom:0.02em}
         .key-concept .katex{font-weight:inherit}
         .error{color:\(dark ? "#ffb4a5" : "#a62d22");white-space:pre-wrap;font:14px/1.6 ui-monospace,monospace}
+        \(compactStyle)
         </style>
         <script src="decpedia-math://assets/katex.min.js"></script></head><body><div id="book">\(MathMarkup.html(text))</div>
         <script>

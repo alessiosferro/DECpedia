@@ -1,4 +1,4 @@
-# DECpedia 1.3.1
+# DECpedia 1.4
 
 A personal, fully offline encyclopedia for Mac, with an interface, explanations, examples, and proofs in Italian and English. The **IT / EN** selector keeps the current entry open and remembers your language choice.
 
@@ -48,6 +48,26 @@ The proofs state their assumptions: curves are smooth, projective, and geometric
 
 Shortcuts: **⌘F** search, **⌘D** favorite, **⌘1** all entries, **⌘2** favorites, **⌘3** sources, **⌘[ / ⌘]** history.
 
+## Interactive logic games
+
+Open **Logic games** in the sidebar, press **⌘4**, or choose **Play with these concepts** inside a topic section. Every one of the eleven topic sections has its own game, with **three levels each: 33 interactive boards**.
+
+- **Algebra — The remainder lock:** coordinate coupled modular gears.
+- **Classical ciphers — The key lanterns:** use shared clues to reconstruct messages encrypted with a reused pad.
+- **Public keys — The key courier:** route a parcel through public locks, private-key rooms, relays, and signature checks.
+- **Curves — The chord garden:** plan additions, doublings, and reflections on a finite elliptic curve.
+- **Signatures — The seal workshop:** match detached signatures with parcels and isolate the forged seal.
+- **Factorization — The factor factory:** split composite blocks using a finite supply of gcd tools.
+- **Linear codes — The bit bridge:** coordinate switches connected to several parity lamps.
+- **Code families — The code village:** allocate code tiles to channels with competing protection, capacity, alphabet, length, and budget constraints.
+- **Exercises — The clue room:** escape through a modular lock, a damaged bit bridge, and an elliptic exit.
+- **Proofs · curves — The hypothesis laboratory:** collect compatible lemmas to open proof bridges.
+- **Proofs · prime numbers — The prime trail:** carry convergence bounds and analytic hypotheses across a proof map.
+
+These are stateful boards with legal moves and a goal, rather than question-and-answer forms. Moves change the board immediately. **Undo**, **Restart**, and gradual **Hints** stay visible. After unlocking a level, read the explanation and follow links back to the encyclopedia; returning to the game preserves the board. Other unfinished games also stay available while the app remains open. Language and theme changes preserve the current game.
+
+Completed runs, best move counts, and the latest hint count are stored with your notes, entirely offline. Unfinished boards are kept in memory until you quit the app. There are no timers, accounts, ads, or online rankings. Puzzle numbers, boards, hints, and explanations are original teaching additions, not exercises attributed to the PDFs. Small RSA parameters illustrate only the verification relation; the games are not secure cryptographic implementations. A zero syndrome means a codeword, without necessarily identifying the original transmission. The code-allocation budget is a game budget in symbols, not a universal physical or bit cost.
+
 ## Sources and provenance
 
 **Source** identifies content tied to the documents' actual pages. **Teaching addition** identifies explanations, proofs, and examples developed for the app. Added proofs are not attributed to the course PDFs. The two supplementary references are identified as such in the library.
@@ -86,7 +106,7 @@ Rebuild after making changes. Search covers entries, not the full text of the PD
 ./Scripts/test.sh
 ```
 
-The **19 tests** check the catalog, bilingual coverage, proof prerequisites, search, saving, LaTeX delimiters, numbers in instructional prose, citations, and independently calculated exercise results. If you add local copies of the PDFs, the tests also check citation hashes, pages, and evidence. The script accepts `--disable-sandbox` in environments that block SwiftPM's sandboxed subprocess; this is not needed on a standard Mac.
+The **24 tests** check the catalog, bilingual coverage, proof prerequisites, search, saving, LaTeX delimiters, numbers in instructional prose, citations, independently calculated exercise results, every game’s reachability within its move budget, transactional undo, locked controls, mathematical examples, and backward-compatible game records. If you add local copies of the PDFs, the tests also check citation hashes, pages, and evidence. The script accepts `--disable-sandbox` in environments that block SwiftPM's sandboxed subprocess; this is not needed on a standard Mac.
 
 If Node is installed, you can also validate every expression with the same KaTeX version bundled in the app, without installing packages:
 

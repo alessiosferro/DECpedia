@@ -197,6 +197,7 @@ public struct PersonalState: Codable {
     public var lastConceptID: String? = nil
     public var language: String? = nil
     public var theme: String? = nil
+    public var gameRecords: [String: LogicRecord]? = nil
     public init() {}
     public static func read(from url: URL) throws -> PersonalState {
         let state = try JSONDecoder().decode(Self.self, from: Data(contentsOf: url))

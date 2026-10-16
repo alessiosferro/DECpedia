@@ -47,13 +47,21 @@ struct RootView: View {
                 NavigationSplitView(columnVisibility: $visibility) {
                     sidebar.navigationSplitViewColumnWidth(min: 205, ideal: 225, max: 285)
                 } content: {
-                    if store.scope == "sources" {
+                    if store.scope == "games" {
+                        GameListView().navigationSplitViewColumnWidth(min:250,ideal:285,max:360)
+                    } else if store.scope == "sources" {
                         SourceListView().navigationSplitViewColumnWidth(min: 250, ideal: 285, max: 360)
                     } else {
                         conceptList.navigationSplitViewColumnWidth(min: 260, ideal: 300, max: 380)
                     }
                 } detail: {
-                    if store.scope == "sources" {
+                    if store.scope == "games" {
+                        if let game = store.selectedGame {
+                            GameDetailView(game:game).id(game.id)
+                        } else {
+                            EmptyPane(symbol:"gamecontroller",title:store.t("Il laboratorio dei giochi", "The game laboratory"),message:store.gameLoadIssue ?? store.t("Scegli un gioco dalla lista.","Choose a game from the list."))
+                        }
+                    } else if store.scope == "sources" {
                         if let source = store.library?.sources.first(where: { $0.id == store.selectedSourceID }) {
                             SourceDetailView(source: source)
                         } else {
@@ -98,6 +106,8 @@ struct RootView: View {
                             .keyboardShortcut("]", modifiers: .command)
                     }
                     ToolbarItemGroup(placement: .primaryAction) {
+                        Button { store.openGame(store.current?.category) } label: { Image(systemName:"gamecontroller") }
+                            .help(store.t("Apri i giochi di logica", "Open the logic games"))
                         Button { store.scope = "sources"; store.query = "" } label: { Image(systemName: "books.vertical") }
                             .help(store.t("Apri la biblioteca delle fonti", "Open the source library"))
                         Button { store.showContext.toggle() } label: { Image(systemName: "sidebar.right") }
@@ -135,6 +145,7 @@ struct RootView: View {
                 Section(store.t("Biblioteca", "Library")) {
                     Label(store.t("Tutte le voci", "All entries"), systemImage: "books.vertical").tag("all")
                     Label(store.t("Preferiti", "Bookmarks"), systemImage: "bookmark").tag("saved")
+                    Label(store.t("Minigiochi", "Logic games"), systemImage:"gamecontroller").tag("games")
                     Label(store.t("Fonti originali", "Source documents"), systemImage: "doc.richtext").tag("sources")
                 }
                 Section(store.t("Esplora gli argomenti", "Explore topics")) {
@@ -154,7 +165,7 @@ struct RootView: View {
                 Circle().fill(Palette.accent).frame(width: 6, height: 6)
                 Text(store.t("Tutto sul tuo Mac", "Everything on your Mac")).font(.caption)
                 Spacer()
-                Text("1.3.1 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
+                Text("1.4 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
             }.foregroundStyle(.secondary).padding(18)
         }
     }
@@ -165,6 +176,11 @@ struct RootView: View {
                 Text(store.scopeTitle).font(.system(size: 22, weight: .semibold, design: .serif))
                 Text(store.t("\(store.results.count) \(store.results.count == 1 ? "voce" : "voci")\(store.query.isEmpty ? " da esplorare" : " trovate")", "\(store.results.count) \(store.results.count == 1 ? "entry" : "entries")\(store.query.isEmpty ? " to explore" : " found")"))
                     .font(.caption).foregroundStyle(.secondary)
+                if store.games != nil {
+                    Button { store.openGame(store.library?.category(store.scope)?.id) } label: {
+                        Label(store.library?.category(store.scope) == nil ? store.t("Esplora i minigiochi", "Explore the logic games") : store.t("Gioca con questi concetti", "Play with these concepts"),systemImage:"gamecontroller")
+                    }.buttonStyle(.bordered).font(.caption).padding(.top,5)
+                }
             }.padding(20)
             Divider()
             if store.results.isEmpty {

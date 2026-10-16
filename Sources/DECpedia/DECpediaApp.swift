@@ -41,6 +41,8 @@ struct DECpediaApp: App {
                     .keyboardShortcut("2", modifiers: .command)
                 Button(store.t("Biblioteca delle fonti", "Source library")) { store.scope = "sources" }
                     .keyboardShortcut("3", modifiers: .command)
+                Button(store.t("Minigiochi", "Logic games")) { store.openGame() }
+                    .keyboardShortcut("4", modifiers:.command)
                 Divider()
                 Button(store.t("Aggiungi o rimuovi dai preferiti", "Toggle bookmark")) {
                     if let id = store.selectedID { store.toggleBookmark(id) }

@@ -23,6 +23,17 @@ for (const entry of catalog.concepts) {
     }
   }
 }
+
+const games = JSON.parse(fs.readFileSync(path.join(root, 'Sources/DECpedia/Resources/games.json'), 'utf8'));
+function checkGameText(value, location) {
+  if (typeof value === 'string') {
+    for (const match of value.matchAll(/\\\(([\s\S]*?)\\\)|\\\[([\s\S]*?)\\\]/g)) validate(match[1] ?? match[2], location);
+  } else if (value && typeof value === 'object') {
+    for (const [key, child] of Object.entries(value)) checkGameText(child, `${location}/${key}`);
+  }
+}
+checkGameText(games, 'logic-games');
+
 console.log(`${checked} LaTeX expressions checked; ${failures.length} errors.`);
 for (const error of failures) console.error(error);
 process.exitCode = failures.length ? 1 : 0;
