@@ -24,6 +24,12 @@ public struct Library: Codable {
 
     public func search(_ query: String, category: String? = nil, saved: Set<String>? = nil) -> [Concept] {
         let tokens = Self.normalized(query).split(whereSeparator: \.isWhitespace).map(String.init)
+        // A selection redraw with an empty query must not normalize the entire book.
+        if tokens.isEmpty {
+            return concepts.filter {
+                (category == nil || $0.category == category) && (saved == nil || saved!.contains($0.id))
+            }.sorted { $0.order < $1.order }
+        }
         return concepts.compactMap { concept -> (Concept, Int)? in
             guard category == nil || concept.category == category,
                   saved == nil || saved!.contains(concept.id) else { return nil }

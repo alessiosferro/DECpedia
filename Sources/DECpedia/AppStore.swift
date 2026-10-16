@@ -7,7 +7,7 @@ import DECpediaCore
 
 @MainActor
 final class AppStore: ObservableObject {
-    @Published var library: Library?
+    @Published var library: Library? { didSet { resultCache = nil } }
     @Published var loadIssue: String?
     @Published var persistenceIssue: String?
     @Published var scope = "all"
@@ -38,6 +38,13 @@ final class AppStore: ObservableObject {
     @Published private(set) var historyIndex = -1
     private var readOnlyState = false
     private let stateURL: URL
+    private struct ResultKey: Equatable {
+        let query: String
+        let scope: String
+        let language: AppLanguage
+        let saved: Set<String>
+    }
+    private var resultCache: (key: ResultKey, concepts: [Concept])?
 
     init(stateURL: URL? = nil) {
         let isolatedURL = ProcessInfo.processInfo.environment["DECPEDIA_STATE_PATH"].map { URL(fileURLWithPath: $0) }
@@ -90,8 +97,13 @@ final class AppStore: ObservableObject {
     }
 
     var results: [Concept] {
-        library?.search(query, category: ["all", "saved", "sources"].contains(scope) ? nil : scope,
-                        saved: scope == "saved" ? personal.bookmarks : nil).map { $0.localized(language) } ?? []
+        let key = ResultKey(query: query, scope: scope, language: language,
+                            saved: scope == "saved" ? personal.bookmarks : [])
+        if let resultCache, resultCache.key == key { return resultCache.concepts }
+        let concepts = library?.search(query, category: ["all", "saved", "sources"].contains(scope) ? nil : scope,
+                                       saved: scope == "saved" ? personal.bookmarks : nil).map { $0.localized(language) } ?? []
+        resultCache = (key, concepts)
+        return concepts
     }
     var scopeTitle: String {
         if scope == "games" { return t("Minigiochi", "Logic games") }

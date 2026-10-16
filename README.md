@@ -1,4 +1,4 @@
-# DECpedia 1.4.2
+# DECpedia 1.5.0
 
 A personal, fully offline encyclopedia for Mac, with an interface, explanations, examples, and proofs in Italian and English. The **IT / EN** selector keeps the current entry open and remembers your language choice.
 
@@ -30,7 +30,7 @@ The script builds and opens `Build/DECpedia.app`. If macOS blocks the downloaded
 
 Choose **Automatic**, **Light**, or **Dark** from the appearance button in the toolbar or the **Appearance** menu. Automatic follows the macOS appearance, including system changes while the app is open. Your selection is saved with your notes and bookmarks; existing saved data remains compatible.
 
-Selected entries, bookmarks, category icons, and source documents use the native macOS selection foreground instead of green, keeping them readable on the selection background in every appearance.
+The top toolbar keeps the reading area clear, without a duplicated app title. Sidebar selection colors update without an animation; search results are cached so selecting an entry does not rescan the encyclopedia. Selected entries, bookmarks, category icons, and source documents use the native macOS selection foreground instead of green, keeping them readable on the selection background in every appearance.
 
 ## Read and study
 
@@ -63,6 +63,8 @@ Open **Logic games** in the sidebar, press **⌘4**, or choose **Play with these
 - **Exercises — The clue room:** escape through a modular lock, a damaged bit bridge, and an elliptic exit.
 - **Proofs · curves — The hypothesis laboratory:** collect compatible lemmas to open proof bridges.
 - **Proofs · prime numbers — The prime trail:** carry convergence bounds and analytic hypotheses across a proof map.
+
+The games use 24 original, transparent raster sprites: gears, levers, lit and unlit lamps, keys, parcels, seals, bridges, code tiles, and a courier. Distinct shapes and states make the boards readable in all three appearances. Mathematical notation remains selectable LaTeX, separate from the artwork. The original atlas and generation prompt are in [Docs/GameArt](Docs/GameArt/PROMPT.md); `Scripts/prepare-game-sprites.swift` prepares the cropped app assets.
 
 These are stateful boards with legal moves and a goal, rather than question-and-answer forms. Moves change the board immediately. **Undo**, **Restart**, and gradual **Hints** stay visible. After unlocking a level, read the explanation and follow links back to the encyclopedia; returning to the game preserves the board. Other unfinished games also stay available while the app remains open. Language and theme changes preserve the current game.
 

@@ -1,0 +1,214 @@
+{
+  "version": "1.5.0",
+  "date": "2026-10-16",
+  "method": "Native macOS interface, direct button interactions; six language/appearance snapshots per level. Logic completion verified once per level.",
+  "appearanceModes": [
+    "light",
+    "dark",
+    "automatic"
+  ],
+  "languages": [
+    "it",
+    "en"
+  ],
+  "levels": [
+    {
+      "game": "public",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "public",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "public",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "curves",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "curves",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "curves",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "signatures",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "signatures",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "signatures",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "factoring",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "factoring",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "factoring",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "linear",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "linear",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "linear",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "families",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "families",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "families",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "exercises",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "exercises",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "exercises",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "proof-geometry",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "proof-geometry",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "proof-geometry",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "proof-analysis",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "proof-analysis",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "proof-analysis",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "algebra",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "algebra",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "algebra",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "classic",
+      "level": 1,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "classic",
+      "level": 2,
+      "variants": 6,
+      "solved": true
+    },
+    {
+      "game": "classic",
+      "level": 3,
+      "variants": 6,
+      "solved": true
+    }
+  ]
+}

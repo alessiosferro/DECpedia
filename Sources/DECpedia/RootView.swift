@@ -17,11 +17,17 @@ enum Palette {
 extension View {
     @ViewBuilder
     func selectionAwareAccent(isSelected: Bool) -> some View {
-        if isSelected {
-            // Inherit the native selection foreground, including inactive selections.
-            self
-        } else {
-            foregroundStyle(Palette.accent)
+        Group {
+            if isSelected {
+                // Inherit the native selection foreground, including inactive selections.
+                self.transition(.identity)
+            } else {
+                foregroundStyle(Palette.accent).transition(.identity)
+            }
+        }
+        .transaction { transaction in
+            transaction.animation = nil
+            transaction.disablesAnimations = true
         }
     }
 
@@ -98,10 +104,6 @@ struct RootView: View {
                     }
                 }
                 .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Text("DECpedia")
-                            .font(.system(size: 13, weight: .semibold))
-                    }
                     ToolbarItem(placement: .primaryAction) {
                         Menu {
                             Picker(store.t("Aspetto", "Appearance"), selection: $store.theme) {
@@ -195,7 +197,7 @@ struct RootView: View {
                 Circle().fill(Palette.accent).frame(width: 6, height: 6)
                 Text(store.t("Consultazione offline sul Mac", "Offline reading on your Mac")).font(.caption)
                 Spacer()
-                Text("1.4.2 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
+                Text("1.5.0 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
             }.foregroundStyle(.secondary).padding(18)
         }
     }
