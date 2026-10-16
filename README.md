@@ -1,4 +1,4 @@
-# DECpedia 1.4.1
+# DECpedia 1.4.2
 
 A personal, fully offline encyclopedia for Mac, with an interface, explanations, examples, and proofs in Italian and English. The **IT / EN** selector keeps the current entry open and remembers your language choice.
 

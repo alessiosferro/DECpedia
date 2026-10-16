@@ -66,7 +66,7 @@ struct RootView: View {
     var body: some View {
         Group {
             if store.library == nil {
-                EmptyPane(symbol: "exclamationmark.triangle", title: store.t("La biblioteca non si apre", "Unable to open the library"), message: store.loadIssue ?? store.t("Controlla le risorse del progetto.", "Check the project resources."))
+                EmptyPane(symbol: "exclamationmark.triangle", title: store.t("Impossibile aprire la biblioteca", "Unable to open the library"), message: store.loadIssue ?? store.t("Controlla le risorse del progetto.", "Check the project resources."))
             } else {
                 NavigationSplitView(columnVisibility: $visibility) {
                     sidebar.navigationSplitViewColumnWidth(min: 205, ideal: 225, max: 285)
@@ -193,9 +193,9 @@ struct RootView: View {
             Divider().padding(.horizontal, 16)
             HStack(spacing: 7) {
                 Circle().fill(Palette.accent).frame(width: 6, height: 6)
-                Text(store.t("Tutto sul tuo Mac", "Everything on your Mac")).font(.caption)
+                Text(store.t("Consultazione offline sul Mac", "Offline reading on your Mac")).font(.caption)
                 Spacer()
-                Text("1.4.1 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
+                Text("1.4.2 · IT/EN").font(.system(size: 9, weight: .medium, design: .monospaced)).foregroundStyle(.tertiary)
             }.foregroundStyle(.secondary).padding(18)
         }
     }
@@ -214,7 +214,7 @@ struct RootView: View {
             }.padding(20)
             Divider()
             if store.results.isEmpty {
-                EmptyPane(symbol: store.scope == "saved" ? "bookmark" : "magnifyingglass", title: store.scope == "saved" && store.query.isEmpty ? store.t("I tuoi riferimenti", "Your references") : store.t("Nessun risultato", "No results"), message: store.scope == "saved" && store.query.isEmpty ? store.t("Salva una voce con il segnalibro mentre leggi.", "Bookmark an entry while reading.") : store.t("Prova un titolo, un sinonimo inglese o meno parole.", "Try a title, a synonym or fewer words."))
+                EmptyPane(symbol: store.scope == "saved" ? "bookmark" : "magnifyingglass", title: store.scope == "saved" && store.query.isEmpty ? store.t("I tuoi riferimenti", "Your references") : store.t("Nessun risultato", "No results"), message: store.scope == "saved" && store.query.isEmpty ? store.t("Aggiungi una voce ai preferiti mentre leggi.", "Bookmark an entry while reading.") : store.t("Prova con il titolo, con un sinonimo inglese o con una ricerca più breve.", "Try the title, an English synonym, or a shorter search."))
                 if !store.query.isEmpty {
                     Button(store.t("Azzera la ricerca", "Clear search")) { store.query = "" }.padding(20)
                 }

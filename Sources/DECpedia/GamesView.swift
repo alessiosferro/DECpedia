@@ -28,7 +28,7 @@ struct GameListView: View {
         VStack(alignment:.leading,spacing:0) {
             VStack(alignment:.leading,spacing:7) {
                 Text(store.t("Giochi di logica","Logic games")).font(.system(size:23,weight:.semibold,design:.serif))
-                Text(store.t("Un piccolo laboratorio per ogni sezione.","A small laboratory for every section.")).font(.caption).foregroundStyle(.secondary)
+                Text(store.t("Un gioco di logica per mettere alla prova ogni sezione.","A small laboratory for every section.")).font(.caption).foregroundStyle(.secondary)
             }.padding(20)
             Divider()
             List(selection:$store.selectedGameID) {
@@ -277,7 +277,7 @@ struct PuzzleView: View {
     private func routeBoard(_ puzzle:RoutePuzzle) -> some View {
         let current=puzzle.nodes.first {$0.id == run.state.nodeID}!
         return VStack(alignment:.leading,spacing:16) {
-            Text(store.t("Zaino dei risultati","Result backpack")).font(.headline)
+            Text(store.t("Inventario","Inventory")).font(.headline)
             FlowTokenList(tokens:puzzle.tokens.filter {run.state.tokens.contains($0.id)},language:store.language)
             GeometryReader { geometry in
                 let width=geometry.size.width/3, height:CGFloat=112
@@ -331,7 +331,7 @@ struct PuzzleView: View {
     private func curveBoard(_ puzzle:CurvePuzzle) -> some View {
         VStack(spacing:16) {
             math("y^2=x^3+"+String(puzzle.a)+"x+"+String(puzzle.b)+",\\qquad \\mathbb F_{"+String(puzzle.p)+"}")
-            math("R="+run.state.point.latex+",\\qquad R_{\\mathrm{"+store.t("meta","goal")+"}}="+puzzle.target.latex)
+            math("R="+run.state.point.latex+",\\qquad R_{\\mathrm{"+store.t("obiettivo","goal")+"}}="+puzzle.target.latex)
             CurveGarden(puzzle:puzzle,current:run.state.point,language:store.language).frame(height:300)
                 .accessibilityLabel(store.t("Giardino dei punti della curva","Garden of curve points"))
                 .accessibilityValue(store.t("Punto corrente ","Current point ")+run.state.point.latex+store.t("; meta ","; target ")+puzzle.target.latex)
@@ -374,7 +374,7 @@ struct PuzzleView: View {
                             math("H(m)="+String(parcel.digest),size:17)
                             if let id=run.state.assignments[parcel.id], let seal=puzzle.seals.first(where:{$0.id == id}) {
                                 math(String(seal.value)+"^{"+String(puzzle.e)+"}\\bmod "+String(puzzle.n)+"="+String(modularPower(seal.value,puzzle.e,puzzle.n)),size:17)
-                                Text(run.sealMatches(parcel,puzzle:puzzle) ? store.t("Verifica riuscita","Verification passed"):store.t("Il digest non coincide","Digest mismatch")).font(.caption)
+                                Text(run.sealMatches(parcel,puzzle:puzzle) ? store.t("Verifica riuscita","Verification passed"):store.t("L’impronta non coincide","Digest mismatch")).font(.caption)
                             } else { Text(store.t("In attesa di un sigillo","Waiting for a seal")).font(.caption).foregroundStyle(.secondary) }
                         }
                     }

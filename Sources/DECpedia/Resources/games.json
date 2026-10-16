@@ -8,7 +8,7 @@
         "en": "The remainder lock"
       },
       "introduction": {
-        "it": "Gli ingranaggi sono collegati: ogni leva muove più quadranti. Apri la serratura portandoli insieme sui bersagli.",
+        "it": "Gli ingranaggi sono collegati: ogni leva muove più quadranti. Apri la serratura portando ogni quadrante sul proprio bersaglio.",
         "en": "The gears are coupled: each lever moves several dials. Open the lock by bringing them to their targets together."
       },
       "levels": [
@@ -19,7 +19,7 @@
             "en": "Coupled gears"
           },
           "mission": {
-            "it": "Porta entrambi i quadranti sui bersagli. Ogni quadrante riparte da zero quando raggiunge il proprio modulo.",
+            "it": "Porta entrambi i quadranti sui rispettivi bersagli. Ogni quadrante riparte da zero quando raggiunge il proprio modulo.",
             "en": "Bring both dials to their targets. Each dial wraps back to zero at its own modulus."
           },
           "hints": [
@@ -33,7 +33,7 @@
             }
           ],
           "explanation": {
-            "it": "Le mosse si sommano componente per componente. Nella prima ruota lavori modulo \\(5\\), nella seconda modulo \\(7\\). Un giro completo non cambia il resto: puoi quindi superare un bersaglio e tornarci. La serratura mette insieme più congruenze; sistemare una ruota ignorando l’altra può disfare il lavoro già fatto.",
+            "it": "Le mosse si sommano componente per componente. La prima ruota si muove modulo \\(5\\), la seconda modulo \\(7\\). Un giro completo non cambia il resto: puoi quindi superare un bersaglio e tornarci. La serratura mette insieme più congruenze; sistemare una ruota ignorando l’altra può disfare il lavoro già fatto.",
             "en": "Moves add component by component. The first wheel works modulo \\(5\\), the second modulo \\(7\\). A complete turn leaves the remainder unchanged, so passing a target can bring you back to it. The lock combines several congruences; fixing one wheel while ignoring the other may undo earlier progress."
           },
           "conceptIDs": [
@@ -100,7 +100,7 @@
             }
           ],
           "explanation": {
-            "it": "Il MCD spiega il vincolo nascosto: \\(\\gcd(2,6)=2\\), perciò una leva che aggiunge \\(2\\) non può cambiare la parità. La seconda leva lascia ferma quella ruota e permette di regolare l’altra. Cercare un invariante prima di muovere riduce molto i tentativi.",
+            "it": "Il vincolo si vede dal MCD: \\(\\gcd(2,6)=2\\), perciò una leva che aggiunge \\(2\\) non può cambiare la parità. La seconda leva lascia ferma quella ruota e permette di regolare l’altra. Cercare un invariante prima di muovere riduce molto i tentativi.",
             "en": "The gcd explains the hidden constraint: \\(\\gcd(2,6)=2\\), so a lever adding \\(2\\) cannot change parity. The second lever leaves that wheel fixed and lets you adjust the other. Finding an invariant before moving greatly reduces trial and error."
           },
           "conceptIDs": [
@@ -250,22 +250,22 @@
             "en": "Twin lanterns"
           },
           "mission": {
-            "it": "Ricostruisci la chiave comune azionando gli interruttori. Ogni interruttore cambia contemporaneamente le lanterne dei messaggi. Tutti gli indizi visibili devono coincidere.",
-            "en": "Reconstruct the shared key using the switches. Each switch changes both message lanterns at once. All visible clues must match."
+            "it": "Ricava i bit della chiave dagli indizi noti. Poi aziona gli interruttori finché entrambe le righe coincidono.",
+            "en": "Recover the key bits from the known clues. Then flip the switches until both rows match."
           },
           "hints": [
             {
-              "it": "Un indizio noto in una riga fissa la stessa posizione della chiave anche per l’altra riga.",
-              "en": "A known clue in one row determines the same key position for the other row."
+              "it": "In una posizione sai che \\(c_A=0\\) e \\(m_A=1\\). Quale bit \\(k\\) rende vera la cifratura \\(c_A=m_A\\oplus k\\)?",
+              "en": "At one position, \\(c_A=0\\) and \\(m_A=1\\). Which key bit \\(k\\) makes the encryption equation \\(c_A=m_A\\oplus k\\) hold?"
             },
             {
-              "it": "Usa \\(k_i=c_i\\oplus m_i\\): non indovinare separatamente i messaggi.",
-              "en": "Use \\(k_i=c_i\\oplus m_i\\): do not guess the messages independently."
+              "it": "Lo stesso bit della chiave vale per entrambe le righe: una volta trovato, usalo anche nell’altro messaggio.",
+              "en": "The same key bit is used in both rows. Once you find it, use it for the other message too."
             }
           ],
           "explanation": {
-            "it": "Lo XOR è reversibile: \\((m\\oplus k)\\oplus k=m\\). Con la stessa chiave, inoltre, \\(c_A\\oplus c_B=m_A\\oplus m_B\\). Per questo un frammento noto di un messaggio rivela il corrispondente frammento dell’altro. Qui gli indizi, distribuiti fra le righe, determinano tutta la chiave. Una chiave monouso sicura deve essere uniforme, segreta, lunga quanto il messaggio e mai riutilizzata.",
-            "en": "XOR is reversible: \\((m\\oplus k)\\oplus k=m\\). Reusing the key also gives \\(c_A\\oplus c_B=m_A\\oplus m_B\\). A known message fragment therefore reveals the corresponding fragment of the other message. Here the clues distributed across the rows determine the entire key. A secure one-time pad must be uniform, secret, as long as the message, and never reused."
+            "it": "Partiamo da un indizio concreto: nella prima posizione il testo cifrato di A vale \\(0\\), mentre il bit noto del messaggio vale \\(1\\). Dalla relazione \\(c=m\\oplus k\\) ricaviamo \\(k=c\\oplus m\\), quindi il primo bit della chiave è \\(1\\). Lo stesso ragionamento, applicato agli altri indizi, dà\n\n\\[\\begin{aligned}\nk&=(1,0,1,1),\\\\\nm_A&=(1,1,0,0),\\\\\nm_B&=(0,1,1,0).\n\\end{aligned}\\]\n\nLa chiave è comune alle due righe: non si può scegliere un interruttore diverso per ciascun messaggio. In questo primo livello basta usare la reversibilità dello XOR, \\((m\\oplus k)\\oplus k=m\\).",
+            "en": "Start with a concrete clue: in the first position, A’s ciphertext bit is \\(0\\), while the known message bit is \\(1\\). From \\(c=m\\oplus k\\), we get \\(k=c\\oplus m\\), so the first key bit is \\(1\\). Applying the same reasoning to the other clues gives\n\n\\[\\begin{aligned}\nk&=(1,0,1,1),\\\\\nm_A&=(1,1,0,0),\\\\\nm_B&=(0,1,1,0).\n\\end{aligned}\\]\n\nThe key is shared by both rows; we cannot choose a different switch for each message. At this first stage, the key fact is that XOR is reversible: \\((m\\oplus k)\\oplus k=m\\)."
           },
           "conceptIDs": [
             "vernam",
@@ -317,22 +317,22 @@
             "en": "Alternating clues"
           },
           "mission": {
-            "it": "Ricostruisci la chiave comune azionando gli interruttori. Ogni interruttore cambia contemporaneamente le lanterne dei messaggi. Tutti gli indizi visibili devono coincidere.",
-            "en": "Reconstruct the shared key using the switches. Each switch changes both message lanterns at once. All visible clues must match."
+            "it": "Gli indizi si alternano fra le due righe. Ricostruisci prima la chiave comune, poi controlla entrambi i messaggi.",
+            "en": "The clues alternate between the two rows. First recover the shared key, then check both messages."
           },
           "hints": [
             {
-              "it": "Un indizio noto in una riga fissa la stessa posizione della chiave anche per l’altra riga.",
-              "en": "A known clue in one row determines the same key position for the other row."
+              "it": "Gli indizi della prima riga determinano le posizioni \\(1,3,5\\); quelli della seconda completano \\(2,4\\).",
+              "en": "The first row’s clues determine positions \\(1,3,5\\); the second row fills in \\(2,4\\)."
             },
             {
-              "it": "Usa \\(k_i=c_i\\oplus m_i\\): non indovinare separatamente i messaggi.",
-              "en": "Use \\(k_i=c_i\\oplus m_i\\): do not guess the messages independently."
+              "it": "Trovata la chiave, ricava ogni messaggio con \\(m_i=c_i\\oplus k_i\\).",
+              "en": "Once you know the key, recover each message with \\(m_i=c_i\\oplus k_i\\)."
             }
           ],
           "explanation": {
-            "it": "Lo XOR è reversibile: \\((m\\oplus k)\\oplus k=m\\). Con la stessa chiave, inoltre, \\(c_A\\oplus c_B=m_A\\oplus m_B\\). Per questo un frammento noto di un messaggio rivela il corrispondente frammento dell’altro. Qui gli indizi, distribuiti fra le righe, determinano tutta la chiave. Una chiave monouso sicura deve essere uniforme, segreta, lunga quanto il messaggio e mai riutilizzata.",
-            "en": "XOR is reversible: \\((m\\oplus k)\\oplus k=m\\). Reusing the key also gives \\(c_A\\oplus c_B=m_A\\oplus m_B\\). A known message fragment therefore reveals the corresponding fragment of the other message. Here the clues distributed across the rows determine the entire key. A secure one-time pad must be uniform, secret, as long as the message, and never reused."
+            "it": "Gli indizi alternati bastano perché a ogni posizione corrisponde un solo bit della chiave, condiviso dai due messaggi. Qui ricaviamo\n\n\\[\\begin{aligned}\nk&=(1,1,0,1,0),\\\\\nm_A&=(0,1,1,0,1),\\\\\nm_B&=(1,0,0,1,1).\n\\end{aligned}\\]\n\nPer esempio, alla seconda posizione \\(c_B=1\\) e \\(m_B=0\\), quindi \\(k_2=1\\oplus0=1\\). Quel valore permette poi di decifrare la stessa posizione anche nella riga A.",
+            "en": "Alternating clues are enough because each position has one key bit shared by both messages. Here we recover\n\n\\[\\begin{aligned}\nk&=(1,1,0,1,0),\\\\\nm_A&=(0,1,1,0,1),\\\\\nm_B&=(1,0,0,1,1).\n\\end{aligned}\\]\n\nFor example, at position \\(2\\), \\(c_B=1\\) and \\(m_B=0\\), so \\(k_2=1\\oplus0=1\\). That same value then decrypts position \\(2\\) in row A."
           },
           "conceptIDs": [
             "vernam",
@@ -389,22 +389,22 @@
             "en": "The common thread"
           },
           "mission": {
-            "it": "Ricostruisci la chiave comune azionando gli interruttori. Ogni interruttore cambia contemporaneamente le lanterne dei messaggi. Tutti gli indizi visibili devono coincidere.",
-            "en": "Reconstruct the shared key using the switches. Each switch changes both message lanterns at once. All visible clues must match."
+            "it": "Gli indizi ora si intrecciano su più posizioni. Ricostruisci i messaggi e osserva che cosa rivela il riuso della chiave.",
+            "en": "The clues now intertwine across more positions. Recover the messages and see what key reuse reveals."
           },
           "hints": [
             {
-              "it": "Un indizio noto in una riga fissa la stessa posizione della chiave anche per l’altra riga.",
-              "en": "A known clue in one row determines the same key position for the other row."
+              "it": "Usa la chiave comune per passare da una riga all’altra: \\(c_A\\oplus c_B=m_A\\oplus m_B\\).",
+              "en": "Use the shared key to relate the rows: \\(c_A\\oplus c_B=m_A\\oplus m_B\\)."
             },
             {
-              "it": "Usa \\(k_i=c_i\\oplus m_i\\): non indovinare separatamente i messaggi.",
-              "en": "Use \\(k_i=c_i\\oplus m_i\\): do not guess the messages independently."
+              "it": "Dopo aver controllato gli indizi, verifica la relazione fra i due testi cifrati in ogni posizione.",
+              "en": "After checking the clues, verify the relation between the two ciphertexts at every position."
             }
           ],
           "explanation": {
-            "it": "Lo XOR è reversibile: \\((m\\oplus k)\\oplus k=m\\). Con la stessa chiave, inoltre, \\(c_A\\oplus c_B=m_A\\oplus m_B\\). Per questo un frammento noto di un messaggio rivela il corrispondente frammento dell’altro. Qui gli indizi, distribuiti fra le righe, determinano tutta la chiave. Una chiave monouso sicura deve essere uniforme, segreta, lunga quanto il messaggio e mai riutilizzata.",
-            "en": "XOR is reversible: \\((m\\oplus k)\\oplus k=m\\). Reusing the key also gives \\(c_A\\oplus c_B=m_A\\oplus m_B\\). A known message fragment therefore reveals the corresponding fragment of the other message. Here the clues distributed across the rows determine the entire key. A secure one-time pad must be uniform, secret, as long as the message, and never reused."
+            "it": "La chiave comune ricostruita dagli indizi è\n\n\\[\\begin{aligned}\nk&=(0,1,1,0,1,1),\\\\\nm_A&=(1,0,1,1,0,0),\\\\\nm_B&=(0,1,0,1,1,0).\n\\end{aligned}\\]\n\nQuando due messaggi usano la stessa chiave, lo XOR dei testi cifrati elimina la chiave:\n\\[\nc_A\\oplus c_B=(m_A\\oplus k)\\oplus(m_B\\oplus k)=m_A\\oplus m_B.\n\\]\nQui entrambi i lati valgono \\((1,1,1,0,1,0)\\). Per questo un tratto noto di un messaggio aiuta a ricostruire l’altro. Una chiave monouso sicura deve essere uniforme, segreta, lunga quanto il messaggio e usata una volta sola.",
+            "en": "The shared key recovered from the clues is\n\n\\[\\begin{aligned}\nk&=(0,1,1,0,1,1),\\\\\nm_A&=(1,0,1,1,0,0),\\\\\nm_B&=(0,1,0,1,1,0).\n\\end{aligned}\\]\n\nWhen two messages reuse a key, XORing the ciphertexts cancels it:\n\\[\nc_A\\oplus c_B=(m_A\\oplus k)\\oplus(m_B\\oplus k)=m_A\\oplus m_B.\n\\]\nHere both sides equal \\((1,1,1,0,1,0)\\). That is why a known piece of one message helps recover the other. A secure one-time pad needs a uniform, secret key as long as the message, used only once."
           },
           "conceptIDs": [
             "vernam",
@@ -484,8 +484,8 @@
           },
           "hints": [
             {
-              "it": "Leggi i requisiti delle porte. Una chiave pubblica protegge per il proprietario del corrispondente segreto.",
-              "en": "Read the door requirements. A public key protects data for the owner of the corresponding secret."
+              "it": "Controlla che cosa richiede ogni porta. Per proteggere un messaggio destinato a qualcuno, usa la sua chiave pubblica: soltanto la chiave privata corrispondente può aprirlo.",
+              "en": "Check what each door requires. To protect a message for someone, use their public key: only the matching private key can open it."
             },
             {
               "it": "Se imbocchi la strada sbagliata, torna indietro con Annulla; non è necessario ricominciare.",
@@ -493,8 +493,8 @@
             }
           ],
           "explanation": {
-            "it": "Il gioco distingue i ruoli delle chiavi. Per la riservatezza si cifra con la chiave pubblica del destinatario e si apre con il suo segreto. Per autenticare Alice, invece, firma lei con il proprio segreto e verifica Bob con la chiave pubblica di Alice. Il relay è autorizzato a leggere: la cifratura viene ricreata sul tratto successivo. Le porte rappresentano questo protocollo didattico, non un’implementazione crittografica sicura.",
-            "en": "The game distinguishes the roles of keys. Confidentiality uses the recipient’s public key for encryption and their secret for decryption. To authenticate Alice, she signs using her secret and Bob verifies with Alice’s public key. The relay is authorized to read the message; encryption is recreated for the next leg. The doors represent this teaching protocol, rather than a secure cryptographic implementation."
+            "it": "Per mantenere riservato un messaggio, lo cifriamo con la chiave pubblica del destinatario; soltanto la sua chiave privata può decifrarlo. Nell’esempio, il pacco deve arrivare a Bob: usare la chiave pubblica di Alice produrrebbe un messaggio che Alice soltanto saprebbe aprire. Per autenticare Alice serve un’operazione diversa: Alice firma con la propria chiave privata e Bob verifica la firma con la chiave pubblica di Alice. Le porte illustrano questi ruoli, ma non costituiscono un sistema crittografico sicuro.",
+            "en": "To keep a message confidential, we encrypt it with the recipient’s public key; only their private key can decrypt it. In this level, the parcel is for Bob: using Alice’s public key would produce a message only Alice could open. Authenticating Alice requires a different operation: Alice signs with her private key, and Bob verifies the signature with Alice’s public key. The doors illustrate these roles, but they do not form a secure cryptographic system."
           },
           "conceptIDs": [
             "public-key",
@@ -747,17 +747,17 @@
         {
           "id": "public-courier-1",
           "title": {
-            "it": "Il relay",
+            "it": "La staffetta",
             "en": "The relay"
           },
           "mission": {
-            "it": "Consegna il messaggio anche a Carol, passando dal relay autorizzato Bob.",
-            "en": "Deliver the message to Carol through the authorized relay Bob."
+            "it": "Consegna il messaggio a Carol passando da Bob, che fa da intermediario autorizzato.",
+            "en": "Deliver the message to Carol through Bob, who acts as an authorized intermediary."
           },
           "hints": [
             {
-              "it": "Leggi i requisiti delle porte. Una chiave pubblica protegge per il proprietario del corrispondente segreto.",
-              "en": "Read the door requirements. A public key protects data for the owner of the corresponding secret."
+              "it": "Controlla che cosa richiede ogni porta. Per proteggere un messaggio destinato a qualcuno, usa la sua chiave pubblica: soltanto la chiave privata corrispondente può aprirlo.",
+              "en": "Check what each door requires. To protect a message for someone, use their public key: only the matching private key can open it."
             },
             {
               "it": "Se imbocchi la strada sbagliata, torna indietro con Annulla; non è necessario ricominciare.",
@@ -765,8 +765,8 @@
             }
           ],
           "explanation": {
-            "it": "Il gioco distingue i ruoli delle chiavi. Per la riservatezza si cifra con la chiave pubblica del destinatario e si apre con il suo segreto. Per autenticare Alice, invece, firma lei con il proprio segreto e verifica Bob con la chiave pubblica di Alice. Il relay è autorizzato a leggere: la cifratura viene ricreata sul tratto successivo. Le porte rappresentano questo protocollo didattico, non un’implementazione crittografica sicura.",
-            "en": "The game distinguishes the roles of keys. Confidentiality uses the recipient’s public key for encryption and their secret for decryption. To authenticate Alice, she signs using her secret and Bob verifies with Alice’s public key. The relay is authorized to read the message; encryption is recreated for the next leg. The doors represent this teaching protocol, rather than a secure cryptographic implementation."
+            "it": "Bob fa da intermediario: apre il messaggio destinato a lui con la propria chiave privata, poi lo cifra con la chiave pubblica di Carol. Ogni tratto del percorso ha un destinatario e una coppia di chiavi distinti. La chiave privata resta sempre al suo proprietario e non viene mai trasmessa. Poiché nel gioco Bob è autorizzato a leggere il messaggio, questo esempio illustra un inoltro fidato: non protegge Alice e Carol da Bob stesso.",
+            "en": "Bob acts as a trusted intermediary: he opens the message encrypted for him with his private key, then encrypts it again with Carol’s public key. Each leg has its own recipient and key pair. A private key never travels over the channel. In a real protocol, the relay could read the content, so this game models trusted forwarding, not a private communication from Alice to Carol against Bob."
           },
           "conceptIDs": [
             "public-key",
@@ -879,8 +879,8 @@
                   "en": "Bob opens"
                 },
                 "detail": {
-                  "it": "Il relay autorizzato usa il proprio segreto e ottiene il messaggio.",
-                  "en": "The authorized relay uses his secret and obtains the message."
+                  "it": "Bob, intermediario autorizzato, usa la propria chiave privata per aprire il messaggio.",
+                  "en": "Bob, the authorized intermediary, uses his private key to open the message."
                 },
                 "exits": [
                   "encC",
@@ -1047,8 +1047,8 @@
           },
           "hints": [
             {
-              "it": "Leggi i requisiti delle porte. Una chiave pubblica protegge per il proprietario del corrispondente segreto.",
-              "en": "Read the door requirements. A public key protects data for the owner of the corresponding secret."
+              "it": "Controlla che cosa richiede ogni porta. Per proteggere un messaggio destinato a qualcuno, usa la sua chiave pubblica: soltanto la chiave privata corrispondente può aprirlo.",
+              "en": "Check what each door requires. To protect a message for someone, use their public key: only the matching private key can open it."
             },
             {
               "it": "Se imbocchi la strada sbagliata, torna indietro con Annulla; non è necessario ricominciare.",
@@ -1056,8 +1056,8 @@
             }
           ],
           "explanation": {
-            "it": "Il gioco distingue i ruoli delle chiavi. Per la riservatezza si cifra con la chiave pubblica del destinatario e si apre con il suo segreto. Per autenticare Alice, invece, firma lei con il proprio segreto e verifica Bob con la chiave pubblica di Alice. Il relay è autorizzato a leggere: la cifratura viene ricreata sul tratto successivo. Le porte rappresentano questo protocollo didattico, non un’implementazione crittografica sicura.",
-            "en": "The game distinguishes the roles of keys. Confidentiality uses the recipient’s public key for encryption and their secret for decryption. To authenticate Alice, she signs using her secret and Bob verifies with Alice’s public key. The relay is authorized to read the message; encryption is recreated for the next leg. The doors represent this teaching protocol, rather than a secure cryptographic implementation."
+            "it": "Qui servono due proprietà diverse. Alice firma prima il messaggio con la propria chiave privata; poi lo cifra per Bob con la chiave pubblica di lui. Bob usa la sua chiave privata per leggere il contenuto e la chiave pubblica di Alice per verificare la firma. La cifratura protegge la riservatezza durante il viaggio; la firma permette di controllare provenienza e integrità. Il percorso del gioco rappresenta un protocollo didattico semplificato, non uno schema sicuro pronto all’uso.",
+            "en": "Two different properties are needed here. Alice first signs the message with her private key, then encrypts it for Bob with his public key. Bob uses his private key to read the content and Alice’s public key to verify the signature. Encryption protects confidentiality in transit; the signature lets him check origin and integrity. The game models a simplified teaching protocol, not a secure scheme ready for use."
           },
           "conceptIDs": [
             "public-key",
@@ -1098,8 +1098,8 @@
                   "en": "Seal the text"
                 },
                 "detail": {
-                  "it": "In questo protocollo didattico Alice firma il digest del testo prima della cifratura.",
-                  "en": "In this teaching protocol Alice signs the plaintext digest before encryption."
+                  "it": "In questo protocollo didattico, Alice firma l’impronta del testo prima di cifrare il messaggio.",
+                  "en": "In this teaching protocol, Alice signs the text’s digest before encrypting the message."
                 },
                 "exits": [
                   "encrypt"
@@ -1201,8 +1201,8 @@
                   "en": "Check Alice"
                 },
                 "detail": {
-                  "it": "Bob verifica la firma con la chiave pubblica di Alice e confronta il digest ricevuto.",
-                  "en": "Bob verifies the signature with Alice’s public key and compares it with the received digest."
+                  "it": "Bob verifica la firma con la chiave pubblica di Alice e controlla che l’impronta corrisponda al testo ricevuto.",
+                  "en": "Bob verifies the signature with Alice’s public key and checks that the digest matches the received text."
                 },
                 "exits": [
                   "goal"
@@ -1312,22 +1312,22 @@
             "en": "Curve stepping stones"
           },
           "mission": {
-            "it": "Raggiungi la stella usando le mosse disponibili. Non puoi scegliere liberamente un punto: ogni salto deve rispettare la legge di gruppo della curva.",
-            "en": "Reach the star using the available moves. You cannot choose a point freely: every jump must follow the curve’s group law."
+            "it": "Parti dal punto neutro \\(\\Omega\\) e raggiungi \\(3P\\) sulla curva indicata. Usa la corda o la tangente: non sommare le coordinate.",
+            "en": "Start at the identity \\(\\Omega\\) and reach \\(3P\\) on the displayed curve. Use the chord or tangent law; do not add coordinates."
           },
           "hints": [
             {
-              "it": "Il raddoppio usa il punto in cui ti trovi, mentre la pietra aggiunta resta sempre la stessa.",
-              "en": "Doubling uses your current point, while the point being added stays fixed."
+              "it": "Il primo salto porta da \\(\\Omega\\) a \\(P=(0,1)\\). Poi puoi raddoppiare il punto corrente.",
+              "en": "The first move takes you from \\(\\Omega\\) to \\(P=(0,1)\\). You can then double the current point."
             },
             {
-              "it": "Il punto all’infinito \\(\\Omega\\) è il neutro. Riflettere manda \\((x,y)\\) in \\((x,-y)\\).",
-              "en": "The point at infinity \\(\\Omega\\) is the identity. Reflection sends \\((x,y)\\) to \\((x,-y)\\)."
+              "it": "Per trovare \\(2P\\), calcola la pendenza della tangente; per \\(3P\\), usa la secante fra \\(2P\\) e \\(P\\).",
+              "en": "To find \\(2P\\), compute the tangent slope; to find \\(3P\\), use the secant through \\(2P\\) and \\(P\\)."
             }
           ],
           "explanation": {
-            "it": "Le pietre rappresentano tutti i punti affini della curva nel campo indicato; \\(\\Omega\\) compare fuori dalla griglia. I salti non sono somme di coordinate. Per \\(R+S\\) si usa la pendenza della secante o della tangente, poi si riflette l’intersezione. Il raddoppio e l’addizione consentono di comporre moltiplicazioni scalari; la riflessione fornisce l’opposto. Tutti i risultati sono ridotti nel campo finito.",
-            "en": "The stones represent every affine point of the curve over the displayed field; \\(\\Omega\\) appears outside the grid. Jumps do not add coordinates. Computing \\(R+S\\) uses the secant or tangent slope and reflects the intersection. Doubling and addition compose scalar multiplications; reflection gives the inverse. Every result is reduced in the finite field."
+            "it": "La griglia mostra i punti della curva \\(y^2=x^3+x+1\\) su \\(\\mathbb F_5\\); il punto neutro \\(\\Omega\\) è fuori dalla griglia. Con \\(P=(0,1)\\), la tangente ha pendenza\n\\[\n\\lambda=\\frac{3x_P^2+1}{2y_P}=\\frac12\\equiv3\\pmod5.\n\\]\nLa regola della curva dà \\(2P=(4,2)\\). La secante fra \\(P\\) e \\(2P\\) ha pendenza \\((2-1)/(4-0)=1/4\\equiv4\\pmod5\\), quindi \\(3P=(2,1)\\). Il percorso è \\(\\Omega\\to P\\to2P\\to3P\\): aggiungi \\(P\\), raddoppia, poi aggiungi ancora \\(P\\).",
+            "en": "The grid shows the points on \\(y^2=x^3+x+1\\) over \\(\\mathbb F_5\\); the identity \\(\\Omega\\) lies outside the grid. For \\(P=(0,1)\\), the tangent slope is\n\\[\n\\lambda=\\frac{3x_P^2+1}{2y_P}=\\frac12\\equiv3\\pmod5.\n\\]\nThe curve law gives \\(2P=(4,2)\\). The secant through \\(P\\) and \\(2P\\) has slope \\((2-1)/(4-0)=1/4\\equiv4\\pmod5\\), so \\(3P=(2,1)\\). The route is \\(\\Omega\\to P\\to2P\\to3P\\): add \\(P\\), double, then add \\(P\\) again."
           },
           "conceptIDs": [
             "elliptic-addition",
@@ -1384,22 +1384,22 @@
             "en": "A longer jump"
           },
           "mission": {
-            "it": "Raggiungi la stella usando le mosse disponibili. Non puoi scegliere liberamente un punto: ogni salto deve rispettare la legge di gruppo della curva.",
-            "en": "Reach the star using the available moves. You cannot choose a point freely: every jump must follow the curve’s group law."
+            "it": "Parti da \\(P=(0,1)\\) e raggiungi \\((3,1)\\). Prima raddoppia due volte; poi usa la riflessione per ottenere il punto opposto.",
+            "en": "Start at \\(P=(0,1)\\) and reach \\((3,1)\\). Double twice, then reflect to obtain the inverse point."
           },
           "hints": [
             {
-              "it": "Il raddoppio usa il punto in cui ti trovi, mentre la pietra aggiunta resta sempre la stessa.",
-              "en": "Doubling uses your current point, while the point being added stays fixed."
+              "it": "Dal livello precedente sai che \\(2P=(4,2)\\). Raddoppiando \\(2P\\) ottieni \\(4P\\).",
+              "en": "From the previous level, \\(2P=(4,2)\\). Doubling \\(2P\\) gives \\(4P\\)."
             },
             {
-              "it": "Il punto all’infinito \\(\\Omega\\) è il neutro. Riflettere manda \\((x,y)\\) in \\((x,-y)\\).",
-              "en": "The point at infinity \\(\\Omega\\) is the identity. Reflection sends \\((x,y)\\) to \\((x,-y)\\)."
+              "it": "Il punto finale è \\(-4P\\): conserva l’ascissa e cambia il segno dell’ordinata modulo \\(5\\).",
+              "en": "The target is \\(-4P\\): keep the \\(x\\)-coordinate and change the sign of \\(y\\) modulo \\(5\\)."
             }
           ],
           "explanation": {
-            "it": "Le pietre rappresentano tutti i punti affini della curva nel campo indicato; \\(\\Omega\\) compare fuori dalla griglia. I salti non sono somme di coordinate. Per \\(R+S\\) si usa la pendenza della secante o della tangente, poi si riflette l’intersezione. Il raddoppio e l’addizione consentono di comporre moltiplicazioni scalari; la riflessione fornisce l’opposto. Tutti i risultati sono ridotti nel campo finito.",
-            "en": "The stones represent every affine point of the curve over the displayed field; \\(\\Omega\\) appears outside the grid. Jumps do not add coordinates. Computing \\(R+S\\) uses the secant or tangent slope and reflects the intersection. Doubling and addition compose scalar multiplications; reflection gives the inverse. Every result is reduced in the finite field."
+            "it": "Il primo livello ha mostrato come calcolare \\(2P\\) e \\(3P\\). Ora raddoppiamo ancora il punto \\(2P=(4,2)\\). La tangente ha pendenza\n\\[\n\\lambda=\\frac{3\\cdot4^2+1}{2\\cdot2}\\equiv\\frac4{4}\\equiv1\\pmod5.\n\\]\nPerciò\n\\[\\begin{aligned}\nx_{4P}&=1^2-4-4\\equiv3,\\\\\ny_{4P}&=1(4-3)-2\\equiv4,\\\\\n4P&=(3,4).\n\\end{aligned}\\]\nLa riflessione cambia \\(y=4\\) in \\(-4\\equiv1\\pmod5\\), lasciando invariata l’ascissa. Otteniamo così \\(-4P=(3,1)\\). Raddoppiare e riflettere sono operazioni diverse.",
+            "en": "The first level showed how to compute \\(2P\\) and \\(3P\\). Now double \\(2P=(4,2)\\) once more. The tangent slope is\n\\[\n\\lambda=\\frac{3\\cdot4^2+1}{2\\cdot2}\\equiv\\frac4{4}\\equiv1\\pmod5.\n\\]\nTherefore\n\\[\\begin{aligned}\nx_{4P}&=1^2-4-4\\equiv3,\\\\\ny_{4P}&=1(4-3)-2\\equiv4,\\\\\n4P&=(3,4).\n\\end{aligned}\\]\nReflection changes \\(y=4\\) to \\(-4\\equiv1\\pmod5\\) and leaves the \\(x\\)-coordinate unchanged. Thus \\(-4P=(3,1)\\). Doubling and reflection are different operations."
           },
           "conceptIDs": [
             "elliptic-addition",
@@ -1531,8 +1531,8 @@
         "en": "The seal workshop"
       },
       "introduction": {
-        "it": "Rimetti in ordine una consegna manomessa. Abbina sigilli e pacchi attraverso la verifica pubblica e lascia nel vassoio l’intruso.",
-        "en": "Repair a tampered delivery. Match seals to parcels using public verification, leaving the intruder in the tray."
+        "it": "Ricostruisci gli abbinamenti dopo lo scambio dei sigilli. Abbina sigilli e pacchi attraverso la verifica pubblica e lascia nel vassoio l’intruso.",
+        "en": "Restore the matches after the seals have been switched. Match seals to parcels using public verification, leaving the intruder in the tray."
       },
       "levels": [
         {
@@ -1542,22 +1542,22 @@
             "en": "Mixed-up parcels"
           },
           "mission": {
-            "it": "I sigilli si sono staccati dai pacchi e ce n’è uno falso. Scegli un sigillo nel vassoio, poi un pacco. Se sposti un sigillo già usato, i sigilli dei pacchi si scambiano. Accendi tutti i controlli di verifica.",
-            "en": "The seals have fallen off the parcels, and one is forged. Select a seal in the tray, then a parcel. Moving a seal already in use swaps the parcels’ seals. Make every verification check light up."
+            "it": "Abbina ogni sigillo valido al pacco confrontando \\(s^3\\bmod 33\\) con la sua impronta. Lascia nel vassoio quello falso.",
+            "en": "Match each valid seal to its parcel by comparing \\(s^3\\bmod 33\\) with its digest. Leave the false seal in the tray."
           },
           "hints": [
             {
-              "it": "Per ciascun sigillo osserva il valore \\(s^e\\bmod n\\). Deve coincidere con il digest del pacco.",
-              "en": "For each seal, inspect \\(s^e\\bmod n\\). It must match the parcel’s digest."
+              "it": "Le impronte dei pacchi sono \\(2,4,5\\). Calcola la potenza di ciascun sigillo modulo \\(33\\).",
+              "en": "The parcel digests are \\(2,4,5\\). Compute each seal’s power modulo \\(33\\)."
             },
             {
-              "it": "Non fidarti dell’aspetto o della posizione dei sigilli: il controllo pubblico è il tuo indizio.",
-              "en": "Do not trust the appearance or position of the seals: public verification is your clue."
+              "it": "Il sigillo che restituisce \\(0\\) non corrisponde a nessuno dei tre pacchi.",
+              "en": "The seal that returns \\(0\\) matches none of the three parcels."
             }
           ],
           "explanation": {
-            "it": "La verifica RSA didattica confronta \\(s^e\\bmod n\\) con il digest dichiarato del messaggio. Il sigillo falso non supera nessuno dei controlli; gli altri vanno abbinati al proprio digest. La chiave privata non serve per verificare. I numeri sono volutamente piccoli e non si usa un padding sicuro: questo tabellone illustra soltanto la relazione matematica. Nella pratica servono schemi standard, digest resistenti alle collisioni e parametri adeguati.",
-            "en": "Teaching RSA verification compares \\(s^e\\bmod n\\) with the message’s declared digest. The forged seal passes none of the checks; the others must be matched with their digests. Verification does not require the private key. The numbers are deliberately small and secure padding is absent: this board illustrates only the mathematical relation. Real applications require standard schemes, collision-resistant digests, and suitable parameters."
+            "it": "La verifica pubblica eleva ogni sigillo alla potenza \\(3\\) e riduce modulo \\(33\\):\n\\[\\begin{aligned}\n14^3&\\equiv5,\\\\\n16^3&\\equiv4,\\\\\n29^3&\\equiv2,\\\\\n0^3&\\equiv0\\pmod{33}.\n\\end{aligned}\\]\nQuindi il sigillo \\(14\\) va al pacco C, il \\(16\\) al pacco B e il \\(29\\) al pacco A; quello di valore \\(0\\) è l’intruso. È la chiave pubblica a controllare la firma: la chiave privata non serve per la verifica. Questi numeri sono volutamente piccoli e non c’è uno schema di riempimento sicuro, quindi il gioco illustra solo la relazione matematica.",
+            "en": "Public verification raises each seal to the power \\(3\\) and reduces modulo \\(33\\):\n\\[\\begin{aligned}\n14^3&\\equiv5,\\\\\n16^3&\\equiv4,\\\\\n29^3&\\equiv2,\\\\\n0^3&\\equiv0\\pmod{33}.\n\\end{aligned}\\]\nSo seal \\(14\\) belongs to parcel C, \\(16\\) to B, and \\(29\\) to A; the seal valued \\(0\\) is the intruder. Verification uses the public key; it does not require the private key. The numbers are deliberately small and there is no secure padding scheme, so this game illustrates only the mathematical relation."
           },
           "conceptIDs": [
             "rsa-signature",
@@ -1622,22 +1622,22 @@
             "en": "The intruding seal"
           },
           "mission": {
-            "it": "I sigilli si sono staccati dai pacchi e ce n’è uno falso. Scegli un sigillo nel vassoio, poi un pacco. Se sposti un sigillo già usato, i sigilli dei pacchi si scambiano. Accendi tutti i controlli di verifica.",
-            "en": "The seals have fallen off the parcels, and one is forged. Select a seal in the tray, then a parcel. Moving a seal already in use swaps the parcels’ seals. Make every verification check light up."
+            "it": "Il modulo è cambiato. Calcola \\(s^3\\bmod 55\\) per distinguere i tre sigilli autentici dall’intruso.",
+            "en": "The modulus has changed. Compute \\(s^3\\bmod 55\\) to separate the three genuine seals from the intruder."
           },
           "hints": [
             {
-              "it": "Per ciascun sigillo osserva il valore \\(s^e\\bmod n\\). Deve coincidere con il digest del pacco.",
-              "en": "For each seal, inspect \\(s^e\\bmod n\\). It must match the parcel’s digest."
+              "it": "Confronta i risultati con le impronte \\(3,7,9\\), non con la posizione dei pacchi.",
+              "en": "Compare the results with digests \\(3,7,9\\), not with the parcels’ positions."
             },
             {
-              "it": "Non fidarti dell’aspetto o della posizione dei sigilli: il controllo pubblico è il tuo indizio.",
-              "en": "Do not trust the appearance or position of the seals: public verification is your clue."
+              "it": "Per esempio, \\(28^2\\equiv14\\pmod{55}\\); moltiplica ancora per \\(28\\).",
+              "en": "For example, \\(28^2\\equiv14\\pmod{55}\\); multiply by \\(28\\) once more."
             }
           ],
           "explanation": {
-            "it": "La verifica RSA didattica confronta \\(s^e\\bmod n\\) con il digest dichiarato del messaggio. Il sigillo falso non supera nessuno dei controlli; gli altri vanno abbinati al proprio digest. La chiave privata non serve per verificare. I numeri sono volutamente piccoli e non si usa un padding sicuro: questo tabellone illustra soltanto la relazione matematica. Nella pratica servono schemi standard, digest resistenti alle collisioni e parametri adeguati.",
-            "en": "Teaching RSA verification compares \\(s^e\\bmod n\\) with the message’s declared digest. The forged seal passes none of the checks; the others must be matched with their digests. Verification does not require the private key. The numbers are deliberately small and secure padding is absent: this board illustrates only the mathematical relation. Real applications require standard schemes, collision-resistant digests, and suitable parameters."
+            "it": "Le impronte associate ai pacchi sono \\(3,7,9\\). Riducendo le potenze modulo \\(55\\), otteniamo\n\\[\\begin{aligned}\n4^3&\\equiv9,\\\\\n28^3&\\equiv7,\\\\\n42^3&\\equiv3,\\\\\n0^3&\\equiv0\\pmod{55}.\n\\end{aligned}\\]\nIl sigillo \\(4\\) corrisponde dunque al pacco C, \\(28\\) al B e \\(42\\) all’A; \\(0\\) non verifica alcun pacco. La verifica non dipende dall’aspetto del sigillo né dal suo posto nel vassoio, ma soltanto dal risultato della potenza pubblica.",
+            "en": "The parcel digests are \\(3,7,9\\). Reducing the powers modulo \\(55\\) gives\n\\[\\begin{aligned}\n4^3&\\equiv9,\\\\\n28^3&\\equiv7,\\\\\n42^3&\\equiv3,\\\\\n0^3&\\equiv0\\pmod{55}.\n\\end{aligned}\\]\nThus seal \\(4\\) belongs to parcel C, \\(28\\) to B, and \\(42\\) to A; \\(0\\) verifies none of them. Verification depends neither on how a seal looks nor where it sits in the tray, only on the public power calculation."
           },
           "conceptIDs": [
             "rsa-signature",
@@ -1702,22 +1702,22 @@
             "en": "The last courier"
           },
           "mission": {
-            "it": "I sigilli si sono staccati dai pacchi e ce n’è uno falso. Scegli un sigillo nel vassoio, poi un pacco. Se sposti un sigillo già usato, i sigilli dei pacchi si scambiano. Accendi tutti i controlli di verifica.",
-            "en": "The seals have fallen off the parcels, and one is forged. Select a seal in the tray, then a parcel. Moving a seal already in use swaps the parcels’ seals. Make every verification check light up."
+            "it": "Anche l’esponente ora è diverso. Usa \\(s^7\\bmod 77\\) e abbina ogni impronta al pacco corretto.",
+            "en": "The exponent has changed too. Use \\(s^7\\bmod 77\\) to match each digest with the right parcel."
           },
           "hints": [
             {
-              "it": "Per ciascun sigillo osserva il valore \\(s^e\\bmod n\\). Deve coincidere con il digest del pacco.",
-              "en": "For each seal, inspect \\(s^e\\bmod n\\). It must match the parcel’s digest."
+              "it": "Per \\(10^7\\), calcola prima \\(10^2\\) e \\(10^4\\) modulo \\(77\\), poi combina i risultati.",
+              "en": "For \\(10^7\\), first compute \\(10^2\\) and \\(10^4\\) modulo \\(77\\), then combine them."
             },
             {
-              "it": "Non fidarti dell’aspetto o della posizione dei sigilli: il controllo pubblico è il tuo indizio.",
-              "en": "Do not trust the appearance or position of the seals: public verification is your clue."
+              "it": "Le impronte sono \\(2,6,10\\); il risultato \\(0\\) segnala ancora il sigillo falso.",
+              "en": "The digests are \\(2,6,10\\); a result of \\(0\\) still marks the false seal."
             }
           ],
           "explanation": {
-            "it": "La verifica RSA didattica confronta \\(s^e\\bmod n\\) con il digest dichiarato del messaggio. Il sigillo falso non supera nessuno dei controlli; gli altri vanno abbinati al proprio digest. La chiave privata non serve per verificare. I numeri sono volutamente piccoli e non si usa un padding sicuro: questo tabellone illustra soltanto la relazione matematica. Nella pratica servono schemi standard, digest resistenti alle collisioni e parametri adeguati.",
-            "en": "Teaching RSA verification compares \\(s^e\\bmod n\\) with the message’s declared digest. The forged seal passes none of the checks; the others must be matched with their digests. Verification does not require the private key. The numbers are deliberately small and secure padding is absent: this board illustrates only the mathematical relation. Real applications require standard schemes, collision-resistant digests, and suitable parameters."
+            "it": "Qui la verifica usa l’esponente \\(7\\). Per esempio, con quadrati successivi:\n\\[\\begin{aligned}\n10^2&\\equiv23,\\\\\n10^4&\\equiv67,\\\\\n10^7&=10^4\\cdot10^2\\cdot10\\equiv10\\pmod{77}.\n\\end{aligned}\\]\nGli altri controlli danno\n\\[\\begin{aligned}\n62^7&\\equiv6,\\\\\n30^7&\\equiv2,\\\\\n0^7&\\equiv0\\pmod{77}.\n\\end{aligned}\\]\nIl sigillo \\(10\\) va quindi al pacco C, \\(62\\) al B e \\(30\\) all’A; \\(0\\) è falso. L’esempio mostra perché l’esponenziazione ripetuta permette di verificare anche quando l’esponente non è piccolo.",
+            "en": "Verification now uses exponent \\(7\\). For example, using repeated squaring:\n\\[\\begin{aligned}\n10^2&\\equiv23,\\\\\n10^4&\\equiv67,\\\\\n10^7&=10^4\\cdot10^2\\cdot10\\equiv10\\pmod{77}.\n\\end{aligned}\\]\nThe other checks give\n\\[\\begin{aligned}\n62^7&\\equiv6,\\\\\n30^7&\\equiv2,\\\\\n0^7&\\equiv0\\pmod{77}.\n\\end{aligned}\\]\nSo seal \\(10\\) belongs to parcel C, \\(62\\) to B, and \\(30\\) to A; \\(0\\) is false. This shows how repeated squaring helps verify a signature when the exponent is larger."
           },
           "conceptIDs": [
             "rsa-signature",
@@ -1800,17 +1800,17 @@
           },
           "hints": [
             {
-              "it": "Un MCD utile è strettamente compreso fra \\(1\\) e il blocco scelto.",
-              "en": "A useful gcd lies strictly between \\(1\\) and the selected block."
+              "it": "Un attrezzo è utile quando \\(1<\\gcd(N,u)<N\\). Per \\(N=105\\), prova prima il candidato \\(u=15\\).",
+              "en": "A tool is useful when \\(1<\\gcd(N,u)<N\\). For \\(N=105\\), try candidate \\(u=15\\) first."
             },
             {
-              "it": "Dopo una separazione scegli il ramo ancora composto. Non spendere un attrezzo su un primo.",
-              "en": "After a split, choose the branch that is still composite. Do not spend a tool on a prime."
+              "it": "Dopo aver separato \\(105\\), controlla se il fattore \\(15\\) è primo: se è composto, scegli proprio quel ramo.",
+              "en": "After splitting \\(105\\), check whether the factor \\(15\\) is prime. If it is composite, choose that branch."
             }
           ],
           "explanation": {
-            "it": "Se \\(d=\\gcd(N,u)\\) e \\(1<d<N\\), allora \\(N=d(N/d)\\). Il blocco può contenere più fattori: per questo il lavoro continua sui rami composti. Pollard, le collisioni di rho e le mancate inversioni di ECM producono candidati diversi, ma il controllo finale è sempre un MCD. Qui i candidati sono già nel vassoio: il gioco riguarda la scelta e il riuso dei risultati, non una simulazione completa di questi algoritmi. Un tentativo con MCD banale non consuma l’attrezzo.",
-            "en": "If \\(d=\\gcd(N,u)\\) and \\(1<d<N\\), then \\(N=d(N/d)\\). A block may contain several factors, so work continues on composite branches. Pollard, rho collisions, and failed ECM inversions produce different candidates, but the final check is always a gcd. Here the candidates are already in the tray: the game is about choosing and reusing results, rather than fully simulating those algorithms. A trivial gcd does not consume the tool."
+            "it": "Con \\(N=105\\), il candidato \\(15\\) dà \\(\\gcd(105,15)=15\\), quindi\n\\[\n105=15\\cdot7.\n\\]\nIl fattore \\(7\\) è primo; \\(15\\) no. Applicando al ramo composto il candidato \\(10\\), otteniamo \\(\\gcd(15,10)=5\\), cioè \\(15=5\\cdot3\\). La scomposizione completa è \\(105=3\\cdot5\\cdot7\\). Un MCD uguale a \\(1\\) o all’intero blocco non divide il problema: serve un fattore proprio.",
+            "en": "For \\(N=105\\), candidate \\(15\\) gives \\(\\gcd(105,15)=15\\), so\n\\[\n105=15\\cdot7.\n\\]\nThe factor \\(7\\) is prime; \\(15\\) is not. Applying candidate \\(10\\) to the composite branch gives \\(\\gcd(15,10)=5\\), hence \\(15=5\\cdot3\\). The complete factorization is \\(105=3\\cdot5\\cdot7\\). A gcd equal to \\(1\\) or to the whole block does not split it; we need a proper factor."
           },
           "conceptIDs": [
             "factorization",
@@ -1882,17 +1882,17 @@
           },
           "hints": [
             {
-              "it": "Un MCD utile è strettamente compreso fra \\(1\\) e il blocco scelto.",
-              "en": "A useful gcd lies strictly between \\(1\\) and the selected block."
+              "it": "Per \\(385\\), \\(\\gcd(385,15)=5\\): dopo il primo taglio resta da controllare il ramo \\(77\\).",
+              "en": "For \\(385\\), \\(\\gcd(385,15)=5\\); after the first split, the branch \\(77\\) remains to be checked."
             },
             {
-              "it": "Dopo una separazione scegli il ramo ancora composto. Non spendere un attrezzo su un primo.",
-              "en": "After a split, choose the branch that is still composite. Do not spend a tool on a prime."
+              "it": "Il candidato \\(22\\) produce un MCD utile con \\(77\\). Poi verifica che i due fattori ottenuti siano primi.",
+              "en": "Candidate \\(22\\) gives a useful gcd with \\(77\\). Then check that both resulting factors are prime."
             }
           ],
           "explanation": {
-            "it": "Se \\(d=\\gcd(N,u)\\) e \\(1<d<N\\), allora \\(N=d(N/d)\\). Il blocco può contenere più fattori: per questo il lavoro continua sui rami composti. Pollard, le collisioni di rho e le mancate inversioni di ECM producono candidati diversi, ma il controllo finale è sempre un MCD. Qui i candidati sono già nel vassoio: il gioco riguarda la scelta e il riuso dei risultati, non una simulazione completa di questi algoritmi. Un tentativo con MCD banale non consuma l’attrezzo.",
-            "en": "If \\(d=\\gcd(N,u)\\) and \\(1<d<N\\), then \\(N=d(N/d)\\). A block may contain several factors, so work continues on composite branches. Pollard, rho collisions, and failed ECM inversions produce different candidates, but the final check is always a gcd. Here the candidates are already in the tray: the game is about choosing and reusing results, rather than fully simulating those algorithms. A trivial gcd does not consume the tool."
+            "it": "Con \\(N=385\\), il primo attrezzo utile restituisce \\(\\gcd(385,15)=5\\), perciò \\(385=5\\cdot77\\). Non abbiamo finito: \\(77\\) è composto. Sul ramo rimasto, \\(\\gcd(77,22)=11\\), quindi \\(77=11\\cdot7\\). Tutti i fattori sono primi e \\(385=5\\cdot7\\cdot11\\). I candidati possono provenire da algoritmi diversi; è il MCD che conferma se uno di essi ha isolato un fattore.",
+            "en": "For \\(N=385\\), the first useful tool returns \\(\\gcd(385,15)=5\\), so \\(385=5\\cdot77\\). We are not done: \\(77\\) is composite. On the remaining branch, \\(\\gcd(77,22)=11\\), so \\(77=11\\cdot7\\). All factors are prime, and \\(385=5\\cdot7\\cdot11\\). Candidates may come from different algorithms; the gcd tells us whether one of them has isolated a factor."
           },
           "conceptIDs": [
             "factorization",
@@ -1964,17 +1964,17 @@
           },
           "hints": [
             {
-              "it": "Un MCD utile è strettamente compreso fra \\(1\\) e il blocco scelto.",
-              "en": "A useful gcd lies strictly between \\(1\\) and the selected block."
+              "it": "Il primo taglio si legge da \\(\\gcd(1001,63)=7\\). Concentrati sul fattore composto che rimane.",
+              "en": "The first split is \\(\\gcd(1001,63)=7\\). Focus on the composite factor that remains."
             },
             {
-              "it": "Dopo una separazione scegli il ramo ancora composto. Non spendere un attrezzo su un primo.",
-              "en": "After a split, choose the branch that is still composite. Do not spend a tool on a prime."
+              "it": "Per il ramo \\(143\\), il candidato \\(22\\) dà un fattore proprio; completa poi la scomposizione.",
+              "en": "For the branch \\(143\\), candidate \\(22\\) gives a proper factor; finish the factorization."
             }
           ],
           "explanation": {
-            "it": "Se \\(d=\\gcd(N,u)\\) e \\(1<d<N\\), allora \\(N=d(N/d)\\). Il blocco può contenere più fattori: per questo il lavoro continua sui rami composti. Pollard, le collisioni di rho e le mancate inversioni di ECM producono candidati diversi, ma il controllo finale è sempre un MCD. Qui i candidati sono già nel vassoio: il gioco riguarda la scelta e il riuso dei risultati, non una simulazione completa di questi algoritmi. Un tentativo con MCD banale non consuma l’attrezzo.",
-            "en": "If \\(d=\\gcd(N,u)\\) and \\(1<d<N\\), then \\(N=d(N/d)\\). A block may contain several factors, so work continues on composite branches. Pollard, rho collisions, and failed ECM inversions produce different candidates, but the final check is always a gcd. Here the candidates are already in the tray: the game is about choosing and reusing results, rather than fully simulating those algorithms. A trivial gcd does not consume the tool."
+            "it": "Il blocco iniziale si divide perché \\(\\gcd(1001,63)=7\\):\n\\[\n1001=7\\cdot143.\n\\]\nIl numero \\(143\\) non è primo; usando il candidato \\(22\\), troviamo \\(\\gcd(143,22)=11\\), dunque \\(143=11\\cdot13\\). Otteniamo \\(1001=7\\cdot11\\cdot13\\). Questa volta sono serviti due tagli non banali: dopo ciascuno, il ramo composto va rimesso al centro del ragionamento.",
+            "en": "The starting block splits because \\(\\gcd(1001,63)=7\\):\n\\[\n1001=7\\cdot143.\n\\]\nThe number \\(143\\) is not prime; candidate \\(22\\) gives \\(\\gcd(143,22)=11\\), hence \\(143=11\\cdot13\\). Thus \\(1001=7\\cdot11\\cdot13\\). This time we needed two nontrivial splits: after each one, the composite branch becomes the next focus."
           },
           "conceptIDs": [
             "factorization",
@@ -2054,22 +2054,22 @@
             "en": "One lamp too many"
           },
           "mission": {
-            "it": "Spegni tutte le lampade di controllo cambiando i bit della passerella. Ogni colonna indica quali lampade un interruttore cambia; i bit con il lucchetto restano fermi.",
-            "en": "Turn off every check lamp by changing the bridge bits. Each column shows which lamps a switch toggles; padlocked bits stay fixed."
+            "it": "Spegni le lampade di controllo cambiando i bit liberi. Parti dalla sindrome iniziale e cerca la colonna che la annulla.",
+            "en": "Turn off the check lamps by changing free bits. Start from the initial syndrome and find the column that cancels it."
           },
           "hints": [
             {
-              "it": "Il cambiamento di un bit aggiunge la sua colonna alla sindrome, con lo XOR.",
-              "en": "Changing a bit adds its column to the syndrome using XOR."
+              "it": "Calcola \\(s=Hr^{\\mathsf T}\\) nello stato iniziale: qui vale \\((1,1,0)\\).",
+              "en": "Compute \\(s=Hr^{\\mathsf T}\\) in the initial state; here it is \\((1,1,0)\\)."
             },
             {
-              "it": "Quando nessuna leva da sola basta, cerca colonne la cui somma annulli le lampade ancora accese.",
-              "en": "When no single lever is enough, look for columns whose sum cancels the lamps still on."
+              "it": "La terza colonna è \\((1,1,0)\\). Sommarla alla sindrome tramite XOR la porta a zero.",
+              "en": "The third column is \\((1,1,0)\\). Adding it to the syndrome with XOR makes it zero."
             }
           ],
           "explanation": {
-            "it": "La sindrome è \\(s=Hr^{\\mathsf T}\\). Se cambi il bit nella posizione \\(i\\), ottieni \\(s+h_i\\), dove \\(h_i\\) è la colonna corrispondente. Nel campo binario sommare significa fare XOR: azionare due volte la stessa leva annulla il suo effetto. Una sindrome nulla certifica una parola del codice, non garantisce da sola che sia il messaggio originario. Nei livelli con più guasti il gioco chiede infatti una configurazione valida, senza attribuirle un’origine che i dati non determinano.",
-            "en": "The syndrome is \\(s=Hr^{\\mathsf T}\\). Flipping position \\(i\\) gives \\(s+h_i\\), where \\(h_i\\) is the corresponding column. Over the binary field, addition is XOR: flipping the same switch twice cancels its effect. A zero syndrome certifies a codeword, rather than guaranteeing the original message. In levels with several faults, the game therefore asks for a valid configuration without claiming an origin that the data do not determine."
+            "it": "Nello stato iniziale la sindrome è \\(s=(1,1,0)\\), uguale alla terza colonna di \\(H\\), \\(h_3=(1,1,0)\\). Cambiare il terzo bit aggiunge proprio \\(h_3\\):\n\\[\ns'=s+h_3=(1,1,0)+(1,1,0)=(0,0,0)\n\\]\nnel campo binario. La nuova parola è valida. Questo non prova che sia la parola originariamente trasmessa: una sindrome nulla dice soltanto che tutti i controlli del codice sono soddisfatti.",
+            "en": "In the initial state, the syndrome is \\(s=(1,1,0)\\), equal to the third column of \\(H\\), \\(h_3=(1,1,0)\\). Flipping bit three adds \\(h_3\\):\n\\[\ns'=s+h_3=(1,1,0)+(1,1,0)=(0,0,0)\n\\]\nover the binary field. The new word is valid. This does not prove it was the word originally sent: a zero syndrome only says that all code checks are satisfied."
           },
           "conceptIDs": [
             "parity-check",
@@ -2135,22 +2135,22 @@
             "en": "Entangled damage"
           },
           "mission": {
-            "it": "Spegni tutte le lampade di controllo cambiando i bit della passerella. Ogni colonna indica quali lampade un interruttore cambia; i bit con il lucchetto restano fermi.",
-            "en": "Turn off every check lamp by changing the bridge bits. Each column shows which lamps a switch toggles; padlocked bits stay fixed."
+            "it": "Le lampade accese non corrispondono a una sola colonna. Trova una combinazione di due interruttori la cui somma annulli la sindrome.",
+            "en": "The lit lamps do not match a single column. Find two switches whose combined columns cancel the syndrome."
           },
           "hints": [
             {
-              "it": "Il cambiamento di un bit aggiunge la sua colonna alla sindrome, con lo XOR.",
-              "en": "Changing a bit adds its column to the syndrome using XOR."
+              "it": "La sindrome iniziale è \\((1,1,1,0)\\). Cerca due colonne che, sommate bit per bit, diano questo vettore.",
+              "en": "The initial syndrome is \\((1,1,1,0)\\). Look for two columns whose bitwise sum gives this vector."
             },
             {
-              "it": "Quando nessuna leva da sola basta, cerca colonne la cui somma annulli le lampade ancora accese.",
-              "en": "When no single lever is enough, look for columns whose sum cancels the lamps still on."
+              "it": "Le colonne \\(h_3=(1,1,0,1)\\) e \\(h_4=(0,0,1,1)\\) hanno la somma giusta.",
+              "en": "Columns \\(h_3=(1,1,0,1)\\) and \\(h_4=(0,0,1,1)\\) have the right sum."
             }
           ],
           "explanation": {
-            "it": "La sindrome è \\(s=Hr^{\\mathsf T}\\). Se cambi il bit nella posizione \\(i\\), ottieni \\(s+h_i\\), dove \\(h_i\\) è la colonna corrispondente. Nel campo binario sommare significa fare XOR: azionare due volte la stessa leva annulla il suo effetto. Una sindrome nulla certifica una parola del codice, non garantisce da sola che sia il messaggio originario. Nei livelli con più guasti il gioco chiede infatti una configurazione valida, senza attribuirle un’origine che i dati non determinano.",
-            "en": "The syndrome is \\(s=Hr^{\\mathsf T}\\). Flipping position \\(i\\) gives \\(s+h_i\\), where \\(h_i\\) is the corresponding column. Over the binary field, addition is XOR: flipping the same switch twice cancels its effect. A zero syndrome certifies a codeword, rather than guaranteeing the original message. In levels with several faults, the game therefore asks for a valid configuration without claiming an origin that the data do not determine."
+            "it": "La sindrome iniziale è \\(s=(1,1,1,0)\\). Nessuna singola colonna la annulla; le colonne \\(h_3=(1,1,0,1)\\) e \\(h_4=(0,0,1,1)\\), invece, soddisfano\n\\[\nh_3+h_4=(1,1,1,0)=s.\n\\]\nCambiando i bit nelle posizioni \\(3\\) e \\(4\\), aggiungiamo entrambe le colonne e otteniamo \\(s'=s+h_3+h_4=0\\). Nel campo binario, ogni coordinata si somma modulo \\(2\\).",
+            "en": "The initial syndrome is \\(s=(1,1,1,0)\\). No single column cancels it, but columns \\(h_3=(1,1,0,1)\\) and \\(h_4=(0,0,1,1)\\) satisfy\n\\[\nh_3+h_4=(1,1,1,0)=s.\n\\]\nFlipping positions \\(3\\) and \\(4\\) adds both columns and gives \\(s'=s+h_3+h_4=0\\). Over the binary field, each coordinate is added modulo \\(2\\)."
           },
           "conceptIDs": [
             "parity-check",
@@ -2230,22 +2230,22 @@
             "en": "Locked switches"
           },
           "mission": {
-            "it": "Spegni tutte le lampade di controllo cambiando i bit della passerella. Ogni colonna indica quali lampade un interruttore cambia; i bit con il lucchetto restano fermi.",
-            "en": "Turn off every check lamp by changing the bridge bits. Each column shows which lamps a switch toggles; padlocked bits stay fixed."
+            "it": "Due interruttori sono bloccati. Usa soltanto quelli liberi per annullare tutte le lampade di controllo.",
+            "en": "Two switches are locked. Use only the free switches to turn off every check lamp."
           },
           "hints": [
             {
-              "it": "Il cambiamento di un bit aggiunge la sua colonna alla sindrome, con lo XOR.",
-              "en": "Changing a bit adds its column to the syndrome using XOR."
+              "it": "Le posizioni \\(1\\) e \\(3\\) non si possono cambiare; la sindrome da annullare è \\((1,1,1,1)\\).",
+              "en": "Positions \\(1\\) and \\(3\\) cannot change; the syndrome to cancel is \\((1,1,1,1)\\)."
             },
             {
-              "it": "Quando nessuna leva da sola basta, cerca colonne la cui somma annulli le lampade ancora accese.",
-              "en": "When no single lever is enough, look for columns whose sum cancels the lamps still on."
+              "it": "Confronta le colonne libere: \\(h_2+h_4=(1,1,1,1)\\).",
+              "en": "Compare the free columns: \\(h_2+h_4=(1,1,1,1)\\)."
             }
           ],
           "explanation": {
-            "it": "La sindrome è \\(s=Hr^{\\mathsf T}\\). Se cambi il bit nella posizione \\(i\\), ottieni \\(s+h_i\\), dove \\(h_i\\) è la colonna corrispondente. Nel campo binario sommare significa fare XOR: azionare due volte la stessa leva annulla il suo effetto. Una sindrome nulla certifica una parola del codice, non garantisce da sola che sia il messaggio originario. Nei livelli con più guasti il gioco chiede infatti una configurazione valida, senza attribuirle un’origine che i dati non determinano.",
-            "en": "The syndrome is \\(s=Hr^{\\mathsf T}\\). Flipping position \\(i\\) gives \\(s+h_i\\), where \\(h_i\\) is the corresponding column. Over the binary field, addition is XOR: flipping the same switch twice cancels its effect. A zero syndrome certifies a codeword, rather than guaranteeing the original message. In levels with several faults, the game therefore asks for a valid configuration without claiming an origin that the data do not determine."
+            "it": "Le lampade accese rappresentano la sindrome \\(s=(1,1,1,1)\\). Le prime e terze posizioni sono bloccate, quindi non possiamo usare \\(h_1\\) né \\(h_3\\). Fra le colonne disponibili troviamo \\(h_2=(0,1,1,0)\\) e \\(h_4=(1,0,0,1)\\); la loro somma è proprio \\(s\\). Cambiando i bit \\(2\\) e \\(4\\), otteniamo \\(s'=s+h_2+h_4=0\\), senza toccare gli interruttori bloccati.",
+            "en": "The lit lamps represent syndrome \\(s=(1,1,1,1)\\). Positions one and three are locked, so we cannot use \\(h_1\\) or \\(h_3\\). Among the available columns, \\(h_2=(0,1,1,0)\\) and \\(h_4=(1,0,0,1)\\) add up to \\(s\\). Flipping bits \\(2\\) and \\(4\\) gives \\(s'=s+h_2+h_4=0\\), without touching a locked switch."
           },
           "conceptIDs": [
             "parity-check",
@@ -2327,22 +2327,22 @@
             "en": "The village links"
           },
           "mission": {
-            "it": "Assegna un codice a ogni linea: scegli una tessera e poi una stazione. Devono bastare capacità, protezione e lunghezza; inoltre la ridondanza totale deve rientrare nel budget. Ogni tessera si usa su una sola linea.",
-            "en": "Assign a code to every link: select a tile, then a station. Capacity, protection, and length must fit, and total redundancy must stay within budget. Each tile may serve only one link."
+            "it": "Abbina a ogni linea una tessera che soddisfi tutti i vincoli locali; alla fine controlla anche la ridondanza totale.",
+            "en": "Assign each line a tile that meets its local constraints, then check the total redundancy."
           },
           "hints": [
             {
-              "it": "Per correggere \\(t\\) errori serve \\(2t<d\\). La capacità si misura in simboli del campo indicato, non sempre in bit.",
-              "en": "Correcting \\(t\\) errors requires \\(2t<d\\). Capacity is measured in symbols over the stated field, which are not always bits."
+              "it": "Per l’allarme servono \\(2t<d\\) con \\(t=2\\), quindi la distanza deve essere almeno \\(5\\); la lunghezza non può superare \\(5\\).",
+              "en": "The alarm needs \\(2t<d\\) with \\(t=2\\), so the distance must be at least \\(5\\); the length cannot exceed \\(5\\)."
             },
             {
-              "it": "Controlla anche il costo \\(n-k\\): un codice che protegge di più può esaurire il budget delle altre linee.",
-              "en": "Also check the cost \\(n-k\\): stronger protection may exhaust the budget needed by other links."
+              "it": "La fotocamera richiede almeno \\(4\\) simboli informativi; al sensore serve un campo con \\(7\\) elementi.",
+              "en": "The camera needs at least \\(4\\) information symbols; the sensor needs a field with \\(7\\) elements."
             }
           ],
           "explanation": {
-            "it": "Una famiglia non è “migliore” in assoluto. Per ogni linea devono valere insieme \\(q=q_{\\mathrm{richiesto}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\) e \\(n\\le n_{\\max}\\). Il costo della tessera è \\(n-k\\) simboli ridondanti. Il budget di questo gioco conta simboli trasmessi, non bit né un costo fisico universale: canali con alfabeti diversi hanno costi reali diversi. L’abbinamento globale evita di sprecare una tessera necessaria altrove.",
-            "en": "No family is universally “best.” Each link must simultaneously satisfy \\(q=q_{\\mathrm{required}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\), and \\(n\\le n_{\\max}\\). A tile costs \\(n-k\\) redundant symbols. This game’s budget counts transmitted symbols, rather than bits or a universal physical cost: channels with different alphabets have different real costs. Global matching avoids spending a tile needed elsewhere."
+            "it": "Ogni stazione impone vincoli diversi. All’allarme assegniamo il codice di ripetizione \\([5,1,5]_2\\): corregge \\(2\\) errori e rispetta la lunghezza massima. Alla fotocamera va \\([7,4,3]_2\\), che contiene i \\(4\\) simboli richiesti e corregge \\(1\\) errore. Il sensore usa \\([6,2,5]_7\\), l’unica tessera adatta al campo richiesto e alla distanza necessaria. La ridondanza totale è\n\\[\n(5-1)+(7-4)+(6-2)=4+3+4=11,\n\\]\nesattamente il budget.",
+            "en": "Each station imposes different constraints. Assign the repetition code \\([5,1,5]_2\\) to the alarm: it corrects \\(2\\) errors and meets the length limit. The camera gets \\([7,4,3]_2\\), which carries the required \\(4\\) information symbols and corrects \\(1\\) error. The sensor uses \\([6,2,5]_7\\), the only tile with the required field and distance. Total redundancy is\n\\[\n(5-1)+(7-4)+(6-2)=4+3+4=11,\n\\]\nexactly the budget."
           },
           "conceptIDs": [
             "repetition",
@@ -2444,22 +2444,22 @@
             "en": "Competing bandwidth"
           },
           "mission": {
-            "it": "Assegna un codice a ogni linea: scegli una tessera e poi una stazione. Devono bastare capacità, protezione e lunghezza; inoltre la ridondanza totale deve rientrare nel budget. Ogni tessera si usa su una sola linea.",
-            "en": "Assign a code to every link: select a tile, then a station. Capacity, protection, and length must fit, and total redundancy must stay within budget. Each tile may serve only one link."
+            "it": "Il budget si è ridotto. Scegli i codici in base ai requisiti, poi verifica quanto costa l’abbinamento completo.",
+            "en": "The budget is tighter. Choose codes that meet the requirements, then calculate the cost of the full assignment."
           },
           "hints": [
             {
-              "it": "Per correggere \\(t\\) errori serve \\(2t<d\\). La capacità si misura in simboli del campo indicato, non sempre in bit.",
-              "en": "Correcting \\(t\\) errors requires \\(2t<d\\). Capacity is measured in symbols over the stated field, which are not always bits."
+              "it": "L’immagine richiede \\(k\\ge4\\) e corregge \\(1\\) errore; il faro ne corregge \\(2\\) ma accetta al massimo \\(5\\) simboli.",
+              "en": "The image needs \\(k\\ge4\\) and correction of \\(1\\) error; the beacon corrects \\(2\\) errors but allows at most \\(5\\) symbols."
             },
             {
-              "it": "Controlla anche il costo \\(n-k\\): un codice che protegge di più può esaurire il budget delle altre linee.",
-              "en": "Also check the cost \\(n-k\\): stronger protection may exhaust the budget needed by other links."
+              "it": "Per il campione servono \\(7\\) simboli nel campo, \\(k\\ge2\\) e \\(d\\ge3\\). Confronta le tessere compatte.",
+              "en": "The sample needs a \\(7\\)-symbol field, \\(k\\ge2\\), and \\(d\\ge3\\). Compare the compact tiles."
             }
           ],
           "explanation": {
-            "it": "Una famiglia non è “migliore” in assoluto. Per ogni linea devono valere insieme \\(q=q_{\\mathrm{richiesto}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\) e \\(n\\le n_{\\max}\\). Il costo della tessera è \\(n-k\\) simboli ridondanti. Il budget di questo gioco conta simboli trasmessi, non bit né un costo fisico universale: canali con alfabeti diversi hanno costi reali diversi. L’abbinamento globale evita di sprecare una tessera necessaria altrove.",
-            "en": "No family is universally “best.” Each link must simultaneously satisfy \\(q=q_{\\mathrm{required}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\), and \\(n\\le n_{\\max}\\). A tile costs \\(n-k\\) redundant symbols. This game’s budget counts transmitted symbols, rather than bits or a universal physical cost: channels with different alphabets have different real costs. Global matching avoids spending a tile needed elsewhere."
+            "it": "All’immagine assegniamo \\([7,4,3]_2\\), al faro \\([5,1,5]_2\\) e al campione \\([5,3,3]_7\\). I tre codici rispettano rispettivamente capacità, correzione degli errori e lunghezza richieste. Il costo in simboli ridondanti è\n\\[\n(7-4)+(5-1)+(5-3)=3+4+2=9.\n\\]\nLa scelta di \\([6,2,5]_7\\) per il campione sarebbe più robusta, ma porterebbe il totale oltre il budget: qui basta la distanza minima richiesta.",
+            "en": "Assign \\([7,4,3]_2\\) to the image, \\([5,1,5]_2\\) to the beacon, and \\([5,3,3]_7\\) to the sample. These codes meet the respective capacity, error-correction, and length requirements. Their redundancy cost is\n\\[\n(7-4)+(5-1)+(5-3)=3+4+2=9.\n\\]\nUsing the more robust \\([6,2,5]_7\\) for the sample would exceed the budget; the required minimum distance is enough here."
           },
           "conceptIDs": [
             "repetition",
@@ -2572,22 +2572,22 @@
             "en": "The last reserve"
           },
           "mission": {
-            "it": "Assegna un codice a ogni linea: scegli una tessera e poi una stazione. Devono bastare capacità, protezione e lunghezza; inoltre la ridondanza totale deve rientrare nel budget. Ogni tessera si usa su una sola linea.",
-            "en": "Assign a code to every link: select a tile, then a station. Capacity, protection, and length must fit, and total redundancy must stay within budget. Each tile may serve only one link."
+            "it": "L’archivio richiede molti simboli, mentre il laboratorio usa un altro campo. Riserva a ciascuno il codice adatto senza superare il budget.",
+            "en": "The archive needs many symbols, while the lab uses a different field. Reserve a suitable code for each without exceeding the budget."
           },
           "hints": [
             {
-              "it": "Per correggere \\(t\\) errori serve \\(2t<d\\). La capacità si misura in simboli del campo indicato, non sempre in bit.",
-              "en": "Correcting \\(t\\) errors requires \\(2t<d\\). Capacity is measured in symbols over the stated field, which are not always bits."
+              "it": "Per l’archivio serve \\(k\\ge11\\); solo una tessera offre questa capacità e resta entro la lunghezza massima.",
+              "en": "The archive needs \\(k\\ge11\\); only one tile has that capacity and stays within the length limit."
             },
             {
-              "it": "Controlla anche il costo \\(n-k\\): un codice che protegge di più può esaurire il budget delle altre linee.",
-              "en": "Also check the cost \\(n-k\\): stronger protection may exhaust the budget needed by other links."
+              "it": "Il laboratorio richiede \\(q=7\\) e \\(k\\ge3\\). Per il campanello basta un codice breve che corregga \\(1\\) errore.",
+              "en": "The lab requires \\(q=7\\) and \\(k\\ge3\\). A short code correcting \\(1\\) error is enough for the bell."
             }
           ],
           "explanation": {
-            "it": "Una famiglia non è “migliore” in assoluto. Per ogni linea devono valere insieme \\(q=q_{\\mathrm{richiesto}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\) e \\(n\\le n_{\\max}\\). Il costo della tessera è \\(n-k\\) simboli ridondanti. Il budget di questo gioco conta simboli trasmessi, non bit né un costo fisico universale: canali con alfabeti diversi hanno costi reali diversi. L’abbinamento globale evita di sprecare una tessera necessaria altrove.",
-            "en": "No family is universally “best.” Each link must simultaneously satisfy \\(q=q_{\\mathrm{required}}\\), \\(k\\ge k_{\\min}\\), \\(2t<d\\), and \\(n\\le n_{\\max}\\). A tile costs \\(n-k\\) redundant symbols. This game’s budget counts transmitted symbols, rather than bits or a universal physical cost: channels with different alphabets have different real costs. Global matching avoids spending a tile needed elsewhere."
+            "it": "All’archivio serve la tessera Hamming \\([15,11,3]_2\\), che fornisce \\(11\\) simboli informativi. Il laboratorio richiede il campo con \\(7\\) elementi e riceve \\([5,3,3]_7\\). Per il campanello basta la ripetizione breve \\([3,1,3]_2\\), che corregge \\(1\\) errore. La ridondanza complessiva è\n\\[\n(15-11)+(5-3)+(3-1)=4+2+2=8.\n\\]\nL’abbinamento rispetta sia i vincoli delle tre stazioni sia il budget.",
+            "en": "The archive needs the Hamming tile \\([15,11,3]_2\\), which carries \\(11\\) information symbols. The lab requires a field with \\(7\\) elements, so it gets \\([5,3,3]_7\\). The short repetition code \\([3,1,3]_2\\) is enough for the bell because it corrects \\(1\\) error. Total redundancy is\n\\[\n(15-11)+(5-3)+(3-1)=4+2+2=8.\n\\]\nThis assignment meets all three stations’ constraints and the shared budget."
           },
           "conceptIDs": [
             "repetition",
@@ -2888,7 +2888,7 @@
             }
           ],
           "explanation": {
-            "it": "Il percorso mette in pratica double-and-add: se il punto corrente rappresenta \\(rP\\), aggiungere \\(P\\) lo porta a \\((r+1)P\\), raddoppiarlo a \\((2r)P\\). Le coordinate si calcolano con la legge ellittica, usando inversi nel campo. Anche il punto all’infinito e l’opposto fanno parte del gruppo.",
+            "it": "Il percorso mette in pratica il metodo del raddoppio e dell’addizione (double-and-add): se il punto corrente rappresenta \\(rP\\), aggiungere \\(P\\) lo porta a \\((r+1)P\\), raddoppiarlo a \\((2r)P\\). Le coordinate si calcolano con la legge ellittica, usando inversi nel campo. Anche il punto all’infinito e l’opposto fanno parte del gruppo.",
             "en": "The path puts double-and-add into practice: if the current point represents \\(rP\\), adding \\(P\\) gives \\((r+1)P\\), while doubling gives \\((2r)P\\). Coordinates are computed with the elliptic law, using field inverses. The point at infinity and inverse points also belong to the group."
           },
           "conceptIDs": [
@@ -2958,22 +2958,22 @@
             "en": "The duality bridge"
           },
           "mission": {
-            "it": "Attraversa il laboratorio raccogliendo risultati compatibili. Il ponte si apre soltanto quando hai completato entrambi i rami; alcune scorciatoie nascondono un passaggio falso. I risultati restano nello zaino.",
-            "en": "Cross the laboratory collecting compatible results. The bridge opens only after both branches are complete; some shortcuts hide a false step. Results stay in your backpack."
+            "it": "Completa entrambi i rami: uno fornisce il bilancio delle dimensioni, l’altro identifica lo spazio delle ostruzioni.",
+            "en": "Complete both branches: one gives the dimension balance, the other identifies the obstruction space."
           },
           "hints": [
             {
-              "it": "Leggi quali risultati servono alla prossima porta. Puoi tornare all’incrocio e completare l’altro ramo.",
-              "en": "Read which results the next door needs. You can return to the junction and complete the other branch."
+              "it": "Le due carte producono \\(\\ell(D)-\\dim H^1(D)=\\deg D+1-g\\).",
+              "en": "The two charts give \\(\\ell(D)-\\dim H^1(D)=\\deg D+1-g\\)."
             },
             {
-              "it": "Una conclusione è utilizzabile soltanto dopo averne ottenuto le ipotesi; non confondere una formula generale con un caso particolare.",
-              "en": "A conclusion becomes usable only after its hypotheses are obtained; do not confuse a general formula with a special case."
+              "it": "La dualità dice \\(\\dim H^1(D)=\\ell(K_X-D)\\). Sostituisci questo valore nel bilancio.",
+              "en": "Duality gives \\(\\dim H^1(D)=\\ell(K_X-D)\\). Substitute this value into the balance."
             }
           ],
           "explanation": {
-            "it": "Il percorso rende visibili le dipendenze della dimostrazione. Il bilancio e la dualità sono risultati distinti; il termine correttivo si cancella solo dopo averne provato l’annullamento. Nell’applicazione ai codici servono anche una valutazione ben definita e il controllo del nucleo. Le tessere riassumono passaggi già dimostrati nelle voci collegate: attraversare la mappa ne controlla i collegamenti logici, senza sostituire quelle dimostrazioni.",
-            "en": "The route makes the proof dependencies visible. The dimension balance and duality are distinct results; the correction term disappears only after its vanishing is proved. The code application also needs well-defined evaluation and control of the kernel. Tiles summarize steps already proved in the linked entries: traversing the map checks their logical connections without replacing those proofs."
+            "it": "Le funzioni ammesse su ciascuna carta si incollano quando coincidono nella zona comune. Quelle che si incollano formano \\(L(D)\\); le differenze che non si riescono a eliminare formano lo spazio delle ostruzioni \\(H^1(D)\\). Il conteggio sulle due carte dà\n\\[\n\\ell(D)-\\dim H^1(D)=\\deg D+1-g.\n\\]\nLa dualità dimostra che \\(\\dim H^1(D)=\\ell(K_X-D)\\). Sostituendo, otteniamo\n\\[\n\\ell(D)-\\ell(K_X-D)=\\deg D+1-g.\n\\]\nLa prima relazione e la dualità sono due risultati distinti: la formula finale segue solo dopo averli entrambi dimostrati.",
+            "en": "Allowed functions on each chart glue when they agree on the overlap. The functions that glue form \\(L(D)\\); differences that cannot be removed form the obstruction space \\(H^1(D)\\). Counting on the two charts gives\n\\[\n\\ell(D)-\\dim H^1(D)=\\deg D+1-g.\n\\]\nDuality proves that \\(\\dim H^1(D)=\\ell(K_X-D)\\). Substituting yields\n\\[\n\\ell(D)-\\ell(K_X-D)=\\deg D+1-g.\n\\]\nThe balance and duality are separate results; the final formula follows only after both have been proved."
           },
           "conceptIDs": [
             "riemann-roch",
@@ -3271,22 +3271,22 @@
             "en": "The hidden term"
           },
           "mission": {
-            "it": "Attraversa il laboratorio raccogliendo risultati compatibili. Il ponte si apre soltanto quando hai completato entrambi i rami; alcune scorciatoie nascondono un passaggio falso. I risultati restano nello zaino.",
-            "en": "Cross the laboratory collecting compatible results. The bridge opens only after both branches are complete; some shortcuts hide a false step. Results stay in your backpack."
+            "it": "Giustifica perché, in questo caso, il termine correttivo di Riemann–Roch è nullo.",
+            "en": "Show why the correction term in Riemann–Roch vanishes in this case."
           },
           "hints": [
             {
-              "it": "Leggi quali risultati servono alla prossima porta. Puoi tornare all’incrocio e completare l’altro ramo.",
-              "en": "Read which results the next door needs. You can return to the junction and complete the other branch."
+              "it": "Calcola \\(\\deg(K_X-D)=2-5=-3\\). Un divisore di grado negativo non può avere funzioni non nulle in \\(L(K_X-D)\\).",
+              "en": "Compute \\(\\deg(K_X-D)=2-5=-3\\). A divisor of negative degree cannot have nonzero functions in \\(L(K_X-D)\\)."
             },
             {
-              "it": "Una conclusione è utilizzabile soltanto dopo averne ottenuto le ipotesi; non confondere una formula generale con un caso particolare.",
-              "en": "A conclusion becomes usable only after its hypotheses are obtained; do not confuse a general formula with a special case."
+              "it": "La formula completa è \\(\\ell(D)=\\deg D+1-g+\\ell(K_X-D)\\); non confondere grado e dimensione.",
+              "en": "The full formula is \\(\\ell(D)=\\deg D+1-g+\\ell(K_X-D)\\); do not confuse degree with dimension."
             }
           ],
           "explanation": {
-            "it": "Il percorso rende visibili le dipendenze della dimostrazione. Il bilancio e la dualità sono risultati distinti; il termine correttivo si cancella solo dopo averne provato l’annullamento. Nell’applicazione ai codici servono anche una valutazione ben definita e il controllo del nucleo. Le tessere riassumono passaggi già dimostrati nelle voci collegate: attraversare la mappa ne controlla i collegamenti logici, senza sostituire quelle dimostrazioni.",
-            "en": "The route makes the proof dependencies visible. The dimension balance and duality are distinct results; the correction term disappears only after its vanishing is proved. The code application also needs well-defined evaluation and control of the kernel. Tiles summarize steps already proved in the linked entries: traversing the map checks their logical connections without replacing those proofs."
+            "it": "Con \\(g=2\\), il divisore canonico ha grado \\(\\deg K_X=2g-2=2\\). Se \\(\\deg D=5\\), allora \\(\\deg(K_X-D)=2-5=-3\\). Se \\(L(K_X-D)\\) contenesse una funzione non nulla, il divisore ottenuto aggiungendo i suoi zeri e poli a \\(K_X-D\\) sarebbe effettivo e avrebbe ancora grado \\(-3\\), impossibile: un divisore effettivo ha grado non negativo. Perciò \\(\\ell(K_X-D)=0\\). Solo ora possiamo ridurre la formula completa a\n\\[\n\\ell(D)=5+1-2=4.\n\\]\nIl grado \\(5\\) da solo non è la dimensione; il termine correttivo è ciò che permette di concludere.",
+            "en": "For \\(g=2\\), the canonical divisor has degree \\(\\deg K_X=2g-2=2\\). If \\(\\deg D=5\\), then \\(\\deg(K_X-D)=2-5=-3\\). If \\(L(K_X-D)\\) contained a nonzero function, adding its zeros and poles to \\(K_X-D\\) would give an effective divisor still of degree \\(-3\\), which is impossible: an effective divisor has nonnegative degree. Hence \\(\\ell(K_X-D)=0\\). Only now can we reduce the full formula to\n\\[\n\\ell(D)=5+1-2=4.\n\\]\nThe degree \\(5\\) alone is not the dimension; the correction term is what lets us conclude."
           },
           "conceptIDs": [
             "riemann-roch",
@@ -3583,22 +3583,22 @@
             "en": "From curve to code"
           },
           "mission": {
-            "it": "Attraversa il laboratorio raccogliendo risultati compatibili. Il ponte si apre soltanto quando hai completato entrambi i rami; alcune scorciatoie nascondono un passaggio falso. I risultati restano nello zaino.",
-            "en": "Cross the laboratory collecting compatible results. The bridge opens only after both branches are complete; some shortcuts hide a false step. Results stay in your backpack."
+            "it": "Costruisci il codice valutando funzioni in punti ammessi e dimostra sia la dimensione sia la distanza minima.",
+            "en": "Build the code by evaluating functions at allowed points, then prove its dimension and minimum distance."
           },
           "hints": [
             {
-              "it": "Leggi quali risultati servono alla prossima porta. Puoi tornare all’incrocio e completare l’altro ramo.",
-              "en": "Read which results the next door needs. You can return to the junction and complete the other branch."
+              "it": "I punti devono stare fuori dal supporto di \\(D\\), così ogni funzione di \\(L(D)\\) è valutabile lì.",
+              "en": "The points must lie outside the support of \\(D\\), so every function in \\(L(D)\\) can be evaluated there."
             },
             {
-              "it": "Una conclusione è utilizzabile soltanto dopo averne ottenuto le ipotesi; non confondere una formula generale con un caso particolare.",
-              "en": "A conclusion becomes usable only after its hypotheses are obtained; do not confuse a general formula with a special case."
+              "it": "Una parola nulla nel codice corrisponderebbe a una funzione con \\(9\\) zeri distinti, ma \\(\\deg D=5\\).",
+              "en": "A zero codeword would come from a function with \\(9\\) distinct zeros, although \\(\\deg D=5\\)."
             }
           ],
           "explanation": {
-            "it": "Il percorso rende visibili le dipendenze della dimostrazione. Il bilancio e la dualità sono risultati distinti; il termine correttivo si cancella solo dopo averne provato l’annullamento. Nell’applicazione ai codici servono anche una valutazione ben definita e il controllo del nucleo. Le tessere riassumono passaggi già dimostrati nelle voci collegate: attraversare la mappa ne controlla i collegamenti logici, senza sostituire quelle dimostrazioni.",
-            "en": "The route makes the proof dependencies visible. The dimension balance and duality are distinct results; the correction term disappears only after its vanishing is proved. The code application also needs well-defined evaluation and control of the kernel. Tiles summarize steps already proved in the linked entries: traversing the map checks their logical connections without replacing those proofs."
+            "it": "Valutiamo \\(L(D)\\) in \\(9\\) punti distinti fuori dal supporto di \\(D\\). Riemann–Roch dà \\(\\ell(D)=5+1-2=4\\), quindi lo spazio delle parole ha dimensione \\(4\\). Per controllare che la valutazione sia iniettiva, supponiamo che una funzione di \\(L(D)\\) si annulli in tutti i \\(9\\) punti. Avrebbe almeno \\(9\\) zeri, ma il divisore dei poli consente al massimo un grado totale pari a \\(5\\): una funzione non nulla non può farlo. Il nucleo è dunque nullo. Lo stesso argomento mostra che ogni parola non nulla ha almeno \\(9-5=4\\) coordinate non nulle, perciò \\(d_C\\ge4\\).",
+            "en": "Evaluate \\(L(D)\\) at \\(9\\) distinct points outside the support of \\(D\\). Riemann–Roch gives \\(\\ell(D)=5+1-2=4\\), so the code has dimension \\(4\\). To check injectivity, suppose a function in \\(L(D)\\) vanishes at all \\(9\\) points. It would have at least \\(9\\) zeros, but its allowed pole divisor has total degree only \\(5\\); a nonzero function cannot do this. Thus the evaluation map has zero kernel. The same argument shows every nonzero codeword has at least \\(9-5=4\\) nonzero coordinates, so \\(d_C\\ge4\\)."
           },
           "conceptIDs": [
             "riemann-roch",
@@ -3908,22 +3908,22 @@
             "en": "The infinite product"
           },
           "mission": {
-            "it": "Raggiungi il teorema portando alla passerella i risultati di entrambi i rami. Il percorso breve può perdere un’ipotesi essenziale: ispeziona le porte prima di attraversarle.",
-            "en": "Reach the theorem by bringing results from both branches to the bridge. A short route may lose an essential hypothesis: inspect the doors before crossing."
+            "it": "Costruisci il prodotto di Eulero dalle fattorizzazioni e giustifica il limite dei prodotti finiti.",
+            "en": "Build the Euler product from prime factorizations and justify the limit of the finite products."
           },
           "hints": [
             {
-              "it": "La serie, il suo prolungamento e il valore di un integrale improprio non sono oggetti intercambiabili.",
-              "en": "The series, its continuation, and the value of an improper integral are not interchangeable."
+              "it": "Prova prima con i primi \\(2\\) e \\(3\\): ogni scelta degli esponenti produce un intero distinto.",
+              "en": "Try the primes \\(2\\) and \\(3\\) first: each choice of exponents gives a distinct integer."
             },
             {
-              "it": "Raccogli prima le stime e poi le proprietà sul bordo: il ponte richiede il controllo di entrambe.",
-              "en": "Collect the bounds and boundary properties: the bridge needs control of both."
+              "it": "Per passare a tutti i primi serve la convergenza assoluta di \\(\\sum n^{-\\sigma}\\), con \\(\\sigma>1\\).",
+              "en": "Passing to all primes requires absolute convergence of \\(\\sum n^{-\\sigma}\\), for \\(\\sigma>1\\)."
             }
           ],
           "explanation": {
-            "it": "Una dimostrazione analitica attraversa domini di validità diversi. La convergenza assoluta giustifica il prodotto di Eulero nel suo semipiano; il prolungamento e il controllo degli zeri permettono di studiare il bordo. Il lemma di Newman rimuove lo smorzamento soltanto con le sue ipotesi. Le tessere mostrano questi legami; le voci collegate contengono i passaggi analitici completi. La meta non si ottiene sostituendo formalmente un valore al bordo.",
-            "en": "An analytic proof crosses different domains of validity. Absolute convergence justifies the Euler product in its half-plane; continuation and zero control allow boundary analysis. Newman’s lemma removes damping only under its hypotheses. The tiles show these dependencies; the linked entries contain the full analytic steps. The goal cannot be reached by formally substituting a boundary value."
+            "it": "Per i soli primi \\(2\\) e \\(3\\),\n\\[\n(1-2^{-s})^{-1}(1-3^{-s})^{-1}\n\\]\nsi espande in termini come \\(1,2^{-s},3^{-s},4^{-s},6^{-s},\\ldots\\). Ogni intero compare una volta sola, perché la fattorizzazione in primi è unica. Aggiungendo altri primi otteniamo somme finite di termini della serie \\(\\sum n^{-s}\\). Se \\(\\operatorname{Re}(s)>1\\), la serie converge assolutamente: i termini mancanti diventano arbitrariamente piccoli e il prodotto tende a \\(\\zeta(s)\\). Non possiamo mettere \\(s=1\\) nella stessa serie: \\(\\sum 1/n\\) diverge e la zeta ha un polo.",
+            "en": "Using only primes \\(2\\) and \\(3\\),\n\\[\n(1-2^{-s})^{-1}(1-3^{-s})^{-1}\n\\]\nexpands into terms such as \\(1,2^{-s},3^{-s},4^{-s},6^{-s},\\ldots\\). Every integer appears once because prime factorization is unique. Adding more primes gives finite sums of terms from \\(\\sum n^{-s}\\). When \\(\\operatorname{Re}(s)>1\\), that series converges absolutely: the omitted terms become arbitrarily small and the product tends to \\(\\zeta(s)\\). We cannot set \\(s=1\\) in the same series: \\(\\sum 1/n\\) diverges and zeta has a pole."
           },
           "conceptIDs": [
             "prime-number",
@@ -4220,22 +4220,22 @@
             "en": "The boundary gate"
           },
           "mission": {
-            "it": "Raggiungi il teorema portando alla passerella i risultati di entrambi i rami. Il percorso breve può perdere un’ipotesi essenziale: ispeziona le porte prima di attraversarle.",
-            "en": "Reach the theorem by bringing results from both branches to the bridge. A short route may lose an essential hypothesis: inspect the doors before crossing."
+            "it": "Unisci l’identità positiva con il comportamento della zeta vicino al polo e dimostra che non ci sono zeri sul bordo.",
+            "en": "Combine the positive identity with zeta’s behavior near its pole to show there are no zeros on the boundary."
           },
           "hints": [
             {
-              "it": "La serie, il suo prolungamento e il valore di un integrale improprio non sono oggetti intercambiabili.",
-              "en": "The series, its continuation, and the value of an improper integral are not interchangeable."
+              "it": "La disuguaglianza dal prodotto di Eulero resta almeno \\(1\\) per \\(\\sigma>1\\).",
+              "en": "The Euler-product inequality stays at least \\(1\\) for \\(\\sigma>1\\)."
             },
             {
-              "it": "Raccogli prima le stime e poi le proprietà sul bordo: il ponte richiede il controllo di entrambe.",
-              "en": "Collect the bounds and boundary properties: the bridge needs control of both."
+              "it": "Uno zero di ordine \\(m\\ge1\\) farebbe invece tendere il prodotto a zero, perché \\(4m-3>0\\).",
+              "en": "A zero of order \\(m\\ge1\\) would instead make the product tend to zero, since \\(4m-3>0\\)."
             }
           ],
           "explanation": {
-            "it": "Una dimostrazione analitica attraversa domini di validità diversi. La convergenza assoluta giustifica il prodotto di Eulero nel suo semipiano; il prolungamento e il controllo degli zeri permettono di studiare il bordo. Il lemma di Newman rimuove lo smorzamento soltanto con le sue ipotesi. Le tessere mostrano questi legami; le voci collegate contengono i passaggi analitici completi. La meta non si ottiene sostituendo formalmente un valore al bordo.",
-            "en": "An analytic proof crosses different domains of validity. Absolute convergence justifies the Euler product in its half-plane; continuation and zero control allow boundary analysis. Newman’s lemma removes damping only under its hypotheses. The tiles show these dependencies; the linked entries contain the full analytic steps. The goal cannot be reached by formally substituting a boundary value."
+            "it": "L’identità \\(3+4\\cos u+\\cos(2u)=2(1+\\cos u)^2\\ge0\\), applicata ai termini del prodotto di Eulero, dà per \\(\\sigma>1\\)\n\\[\n\\zeta(\\sigma)^3|\\zeta(\\sigma+it)|^4|\\zeta(\\sigma+2it)|\\ge1.\n\\]\nSupponiamo che, per \\(t\\ne0\\), \\(\\zeta(1+it)\\) abbia uno zero di ordine \\(m\\ge1\\). Avvicinandoci con \\(\\sigma\\to1^+\\), il polo semplice dà \\(\\zeta(\\sigma)^3\\) dell’ordine di \\((\\sigma-1)^{-3}\\); lo zero dà \\(|\\zeta(\\sigma+it)|^4\\) dell’ordine di \\((\\sigma-1)^{4m}\\). Il terzo fattore resta finito. Il prodotto tenderebbe quindi a zero come \\((\\sigma-1)^{4m-3}\\), in contraddizione con il fatto che è sempre almeno \\(1\\).",
+            "en": "The identity \\(3+4\\cos u+\\cos(2u)=2(1+\\cos u)^2\\ge0\\), applied term by term to the Euler product, gives for \\(\\sigma>1\\)\n\\[\n\\zeta(\\sigma)^3|\\zeta(\\sigma+it)|^4|\\zeta(\\sigma+2it)|\\ge1.\n\\]\nSuppose that \\(\\zeta(1+it)\\) has a zero of order \\(m\\ge1\\), with \\(t\\ne0\\). As \\(\\sigma\\to1^+\\), the simple pole makes \\(\\zeta(\\sigma)^3\\) have order \\((\\sigma-1)^{-3}\\), while the zero makes \\(|\\zeta(\\sigma+it)|^4\\) have order \\((\\sigma-1)^{4m}\\). The third factor stays finite. The product would therefore tend to zero like \\((\\sigma-1)^{4m-3}\\), contradicting the fact that it is always at least \\(1\\)."
           },
           "conceptIDs": [
             "prime-number",
@@ -4532,22 +4532,22 @@
             "en": "The Tauberian bridge"
           },
           "mission": {
-            "it": "Raggiungi il teorema portando alla passerella i risultati di entrambi i rami. Il percorso breve può perdere un’ipotesi essenziale: ispeziona le porte prima di attraversarle.",
-            "en": "Reach the theorem by bringing results from both branches to the bridge. A short route may lose an essential hypothesis: inspect the doors before crossing."
+            "it": "Usa il lemma di Newman per passare dalle proprietà analitiche della zeta al conteggio dei primi.",
+            "en": "Use Newman’s lemma to pass from analytic properties of zeta to prime counting."
           },
           "hints": [
             {
-              "it": "La serie, il suo prolungamento e il valore di un integrale improprio non sono oggetti intercambiabili.",
-              "en": "The series, its continuation, and the value of an improper integral are not interchangeable."
+              "it": "La stima \\(\\theta(x)=O(x)\\) rende \\(f(t)=e^{-t}\\theta(e^t)-1\\) limitata.",
+              "en": "The bound \\(\\theta(x)=O(x)\\) makes \\(f(t)=e^{-t}\\theta(e^t)-1\\) bounded."
             },
             {
-              "it": "Raccogli prima le stime e poi le proprietà sul bordo: il ponte richiede il controllo di entrambe.",
-              "en": "Collect the bounds and boundary properties: the bridge needs control of both."
+              "it": "Sostituisci \\(x=e^T\\) nell’integrale di \\(f\\): il suo limite controlla \\(\\int_1^x\\theta(u)u^{-2}\\,du-\\log x\\).",
+              "en": "Set \\(x=e^T\\) in the integral of \\(f\\): its limit controls \\(\\int_1^x\\theta(u)u^{-2}\\,du-\\log x\\)."
             }
           ],
           "explanation": {
-            "it": "Una dimostrazione analitica attraversa domini di validità diversi. La convergenza assoluta giustifica il prodotto di Eulero nel suo semipiano; il prolungamento e il controllo degli zeri permettono di studiare il bordo. Il lemma di Newman rimuove lo smorzamento soltanto con le sue ipotesi. Le tessere mostrano questi legami; le voci collegate contengono i passaggi analitici completi. La meta non si ottiene sostituendo formalmente un valore al bordo.",
-            "en": "An analytic proof crosses different domains of validity. Absolute convergence justifies the Euler product in its half-plane; continuation and zero control allow boundary analysis. Newman’s lemma removes damping only under its hypotheses. The tiles show these dependencies; the linked entries contain the full analytic steps. The goal cannot be reached by formally substituting a boundary value."
+            "it": "La stima di Chebyshev \\(\\theta(x)=O(x)\\) rende limitata la funzione \\(f(t)=e^{-t}\\theta(e^t)-1\\). Le proprietà della zeta e l’assenza di zeri sul bordo permettono di prolungare analiticamente la trasformata di Laplace di \\(f\\); il lemma di Newman, insieme alla limitatezza, implica che \\(\\int_0^T f(t)\\,dt\\) converge. Con il cambio di variabile \\(u=e^t\\),\n\\[\n\\int_0^{\\log x}f(t)\\,dt=\\int_1^x\\frac{\\theta(u)}{u^2}\\,du-\\log x.\n\\]\nLa convergenza dice che il membro destro resta limitato. Poiché \\(\\theta\\) è crescente, da questo bilancio segue \\(\\theta(x)\\sim x\\); la sommazione parziale porta infine a \\(\\pi(x)\\sim x/\\log x\\). Il prolungamento analitico, da solo, non basterebbe: è il lemma tauberiano a giustificare il passaggio al conteggio.",
+            "en": "Chebyshev’s bound \\(\\theta(x)=O(x)\\) makes \\(f(t)=e^{-t}\\theta(e^t)-1\\) bounded. Zeta’s properties and the zero-free boundary let the Laplace transform of \\(f\\) extend analytically; Newman’s lemma, together with boundedness, implies that \\(\\int_0^T f(t)\\,dt\\) converges. With \\(u=e^t\\),\n\\[\n\\int_0^{\\log x}f(t)\\,dt=\\int_1^x\\frac{\\theta(u)}{u^2}\\,du-\\log x.\n\\]\nConvergence says that the right-hand side remains bounded. Since \\(\\theta\\) is increasing, this balance implies \\(\\theta(x)\\sim x\\); partial summation then gives \\(\\pi(x)\\sim x/\\log x\\). Analytic continuation alone would not justify the conclusion: the Tauberian lemma supplies the passage to prime counting."
           },
           "conceptIDs": [
             "prime-number",

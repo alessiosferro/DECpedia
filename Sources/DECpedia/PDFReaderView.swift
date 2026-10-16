@@ -18,13 +18,13 @@ struct PDFReaderView: View {
         VStack(spacing: 0) {
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(request.source.title).font(.headline)
+                    Text(request.source.localizedTitle(store.language)).font(.headline)
                     Text(request.source.pageDescription(page, language: store.language)).font(.caption).foregroundStyle(.secondary)
                 }
                 Spacer()
                 Button { page = max(1, page - 1) } label: { Image(systemName: "chevron.left") }.disabled(page <= 1).help(store.t("Pagina precedente", "Previous page"))
                 HStack(spacing: 4) {
-                    TextField(store.t("Pagina PDF", "PDF page"), value: $page, format: .number.grouping(.never))
+                    TextField(store.t("Pagina del PDF", "PDF page"), value: $page, format: .number.grouping(.never))
                         .frame(width: 45).textFieldStyle(.roundedBorder)
                         .onChange(of: page) { _ in page = min(max(page, 1), request.source.pageCount) }
                     Text("/ \(request.source.pageCount)").font(.caption).foregroundStyle(.secondary)

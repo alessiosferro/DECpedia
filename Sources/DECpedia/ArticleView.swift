@@ -69,11 +69,8 @@ struct ArticleView: View {
                 Text("·")
                 Text(concept.kind)
                 Spacer()
-                Text(store.t("Testo in italiano", "English text")).foregroundStyle(Palette.accent)
+                Text(store.t("Versione italiana", "English version")).foregroundStyle(Palette.accent)
             }.font(.system(size: 10)).foregroundStyle(.secondary)
-            if concept.aliases.contains(where: { $0.caseInsensitiveCompare(concept.title) != .orderedSame }) {
-                Text(concept.aliases.filter { $0.caseInsensitiveCompare(concept.title) != .orderedSame }.joined(separator: " · ")).font(.caption2).foregroundStyle(.tertiary).textSelection(.enabled)
-            }
         }
     }
 
@@ -104,9 +101,9 @@ struct ArticleView: View {
                             Button { store.open(citation) } label: {
                                 HStack(spacing: 4) {
                                     Image(systemName: "arrow.up.right.square")
-                                    Text("\(source.title) · PDF \(pageRange(citation))")
+                                    Text("\(source.localizedTitle(store.language)) · PDF \(pageRange(citation))")
                                 }.font(.system(size: 10))
-                            }.buttonStyle(.link).help("\(citation.section) · \(source.pageDescription(citation.page, language: store.language))")
+                            }.buttonStyle(.link).help("\(store.language == .en ? citation.sectionEN ?? citation.section : citation.section) · \(source.pageDescription(citation.page, language: store.language))")
                         }
                     }
                 }
@@ -119,7 +116,7 @@ struct ArticleView: View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 8) {
                 Text(store.t("COLLEGAMENTI TRA CONCETTI", "CONCEPT CONNECTIONS")).font(.system(size: 9, weight: .semibold)).tracking(1.2).foregroundStyle(.secondary)
-                Text(store.t("Ogni idea si collega a un’altra.", "Every idea connects to another.")).font(.system(size: 19, weight: .medium, design: .serif))
+                Text(store.t("I concetti si richiamano a vicenda.", "Concepts connect to one another.")).font(.system(size: 19, weight: .medium, design: .serif))
             }
             if !concept.prerequisites.isEmpty { connectionGroup(store.t("Prima di iniziare", "Before you begin"), symbol: "arrow.turn.up.left", ids: concept.prerequisites) }
             if !concept.related.isEmpty { connectionGroup(store.t("Continua a esplorare", "Keep exploring"), symbol: "arrow.up.right", ids: concept.related) }
@@ -153,7 +150,7 @@ struct ArticleView: View {
         VStack(alignment: .leading, spacing: 14) {
             Divider()
             Text(store.t("Fonti e riferimenti", "Sources and references")).font(.system(size: 24, weight: .medium, design: .serif))
-            Text(store.t("PDF indica la posizione del foglio nel file, a partire da 1. La numerazione stampata può essere diversa.", "PDF pages are one-based positions in the file. Printed page labels may differ."))
+            Text(store.t("Il numero di pagina PDF indica la posizione del foglio nel file; quello stampato può essere diverso.", "The PDF page number gives the sheet’s position in the file; its printed number may differ."))
                 .font(.caption).foregroundStyle(.secondary).lineSpacing(3)
             ForEach(concept.citations) { citation in
                 if let source = store.library?.source(citation.sourceID) {
@@ -162,7 +159,7 @@ struct ArticleView: View {
                             HStack(alignment: .top, spacing: 11) {
                                 Image(systemName: "doc.richtext").font(.title3).foregroundStyle(Palette.accent)
                                 VStack(alignment: .leading, spacing: 5) {
-                                    Text(source.title).font(.system(size: 12, weight: .semibold))
+                                    Text(source.localizedTitle(store.language)).font(.system(size: 12, weight: .semibold))
                                     Text(store.language == .en ? citation.sectionEN ?? citation.section : citation.section).font(.caption).foregroundStyle(.secondary)
                                     Text("\(source.pageDescription(citation.page, language: store.language))\(citation.endPage == citation.page ? "" : store.t(" · fino a PDF \(citation.endPage)", " · through PDF \(citation.endPage)"))")
                                         .font(.system(size: 10, design: .monospaced)).foregroundStyle(.secondary)
@@ -186,7 +183,7 @@ struct ArticleView: View {
                 TextEditor(text: store.noteBinding(for: concept.id))
                     .font(.system(size: 14)).frame(minHeight: 150)
                     .padding(8).overlay(RoundedRectangle(cornerRadius: 7).stroke(Color.secondary.opacity(0.2)))
-                Text(store.t("Note personali · salvataggio automatico sul Mac · ⌘S non necessario", "Personal notes · automatically saved on your Mac"))
+                Text(store.t("Le note si salvano automaticamente sul Mac; non serve premere ⌘S.", "Your notes are saved automatically on your Mac; there is no need to press ⌘S."))
                     .font(.caption2).foregroundStyle(.secondary)
             }.padding(.top, 10)
         } label: {

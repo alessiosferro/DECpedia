@@ -112,6 +112,7 @@ public struct TopicCategory: Codable, Identifiable {
 public struct SourceDocument: Codable, Identifiable {
     public let id: String
     public let title: String
+    public var titleEN: String? = nil
     public let fileName: String
     public let authorship: String
     public let pageCount: Int
@@ -122,6 +123,9 @@ public struct SourceDocument: Codable, Identifiable {
     public var noteEN: String? = nil
     public var origin: String? = nil
     public var authorshipEN: String? = nil
+    public func localizedTitle(_ language: AppLanguage) -> String {
+        language == .en ? (titleEN ?? title) : title
+    }
     public func pageDescription(_ page: Int, language: AppLanguage = .it) -> String {
         guard page > 0 && page <= pageLabels.count else { return "Pagina non disponibile" }
         let label = pageLabels[page - 1]

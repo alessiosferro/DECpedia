@@ -103,6 +103,11 @@ final class LibraryTests: XCTestCase {
         for category in lib.categories {
             XCTAssertFalse(try XCTUnwrap(category.titleEN).isEmpty)
         }
+        for source in lib.sources {
+            XCTAssertFalse(try XCTUnwrap(source.titleEN).isEmpty, source.id)
+        }
+        XCTAssertEqual(lib.source("C")?.localizedTitle(.it), "Crittografia · revisione 2")
+        XCTAssertEqual(lib.source("C")?.localizedTitle(.en), "Cryptography · Rev. 2")
         for concept in lib.concepts {
             XCTAssertFalse(try XCTUnwrap(concept.titleEN).isEmpty, concept.id)
             XCTAssertFalse(try XCTUnwrap(concept.summaryEN).isEmpty, concept.id)
@@ -121,6 +126,16 @@ final class LibraryTests: XCTestCase {
         XCTAssertTrue(lib.search("conditional probability").contains { $0.id == "probability-basics" })
         XCTAssertTrue(lib.search("Buffon").contains { $0.id == "buffon" })
         XCTAssertEqual(lib.source("L14")!.pageDescription(14, language: .en), "PDF 14 · printed page 14")
+    }
+
+    func testEveryEntryIntroducesTheIdeaBeforeItsFormulaCard() throws {
+        for concept in try library().concepts {
+            XCTAssertEqual(concept.blocks.first?.kind, .paragraph, concept.id)
+            let firstExplanation = try XCTUnwrap(concept.blocks.firstIndex { $0.kind == .paragraph }, concept.id)
+            for (index, block) in concept.blocks.enumerated() where block.kind == .formula {
+                XCTAssertGreaterThan(index, firstExplanation, concept.id)
+            }
+        }
     }
 
     func testRejectsBrokenCitationsAndPrerequisiteCycles() throws {
